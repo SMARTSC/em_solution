@@ -1,0 +1,31 @@
+﻿@model EM.Cloud.Models.View.UserProfileViewModel
+
+@{
+    ViewData["Heading"] = "Perfil de Usuario";
+
+    ViewData["Title"] = ViewData["Heading"];
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<span class=\"fas fa-home\"></span> Inicio",
+            Url = "/"
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = ViewData["Heading"].ToString()
+        }
+    };
+
+    Layout = "_UserAuthenticatedLayout";
+}
+
+<dl style="margin-bottom: 0;">
+    <dt>Usuario</dt>
+    <dd>@User.Identity.Name</dd>
+</dl>
+
+<div class="actions" style="margin-top: 10px; margin-bottom: 20px;">
+    <a asp-action="password" class="btn btn-default"><span class="fas fa-key"></span> Modificar Contraseña</a>
+</div>

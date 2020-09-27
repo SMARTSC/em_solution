@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>EM.Extend.Layout</AssemblyName>
+    <RootNamespace>EM.Extend.Layout</RootNamespace>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,41 @@
+﻿@using EM.Cloud.Extensions;
+
+@model Dictionary<string, ICollection<SmartSolucionesCuba.SAPRESSC.Core.Web.Backend.Models.View.ManagementDashboardSectionViewModel>>
+
+<nav class="nav flex-column nav-pills nav-sidebar">
+    @if (Context.Request.Path.Value == "/management")
+    {
+        <a class="nav-link active" href="#"><span class="fas fa-cogs" style="margin-right: 4px;"></span>@GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer)</a>
+    }
+    else
+    {
+        <a class="nav-link" href="@Url.Action("index", "management", new { area = string.Empty, key = string.Empty })"><span class="fas fa-cogs" style="margin-right: 4px;"></span>@GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer)</a>
+    }
+</nav>
+
+@foreach (var group in Model)
+{
+    <p class="text-muted" style="margin: 20px 16px 4px 16px; font-weight: bold;">@group.Key</p>
+    <nav class="nav flex-column nav-pills nav-sidebar">
+    @foreach (var item in group.Value)
+    {
+        if (User.HasClaim(claim => claim.Type.Equals(SmartSolucionesCuba.SAPRESSC.Core.Web.Security.ClaimTypes.AccountWithFullAccess) && claim.Value.Equals(true.ToString())) || User.IsInRole(item.Role))
+        {
+            if (Context.Request.Path.Value.StartsWith("/management/" + item.Area + "/" + item.Controller))
+            {
+                <a class="nav-link" href="@Url.Action(item.Action, item.Controller, new { area = item.Area, sheet = string.Empty })">@item.ToIconographyHtmlString() <span>@GlobalViewLocalizationHelper.Localize(item.Title, ViewLocalizer)</span></a>
+            }
+            else
+            {
+                <a class="nav-link" href="@Url.Action(item.Action, item.Controller, new { area = item.Area, sheet = string.Empty })">@item.ToIconographyHtmlString() <span>@GlobalViewLocalizationHelper.Localize(item.Title, ViewLocalizer)</span></a>
+            }
+        }
+        else
+        {
+            <a class="nav-link disabled">
+                @item.ToIconographyHtmlString() <span>@GlobalViewLocalizationHelper.Localize(item.Title, ViewLocalizer)</span>
+            </a>
+        }
+    }
+    </nav>
+}

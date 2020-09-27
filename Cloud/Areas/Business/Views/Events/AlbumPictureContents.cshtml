@@ -1,0 +1,111 @@
+﻿@using SmartSolucionesCuba.SAPRESSC.Core.Common.Models.View;
+@using EM.Cloud.Models.View;
+
+@model EventAlbumPictureContentsViewModel
+
+@{
+    ViewData["Title"] = "Gestionar Contenidos (Retratos)";
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<span class=\"fas fa-cogs\" style=\"margin-right: 4px;\"></span>" + GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer),
+            Url = "/"
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = "Eventos",
+            Url = Url.Action("index", "events", new { key = string.Empty })
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = "Albumes",
+            Url = Url.Action("albums", "events", new { key = Model.Album.Event.Id })
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = ViewData["Title"].ToString()
+        }
+    };
+
+    Layout = "_BackendLayout";
+}
+
+@section styles {
+    <style type="text/css">
+        dd {
+            margin-bottom: 0;
+        }
+    </style>
+}
+
+<div class="card" style="margin-bottom: 20px;">
+    <div class="card-header">
+        <h4>Gestionar Contenidos</h4>
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Retratos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Sesiones</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Videos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Animados</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <div class="card" style="margin-bottom: 20px;">
+            <div class="card-body">
+                <h4>Album</h4>
+                <hr />
+                <dl>
+                    <dt>Nombre</dt>
+                    <dd>@Html.DisplayFor(model => model.Album.Title)</dd>
+                </dl>
+                <dl class="mb-0">
+                    <dt>Evento</dt>
+                    <dd>@Html.DisplayFor(model => model.Album.Event.Name)</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                @*@Html.Partial("_CountriesFilterPartial", Model.Filter)*@
+            </div>
+            <div class="col-sm-8">
+                <a class="btn btn-primary float-right" href="#" data-toggle="modal" data-target="#add-content">Agregar</a>
+            </div>
+        </div>
+        <hr />
+
+        @*@await Html.PartialAsync("_CreateAlbumPartial", new AlbumInputViewModel
+        {
+            EventId = Model.Event.Id,
+            DefaultPictureContentCollageLayoutSelectListItems = Model.DefaultPictureContentCollageLayoutSelectListItems,
+            DefaultPhotoSessionContentCollageLayoutSelectListItems = Model.DefaultPhotoSessionContentCollageLayoutSelectListItems
+        })*@
+
+        @if (Model.Contents.Count <= 0)
+        {
+            <p style="margin: 0 5px;" class="text-muted">Sin elementos que mostrar</p>
+        }
+        else
+        {
+            <div class="row">
+                @foreach (var content in Model.Contents)
+                {
+                    <img class="col-log-3 col-md-4 col-sm-6 img-thumbnail" style="margin-bottom: 20px;" src="@Url.Action("image", "media", new { Area = "business", key = content.Image.Id })" />
+                }
+            </div>
+        }
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-light" asp-action="albums" asp-route-key="@Model.Album.Event.Id">Regresar al listado de Albumes</a>
+        <a class="btn btn-light" asp-action="index">Regresar al listado de Eventos</a>
+    </div>
+</div>

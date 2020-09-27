@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>EM.Extend.Lock.Pioneer</AssemblyName>
+    <RootNamespace>EM.Extend.Lock.Pioneer</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Extend.Lock\Extend.Lock.csproj" />
+  </ItemGroup>
+
+</Project>

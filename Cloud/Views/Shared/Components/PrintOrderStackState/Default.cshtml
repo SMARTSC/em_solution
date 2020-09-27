@@ -1,0 +1,11 @@
+﻿@model Boolean
+
+@using (Html.BeginForm("tootlestatus", "printorderstack", new { Area = "business" }, FormMethod.Post, true, null))
+{
+    <button type="submit" class="btn btn-link" style="font-size: inherit;">
+        @if (Model)
+        {<span class="fas fa-toggle-on" style="font-size: inherit;"></span> }
+        else
+        { <span class="fas fa-toggle-off" style="font-size: inherit;"></span>}
+    </button>
+}

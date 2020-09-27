@@ -1,0 +1,281 @@
+﻿@model EM.Cloud.Models.View.EventInputViewModel
+
+@{
+    ViewData["Title"] = "Modificar Evento (Datos)";
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<span class=\"fas fa-cogs\" style=\"margin-right: 4px;\"></span>" + GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer),
+            Url = "/"
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = "Eventos",
+            Url = Url.Action("index")
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = ViewData["Title"].ToString()
+        }
+    };
+
+    Layout = "_BackendLayout";
+}
+
+@section styles {
+    <link rel="stylesheet" href="~/lib/gijgo/combined/css/gijgo.min.css" type="text/css" />
+
+    <style type="text/css">
+        input[type=file] {
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+    </style>
+}
+
+@section scripts {
+    <script src="~/lib/gijgo/combined/js/gijgo.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $('#Start').datetimepicker({
+            uiLibrary: 'bootstrap4',
+            modal: true,
+            header: true,
+            footer: true,
+            format: 'dd/mm/yyyy HH:MM',
+            value: '@Model.Start.ToString("dd/MM/yyyy HH:mm")'
+        });
+
+        $('#End').datetimepicker({
+            uiLibrary: 'bootstrap4',
+            modal: true,
+            header: true,
+            footer: true,
+            format: 'dd/mm/yyyy HH:MM',
+            value: '@Model.End.ToString("dd/MM/yyyy HH:mm")'
+        });
+
+        $(function () {
+            $(document).on("change", "#LogoFile", function () {
+                var files = !!this.files ? this.files : [];
+
+                if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+                if (/^image/.test(files[0].type)) {
+                    var reader = new FileReader();
+
+                    reader.readAsDataURL(files[0]);
+
+                    reader.onloadend = function () {
+                        $('#LogoFilePreview').attr('src', this.result);
+                    }
+                }
+
+            });
+
+            //$(document).on("change", "#PrintLogoMiddleFile", function () {
+            //    var files = !!this.files ? this.files : [];
+
+            //    if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+            //    if (/^image/.test(files[0].type)) {
+            //        var reader = new FileReader();
+
+            //        reader.readAsDataURL(files[0]);
+
+            //        reader.onloadend = function () {
+            //            $('#PrintLogoMiddleFilePreview').attr('src', this.result);
+            //        }
+            //    }
+            //});
+
+            //$(document).on("change", "#PrintMiddleStrechLogoFile", function () {
+            //    var files = !!this.files ? this.files : [];
+
+            //    if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+            //    if (/^image/.test(files[0].type)) {
+            //        var reader = new FileReader();
+
+            //        reader.readAsDataURL(files[0]);
+
+            //        reader.onloadend = function () {
+            //            $('#PrintMiddleStrechLogoFilePreview').attr('src', this.result);
+            //        }
+            //    }
+            //});
+
+            //$(document).on("change", "#PrintLogoSmallFile", function () {
+            //    var files = !!this.files ? this.files : [];
+
+            //    if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+            //    if (/^image/.test(files[0].type)) {
+            //        var reader = new FileReader();
+
+            //        reader.readAsDataURL(files[0]);
+
+            //        reader.onloadend = function () {
+            //            $('#PrintLogoSmallFilePreview').attr('src', this.result);
+            //        }
+            //    }
+            //});
+
+            //$(document).on("change", "#PrintSmallStrechLogoFile", function () {
+            //    var files = !!this.files ? this.files : [];
+
+            //    if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+            //    if (/^image/.test(files[0].type)) {
+            //        var reader = new FileReader();
+
+            //        reader.readAsDataURL(files[0]);
+
+            //        reader.onloadend = function () {
+            //            $('#PrintSmallStrechLogoFilePreview').attr('src', this.result);
+            //        }
+            //    }
+            //});
+        });
+    </script>
+}
+
+@using (Html.BeginForm("edit", "events", new { Area = "business", key = string.Empty }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="card" style="margin-bottom: 20px;">
+        <div class="card-header">
+            <h4>Modificar Evento</h4>
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Datos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="albums" asp-route-key="@Model.Id">Albumes</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6" style="margin-bottom: 20px;">
+                    <div class="card">
+                        <img src="@Url.Action("eventlogo", "image", new { Area = "business", key = Model.Id })" class="card-img-top" id="LogoFilePreview" />
+                        <label class="btn btn-light" style="border-top-left-radius: 0; border-top-right-radius: 0; margin-bottom: 0;">
+                            @GlobalViewLocalizationHelper.Localize("Upload", ViewLocalizer) ...
+                            @Html.EditorFor(model => model.LogoFile)
+                        </label>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.LogoFile, null, new { @class = "text-danger" })
+                </div>
+                <div class="col-lg-9 col-md-8 col-sm-6" style="margin-bottom: 20px;">
+                    <div style="margin-bottom: 20px;">
+                        @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.PlaceName, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.PlaceName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PlaceName, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="row">
+                <div class="col-sm-4" style="margin-bottom: 20px;">
+                    <img src="@Url.Action("eventmiddleprintlogo", "image", new { Area = "business", key = Model.Id })" class="img-thumbnail" id="PrintLogoMiddleFilePreview" />
+                </div>
+                <div class="col-sm-8" style="margin-bottom: 20px;">
+                    <div>@Html.LabelFor(model => model.PrintLogoMiddleFile)</div>
+                    <p class="text-info">@string.Format("Imagen cuadrada con dimensión óptima de {0} pixeles de ancho y alto, con toleracia admisible de {1} pixeles.", Model.MediaDimensionContraintOptions.PrintMiddleLogo, Model.MediaDimensionContraintOptions.PrintMiddleLogoTolerance)</p>
+                    <label class="btn btn-light">
+                        @GlobalViewLocalizationHelper.Localize("Upload", ViewLocalizer) ...
+                        @Html.EditorFor(model => model.PrintLogoMiddleFile)
+                    </label>
+                    <div>@Html.ValidationMessageFor(model => model.PrintLogoMiddleFile, null, new { @class = "text-danger" })</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2" style="margin-bottom: 20px;">
+                    <img src="@Url.Action("eventstrechmiddleprintlogo", "image", new { Area = "business", key = Model.Id })" class="img-thumbnail" id="PrintMiddleStrechLogoFilePreview" />
+                </div>
+                <div class="col-sm-10" style="margin-bottom: 20px;">
+                    <div>@Html.LabelFor(model => model.PrintMiddleStrechLogoFile)</div>
+                    <p class="text-info">@string.Format("Imagen cuadrada con dimensión óptima de {0} pixeles de ancho y alto, con toleracia admisible de {1} pixeles.", Model.MediaDimensionContraintOptions.PrintMiddleLogoStrech, Model.MediaDimensionContraintOptions.PrintMiddleLogoStrechTolerance)</p>
+                    <label class="btn btn-light">
+                        @GlobalViewLocalizationHelper.Localize("Upload", ViewLocalizer) ...
+                        @Html.EditorFor(model => model.PrintMiddleStrechLogoFile)
+                    </label>
+                    <div>@Html.ValidationMessageFor(model => model.PrintMiddleStrechLogoFile, null, new { @class = "text-danger" })</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3" style="margin-bottom: 20px;">
+                    <img src="@Url.Action("eventsmallprintlogo", "image", new { Area = "business", key = Model.Id })" class="img-thumbnail" id="PrintLogoSmallFilePreview" />
+                </div>
+                <div class="col-sm-9" style="margin-bottom: 20px;">
+                    <div>@Html.LabelFor(model => model.PrintLogoSmallFile)</div>
+                    <p class="text-info">@string.Format("Imagen cuadrada con dimensión óptima de {0} pixeles de ancho y alto, con toleracia admisible de {1} pixeles.", Model.MediaDimensionContraintOptions.PrintSmallLogo, Model.MediaDimensionContraintOptions.PrintSmallLogoTolerance)</p>
+                    <label class="btn btn-light">
+                        @GlobalViewLocalizationHelper.Localize("Upload", ViewLocalizer) ...
+                        @Html.EditorFor(model => model.PrintLogoSmallFile)
+                    </label>
+                    <div>@Html.ValidationMessageFor(model => model.PrintLogoSmallFile, null, new { @class = "text-danger" })</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-1" style="margin-bottom: 20px;">
+                    <img src="@Url.Action("eventstrechsmallprintlogo", "image", new { Area = "business", key = Model.Id })" class="img-thumbnail" id="PrintSmallStrechLogoFilePreview" />
+                </div>
+                <div class="col-sm-11" style="margin-bottom: 20px;">
+                    <div>@Html.LabelFor(model => model.PrintSmallStrechLogoFile)</div>
+                    <p class="text-info">@string.Format("Imagen cuadrada con dimensión óptima de {0} pixeles de ancho y alto, con toleracia admisible de {1} pixeles.", Model.MediaDimensionContraintOptions.PrintSmallLogoStrech, Model.MediaDimensionContraintOptions.PrintSmallLogoStrechTolerance)</p>
+                    <label class="btn btn-light">
+                        @GlobalViewLocalizationHelper.Localize("Upload", ViewLocalizer) ...
+                        @Html.EditorFor(model => model.PrintSmallStrechLogoFile)
+                    </label>
+                    <div>@Html.ValidationMessageFor(model => model.PrintSmallStrechLogoFile, null, new { @class = "text-danger" })</div>
+                </div>
+            </div>*@
+
+            <div class="row">
+                <div class="col-md-6" style="margin-bottom: 20px;">
+                    @Html.LabelFor(model => model.Start, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Start, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.Start, null, new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6" style="margin-bottom: 20px;">
+                    @Html.LabelFor(model => model.End, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.End, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.End, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                @Html.LabelFor(model => model.Descrition, new { @class = "control-label" })
+                @Html.TextAreaFor(model => model.Descrition, 4, 0, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Descrition, null, new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.Annotations, new { @class = "control-label" })
+                @Html.TextAreaFor(model => model.Annotations, 3, 0, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Annotations, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Modificar</button>
+            <a class="btn btn-default" href="@Url.Action("index")">Regresar al listado</a>
+        </div>
+    </div>
+}

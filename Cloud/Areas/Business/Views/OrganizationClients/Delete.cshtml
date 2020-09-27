@@ -1,0 +1,43 @@
+﻿@model EM.Cloud.Models.View.OrganizationClientDisplayViewModel
+
+@{
+    ViewData["Title"] = "Eliminar Cliente [Organizaciones]";
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<span class=\"fas fa-cogs\" style=\"margin-right: 4px;\"></span>" + GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer),
+            Url = "/"
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = "Administración de Clientes [Organizaciones]",
+            Url = Url.Action("index")
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = ViewData["Title"].ToString()
+        }
+    };
+
+    Layout = "_BackendLayout";
+}
+
+<h3>Esta seguro que desea eliminar el cliente detallado a continuación?</h3>
+
+<dl>
+    <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+    <dd>@Html.DisplayFor(model => model.Name)</dd>
+    <dt>@Html.DisplayNameFor(model => model.Notes)</dt>
+    <dd>@Html.DisplayFor(model => model.Notes)</dd>
+</dl>
+@using (Html.BeginForm("delete", "organizationclients", new { Area = "business", key = string.Empty }, FormMethod.Post, true, null))
+{
+    @Html.HiddenFor(model => model.Id)
+    <div>
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a class="btn btn-default" href="@Url.Action("index")">Cancelar</a>
+    </div>
+}
+

@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Nube de El Espejo Mol&oacute;n</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+
+    @RenderSection("styles", false)
+</head>
+<body>
+    @RenderBody()
+
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/popper.js/umd/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    @RenderSection("scripts", false)
+</body>
+</html>

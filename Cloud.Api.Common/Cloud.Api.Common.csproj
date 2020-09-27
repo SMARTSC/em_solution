@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>EM.Cloud.Api.Common</AssemblyName>
+    <RootNamespace>EM.Cloud.Api.Common</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cloud.Persistence\Cloud.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

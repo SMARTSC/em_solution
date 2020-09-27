@@ -1,0 +1,129 @@
+﻿@model SmartSolucionesCuba.SAPRESSC.Core.Web.Security.Models.View.LoginViewModel
+
+@using SmartSolucionesCuba.SAPRESSC.Core.Common.Models.View
+@using Newtonsoft.Json;
+
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer ViewLocalizer
+@inject EM.Cloud.Helpers.Localization.GlobalViewLocalizationHelper GlobalViewLocalizationHelper
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = GlobalViewLocalizationHelper.Localize("Login", ViewLocalizer);
+
+    Layout = "_Layout";
+}
+
+@section styles {
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+
+            .form-signin .checkbox {
+                font-weight: 400;
+            }
+
+            .form-signin .form-control {
+                position: relative;
+                box-sizing: border-box;
+                height: auto;
+                padding: 10px;
+                font-size: 16px;
+            }
+
+                .form-signin .form-control:focus {
+                    z-index: 2;
+                }
+
+            .form-signin input[type="text"] {
+                margin-bottom: -1px;
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+            .form-signin input[type="password"] {
+                margin-bottom: 10px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+    </style>
+}
+
+@using (Html.BeginForm("login", "account", new { Area = "security", ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, true, new { @class = "form-signin" }))
+{
+    @if (TempData[NotificationViewModel.DEFAULT_NOTIFICATION_MAP_KEY] != null)
+    {
+        var notification = JsonConvert.DeserializeObject<NotificationViewModel>(TempData[NotificationViewModel.DEFAULT_NOTIFICATION_MAP_KEY].ToString());
+
+        <div class="alert alert-@Html.Raw(notification.Type.ToString().ToLower())">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            @if (notification.Title != null)
+            {
+                <h4>@GlobalViewLocalizationHelper.Localize(notification.Title, ViewLocalizer)</h4>
+            }
+
+            @if (notification.Message != null)
+            {
+                @Html.Raw(GlobalViewLocalizationHelper.Localize(notification.Message, ViewLocalizer));
+            }
+
+            @if (notification.Messages != null)
+            {
+                <ul>
+                    @foreach (var item in notification.Messages)
+                    {
+                        <li>@GlobalViewLocalizationHelper.Localize(item, ViewLocalizer)</li>
+                    }
+                </ul>
+            }
+        </div>
+    }
+
+    @Html.ValidationSummary(true)
+
+    <h1 class="h3 mb-3 font-weight-normal">Control de Acceso</h1>
+
+    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Usuario" })
+
+    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contraseña" })
+
+    @if (Context.Session.Keys.Contains(SmartSolucionesCuba.SAPRESSC.Core.Web.Security.HttpSessionMapKeys.CaptchaCodeKey))
+    {
+        <div style="margin:20px 0; text-align: left;">
+            @Html.LabelFor(model => model.CaptchaCode, new { @class = "control-label", style = "text-align: left;" })
+            <img class="img-thumbnail mb-2" src="@Url.Action("captcha")" width="180" height="60" />
+            @Html.TextBoxFor(model => model.CaptchaCode, new { @class = "form-control", placeholder = "Entre aquí las 8 letras en la imagen" })
+            @Html.ValidationMessageFor(model => model.CaptchaCode, null, new { @class = "text-danger" })
+        </div>
+    }
+
+    <div class="checkbox mb-3">
+        <label>
+            @Html.CheckBoxFor(m => m.RememberMe) Recordar en este dispositivo
+        </label>
+    </div>
+
+    <button class="btn btn-primary btn-block" type="submit">Iniciar Sesión</button>
+
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
+}

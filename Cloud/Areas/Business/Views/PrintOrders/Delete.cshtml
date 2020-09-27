@@ -1,0 +1,47 @@
+﻿@model EM.Cloud.Models.View.PrintOrderDisplayViewModel
+
+@{
+    ViewData["Title"] = "Eliminar Orden de Impresión";
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<span class=\"fas fa-cogs\" style=\"margin-right: 4px;\"></span>" + GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer),
+            Url = "/"
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = "Administración de Órdenes de Impresión",
+            Url = Url.Action("index")
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = ViewData["Title"].ToString()
+        }
+    };
+
+    Layout = "_BackendLayout";
+}
+
+<h3>Esta seguro que desea eliminar la orden de impresión detallada a continuación?</h3>
+
+<dl>
+    <dt>Creada</dt>
+    <dd>@Model.Created.ToString("dd/MM/yyyy HH:mm")</dd>
+    <dt>Atentida</dt>
+    <dd>@if (Model.Attended == System.DateTime.MinValue) { <span>-</span> } else {  @Model.Attended.ToString("dd/MM/yyyy HH:mm") }</dd>
+    <dt>Copias</dt>
+    <dd>@Model.Count</dd>
+    <dt>Habilitada?</dt>
+    <dd>@if (Model.Enabled) { <span>Si</span> } else { <span>No</span> }</dd>
+</dl>
+@using (Html.BeginForm("delete", "printorders", new { Area = "business", key = string.Empty }, FormMethod.Post, true, null))
+{
+    @Html.HiddenFor(model => model.Id)
+    <div>
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a class="btn btn-default" href="@Url.Action("index")">Cancelar</a>
+    </div>
+}
+

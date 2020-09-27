@@ -1,0 +1,121 @@
+﻿@using EM.Cloud.Extensions;
+
+@model EM.Cloud.Models.View.ManagementDashboardViewModel
+
+@{
+    ViewData["Title"] = GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer);
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<span class=\"fas fa-cogs\"></span> " + ViewData["Title"].ToString()
+        }
+    };
+
+    Layout = "_BackendLayout";
+}
+
+@section styles {
+    <style type="text/css">
+        .card .fas {
+            font-size: 28px;
+        }
+    </style>
+}
+
+<div class="row">
+    <div class="col-sm-6">
+    @for (int i = 0; i < Model.Sections.Count; i += 2)
+    {
+        var group = Model.Sections.ElementAt(i);
+
+        <div class="card mb-3">
+            <div class="card-header">@group.Key</div>
+            <div class="card-body">
+                @{
+                    var total = group.Value.Count;
+                    var count = 0;
+                }
+                @while (count < total)
+                {
+                    var subList = group.Value.Skip(count).Take(3);
+
+                    <div class="row">
+                    @foreach (var item in subList)
+                    {
+                        <div class="col-sm-4" style="text-align: center; padding-bottom: 15px; padding-top: 15px;">
+                            @if (User.HasClaim(claim => claim.Type.Equals(SmartSolucionesCuba.SAPRESSC.Core.Web.Security.ClaimTypes.AccountWithFullAccess) && claim.Value.Equals(true.ToString())) || User.IsInRole(item.Role))
+                            {
+                                <a href="@Url.Action(item.Action, item.Controller, new { item.Area })">
+                                    @item.ToIconographyHtmlString()
+                                    <div>@GlobalViewLocalizationHelper.Localize(item.Title, ViewLocalizer)</div>
+                                </a>
+                            }
+                            else
+                            {
+                                <div class="text-muted">
+                                    @item.ToIconographyHtmlString()
+                                    <div>@GlobalViewLocalizationHelper.Localize(item.Title, ViewLocalizer)</div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    </div>
+                    {
+                        count += 3;
+                    }
+                }
+            </div>
+        </div>
+    }
+    </div>
+    <div class="col-sm-6">
+    @if (Model.Sections.Count > 1)
+    {
+        for (int i = 1; i < Model.Sections.Count; i += 2)
+        {
+            var group = Model.Sections.ElementAt(i);
+
+            <div class="card mb-3">
+                <div class="card-header">@group.Key</div>
+                <div class="card-body">
+                    @{
+                        var total = group.Value.Count;
+                        var count = 0;
+                    }
+                    @while (count < total)
+                    {
+                        var subList = group.Value.Skip(count).Take(3);
+
+                        <div class="row">
+                            @foreach (var item in subList)
+                            {
+                                <div class="col-sm-4" style="text-align: center; padding-bottom: 15px; padding-top: 15px;">
+                                    @if (User.HasClaim(claim => claim.Type.Equals(SmartSolucionesCuba.SAPRESSC.Core.Web.Security.ClaimTypes.AccountWithFullAccess) && claim.Value.Equals(true.ToString())) || User.IsInRole(item.Role))
+                                    {
+                                    <a href="@Url.Action(item.Action, item.Controller, new { item.Area })">
+                                        @item.ToIconographyHtmlString()
+                                        <div>@GlobalViewLocalizationHelper.Localize(item.Title, ViewLocalizer)</div>
+                                    </a>
+                                    }
+                                    else
+                                    {
+                                    <div class="text-muted">
+                                        @item.ToIconographyHtmlString()
+                                        <div>@GlobalViewLocalizationHelper.Localize(item.Title, ViewLocalizer)</div>
+                                    </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        {
+                            count += 3;
+                        }
+                    }
+                </div>
+            </div>
+        }
+    }
+    </div>
+</div>

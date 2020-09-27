@@ -1,0 +1,29 @@
+﻿@model EM.Cloud.Models.View.UserProfileViewModel
+
+@{
+    ViewData["Heading"] = "Modificar Perfil de Usuario";
+
+    ViewData["Title"] = ViewData["Heading"];
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<span class=\"fas fa-home\"></span> Inicio",
+            Url = "/"
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = "Perfil de Usuario",
+            Url = Url.Action("index", "account", new { Area = "security" })
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = ViewData["Heading"].ToString()
+        }
+    };
+
+    Layout = "_UserAuthenticatedLayout";
+}
+
+<a class="btn btn-default" href="@Url.Action("index")">Cancelar</a>

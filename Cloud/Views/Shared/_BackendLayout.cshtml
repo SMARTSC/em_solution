@@ -1,0 +1,121 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@section styles {
+    <style type="text/css">
+        .nav-sidebar > .active {
+            border-radius: 0;
+        }
+    </style>
+
+    @RenderSection("styles", false)
+}
+
+@section scripts {
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $(document).on("click", "button.filter-form-reseter", function(e) {
+                    $(e.target.form).find("select option").prop("selected", false);
+
+                    $(e.target.form).find("input[type=text]").prop("value", '');
+
+                    e.target.form.submit();
+                });
+            });
+    </script>
+
+    @RenderSection("scripts", false)
+}
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow">
+    <a class="navbar-brand" href="#">Administraci&oacute;n</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigationNavbar" aria-controls="navigationNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navigationNavbar">
+        <input class="form-control form-control-plaintext" type="text" placeholder="Search" aria-label="Search">
+        <form asp-action="logout" asp-controller="account" asp-area="security" asp-antiforgery="true" class="nav form-inline">
+            <ul class="navbar-nav justify-content-end">
+                <li>
+                    <a asp-action="index" asp-controller="account" asp-area="security" class="btn btn-link text-light"><span class="fas fa-user" style="margin-right: 4px;"></span>@User.Identity.Name</a>
+                </li>
+                <li>
+                    <button type="submit" class="btn btn-link text-light"><span class="fas fa-sign-out-alt" style="margin-right: 4px;"></span>Salir</button>
+                </li>
+            </ul>
+        </form>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2 col-md-3 d-none d-md-block bg-light" style="padding: 84px 0 20px 0;">
+            @await Component.InvokeAsync("DashboardSidebar")
+        </div>
+        <div role="main" class="col-lg-10 col-md-9 ml-sm-auto px-4" style="padding-top: 80px;">
+            @if (ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] != null)
+            {
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        @{
+                            ICollection<BreadcrumbViewModel> breadcrumbs = ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] as ICollection<BreadcrumbViewModel>;
+
+                            if (breadcrumbs != null)
+                            {
+                                var total = breadcrumbs.Count();
+                                var count = 1;
+
+                                foreach (var breadcrumb in breadcrumbs)
+                                {
+                                    if (count < total)
+                                    {
+                                        <li class="breadcrumb-item"><a href="@breadcrumb.Url">@Html.Raw(breadcrumb.Caption)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="breadcrumb-item active">@Html.Raw(breadcrumb.Caption)</li>
+                                    }
+
+                                    count++;
+                                }
+                            }
+                        }
+                    </ol>
+                </nav>
+            }
+
+            @if (TempData[NotificationViewModel.DEFAULT_NOTIFICATION_MAP_KEY] != null)
+            {
+                var notification = JsonConvert.DeserializeObject<NotificationViewModel>(TempData[NotificationViewModel.DEFAULT_NOTIFICATION_MAP_KEY].ToString());
+
+                <div class="alert alert-dismissible fade show alert-@Html.Raw(notification.Type.ToString().ToLower())">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    @if (notification.Title != null)
+                    {
+                        <h4>@GlobalViewLocalizationHelper.Localize(notification.Title, ViewLocalizer)</h4>
+                    }
+
+                    @if (notification.Message != null)
+                    {
+                        @Html.Raw(GlobalViewLocalizationHelper.Localize(notification.Message, ViewLocalizer));
+                    }
+
+                    @if (notification.Messages != null)
+                    {
+                        <ul>
+                            @foreach (var item in notification.Messages)
+                            {
+                                <li>@GlobalViewLocalizationHelper.Localize(item, ViewLocalizer)</li>
+                            }
+                        </ul>
+                    }
+                </div>
+            }
+
+            @RenderBody()
+        </div>
+    </div>
+</div>

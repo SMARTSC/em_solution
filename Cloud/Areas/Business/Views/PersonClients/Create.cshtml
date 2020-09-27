@@ -1,0 +1,168 @@
+﻿@using SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Enumerations;
+
+@model EM.Cloud.Models.View.PersonClientInputViewModel
+
+@{
+    ViewData["Title"] = "Agregar Cliente [Personas]";
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<span class=\"fas fa-cogs\" style=\"margin-right: 4px;\"></span>" + GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer),
+            Url = "/"
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = "Administración de Clientes [Personas]",
+            Url = Url.Action("index")
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = ViewData["Title"].ToString()
+        }
+    };
+
+    Layout = "_BackendLayout";
+
+    var sexSelectList = new SelectListItem[]
+    {
+        new SelectListItem { Value = ((int)Sex.Male).ToString(), Text = GlobalViewLocalizationHelper.Localize(Sex.Male.ToString(), ViewLocalizer) },
+        new SelectListItem { Value = ((int)Sex.Famale).ToString(), Text = GlobalViewLocalizationHelper.Localize(Sex.Famale.ToString(), ViewLocalizer) }
+    };
+
+    var civilStatusSelectList = new SelectListItem[]
+    {
+        new SelectListItem { Value = ((int)CivilStatus.Single).ToString(), Text = GlobalViewLocalizationHelper.Localize(CivilStatus.Single.ToString(), ViewLocalizer) },
+        new SelectListItem { Value = ((int)CivilStatus.Married).ToString(), Text = GlobalViewLocalizationHelper.Localize(CivilStatus.Married.ToString(), ViewLocalizer) },
+        new SelectListItem { Value = ((int)CivilStatus.Divorced).ToString(), Text = GlobalViewLocalizationHelper.Localize(CivilStatus.Divorced.ToString(), ViewLocalizer) },
+        new SelectListItem { Value = ((int)CivilStatus.Widower).ToString(), Text = GlobalViewLocalizationHelper.Localize(CivilStatus.Widower.ToString(), ViewLocalizer) }
+    };
+}
+
+@section styles {
+    <link rel="stylesheet" href="~/lib/gijgo/modular/css/core.min.css" type="text/css" />
+    <link rel="stylesheet" href="~/lib/gijgo/modular/css/datepicker.min.css" type="text/css" />
+
+    <style type="text/css">
+        #ImageFile {
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+    </style>
+}
+
+@section scripts {
+    <script src="~/lib/gijgo/modular/js/core.min.js" type="text/javascript"></script>
+    <script src="~/lib/gijgo/modular/js/datepicker.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $('#BornDate').datepicker({
+            uiLibrary: 'bootstrap4',
+            modal: true,
+            header: true,
+            footer: true,
+            locale: 'es-es',
+            format: 'dd/mm/yyyy',
+            value: '@Model.BornDate.ToShortDateString()'
+        });
+
+        $(function () {
+            $(document).on("change", "#ImageFile", function () {
+                var files = !!this.files ? this.files : [];
+
+                if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+                if (/^image/.test(files[0].type)) {
+                    var reader = new FileReader();
+
+                    reader.readAsDataURL(files[0]);
+
+                    reader.onloadend = function () {
+                        $('#ImageFilePreview').attr('src', this.result);
+                    }
+                }
+
+            });
+        });
+    </script>
+}
+
+@using (Html.BeginForm("create", "personclients", new { Area = "business" }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    <div class="card" style="margin-bottom: 20px;">
+        <div class="card-header"><h4>@ViewData["Title"]</h4></div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-4" style="margin-bottom: 20px;">
+                    <div class="card">
+                        <img src="~/image/default-person.png" class="card-img-top" id="ImageFilePreview" />
+                        <label class="btn btn-light" style="border-top-left-radius: 0; border-top-right-radius: 0; margin-bottom: 0;">
+                            @GlobalViewLocalizationHelper.Localize("Upload", ViewLocalizer) ...
+                            @Html.EditorFor(model => model.ImageFile)
+                        </label>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ImageFile, null, new { @class = "text-danger" })
+                </div>
+                <div class="col-lg-9 col-md-8 col-sm-8" style="margin-bottom: 20px;">
+                    <div style="margin-bottom: 20px;">
+                        @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.LastName, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6" style="margin-bottom: 20px;">
+                    @Html.LabelFor(model => model.Sex, new { @class = "control-label" })
+                    @Html.DropDownListFor(model => model.Sex, sexSelectList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Sex, null, new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-6" style="margin-bottom: 20px;">
+                    @Html.LabelFor(model => model.CivilStatus, new { @class = "control-label" })
+                    @Html.DropDownListFor(model => model.CivilStatus, civilStatusSelectList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CivilStatus, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6" style="margin-bottom: 20px;">
+                    @Html.LabelFor(model => model.BornDate, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.BornDate, new { @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.BornDate, null, new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-6" style="margin-bottom: 20px;">
+                    @Html.LabelFor(model => model.Alias, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Alias, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Alias, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                @Html.LabelFor(model => model.About, new { @class = "control-label" })
+                @Html.TextAreaFor(model => model.About, 4, 0, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.About, null, new { @class = "text-danger" })
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.Notes, new { @class = "control-label" })
+                @Html.TextAreaFor(model => model.Notes, 3, 0, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Notes, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Crear</button>
+            <a class="btn btn-default" href="@Url.Action("index")">Cancelar</a>
+        </div>
+    </div>
+}
