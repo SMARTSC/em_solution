@@ -91,7 +91,7 @@ namespace EM.Cloud.Controllers
                 {
                     var context = album.LockBridges.First(bridge => bridge.LockId == lockId).SerializedContext;
 
-                    return new FileContentResult(GetQrCodeImageContent(string.Format("em-album-pw://{1}@{0}", album.Id, context)), "image/png");
+                    return new FileContentResult(GetQrCodeImageContent(string.Format("em-album-pw://{0}:{1}", album.Alias, context)), "image/png");
                 }
 
                 if (album.LockBridges.Count > 0)
@@ -99,7 +99,7 @@ namespace EM.Cloud.Controllers
                     return Forbid();
                 }
 
-                return new FileContentResult(GetQrCodeImageContent(string.Format("em-album://{0}", album.Id)), "image/png");
+                return new FileContentResult(GetQrCodeImageContent(string.Format("em-album://{0}", album.Alias)), "image/png");
             }
             catch (System.IO.DirectoryNotFoundException e)
             {
