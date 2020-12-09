@@ -19,8 +19,9 @@ namespace EM.Cloud.Controllers
         private readonly IEntityRepository<Album, System.Guid> albumRepository;
         private readonly IImageFileManagerFacade imageFileManager;
         private readonly IThumbnailFileManagerFacade thumbnailFileManager;
+        private readonly Microsoft.Extensions.Configuration.IConfiguration configuration;
 
-        public ImageController(IEntityRepository<Album, System.Guid> albumRepository, IEntityRepository<Event, System.Guid> eventRepository, IEntityRepository<Client, System.Guid> clientRepository, IImageFileManagerFacade imageFileManager, IThumbnailFileManagerFacade thumbnailFileManager, Microsoft.Extensions.Localization.IStringLocalizer<ImageController> localizer, ILogger<ImageController> logger)
+        public ImageController(Microsoft.Extensions.Configuration.IConfiguration configuration, IEntityRepository<Album, System.Guid> albumRepository, IEntityRepository<Event, System.Guid> eventRepository, IEntityRepository<Client, System.Guid> clientRepository, IImageFileManagerFacade imageFileManager, IThumbnailFileManagerFacade thumbnailFileManager, Microsoft.Extensions.Localization.IStringLocalizer<ImageController> localizer, ILogger<ImageController> logger)
             : base(localizer, logger)
         {
             this.eventRepository = eventRepository;
@@ -28,6 +29,7 @@ namespace EM.Cloud.Controllers
             this.albumRepository = albumRepository;
             this.imageFileManager = imageFileManager;
             this.thumbnailFileManager = thumbnailFileManager;
+            this.configuration = configuration;
         }
 
         [ResponseCache(NoStore = true)]
@@ -45,6 +47,8 @@ namespace EM.Cloud.Controllers
                 {
                     return File("img/default-person.png", "image/png");
                 }
+
+                Providers.ImagesBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
 
                 return new FileContentResult(imageFileManager.GetImageFileContent(image), image.ContentType);
             }
@@ -65,6 +69,8 @@ namespace EM.Cloud.Controllers
             try
             {
                 var @event = eventRepository.Get(key);
+
+                Providers.ImagesBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
 
                 return new FileContentResult(imageFileManager.GetImageFileContent(@event.Logo), @event.Logo.ContentType);
             }

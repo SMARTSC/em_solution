@@ -5,17 +5,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Repositories;
 using SmartSolucionesCuba.SAPRESSC.Core.Web.Api.Controllers;
-using System.Linq;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace EM.Cloud.Controllers.Api
 {
+    [Microsoft.AspNetCore.Authorization.Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
+    [ApiController]
     public class ContentsController : AbstractEntityApiManagementFilteredController<Content, System.Guid, ContentInputModel, ContentDisplayModel, ContentFilterModel>
     {
         public ContentsController(IEntityRepository<Content, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<ContentsController> localizer, ILogger<ContentsController> logger) : base(repository, localizer, logger)
         {
         }
-            
+        
+        [System.Obsolete]
         public override IActionResult Get()
         {
             //var all = Repository.GetAll().ToArray();
@@ -27,11 +30,14 @@ namespace EM.Cloud.Controllers.Api
             return NotFound();
         }
 
+        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Contenido", typeof(ContentDisplayModel))]
+        [SwaggerResponse((int)System.Net.HttpStatusCode.NoContent, "Contenido no encontrado!")]
         public override IActionResult Get(System.Guid key)
         {
             return base.Get(key);
         }
 
+        [System.Obsolete]
         public override IActionResult GetPaginate(int sheet = 1, int limit = 25)
         {
             //return base.GetPaginate(sheet, limit);
@@ -49,16 +55,19 @@ namespace EM.Cloud.Controllers.Api
             return base.GetPaginateFiltered(filterModel, sheet, limit);
         }
 
+        [System.Obsolete]
         public override IActionResult Create([FromBody] ContentInputModel inputModel)
         {
             return NotFound();
         }
 
+        [System.Obsolete]
         public override IActionResult Edit([FromBody] ContentInputModel inputModel)
         {
             return NotFound();
         }
 
+        [System.Obsolete]
         public override IActionResult Delete(System.Guid key)
         {
             return NotFound();

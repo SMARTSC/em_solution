@@ -13,15 +13,17 @@ namespace EM.Cloud.Controllers.Backend
     [Area("business")]
     public class OrganizationClientsController : SmartSolucionesCuba.SAPRESSC.Core.Web.Backend.Controllers.AbstractEntityManagementFilteredController<OrganizationClient, System.Guid, Models.View.OrganizationClientInputViewModel, Models.View.OrganizationClientDisplayViewModel, Models.Filter.OrganizationClientFilterModel>
     {
-        public readonly SmartSolucionesCuba.SAPRESSC.Middleware.Media.Web.Common.Managers.Facade.IImageFileManagerFacade imageFileManagerFacade;
+        private readonly SmartSolucionesCuba.SAPRESSC.Middleware.Media.Web.Common.Managers.Facade.IImageFileManagerFacade imageFileManager;
         private readonly IEntityRepository<SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.OrganizationIdentity, System.Guid> identityRepository;
         private readonly IEntityRepository<SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image, System.Guid> imageRepository;
+        private readonly Microsoft.Extensions.Configuration.IConfiguration configuration;
 
-        public OrganizationClientsController(SmartSolucionesCuba.SAPRESSC.Middleware.Media.Web.Common.Managers.Facade.IImageFileManagerFacade imageFileManagerFacade, IEntityRepository<SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.OrganizationIdentity, System.Guid> identityRepository, IEntityRepository<SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image, System.Guid> imageRepository, IEntityRepository<OrganizationClient, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<OrganizationClientsController> localizer, ILogger<OrganizationClientsController> logger) : base(repository, localizer, logger)
+        public OrganizationClientsController(Microsoft.Extensions.Configuration.IConfiguration configuration, SmartSolucionesCuba.SAPRESSC.Middleware.Media.Web.Common.Managers.Facade.IImageFileManagerFacade imageFileManager, IEntityRepository<SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.OrganizationIdentity, System.Guid> identityRepository, IEntityRepository<SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image, System.Guid> imageRepository, IEntityRepository<OrganizationClient, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<OrganizationClientsController> localizer, ILogger<OrganizationClientsController> logger) : base(repository, localizer, logger)
         {
-            this.imageFileManagerFacade = imageFileManagerFacade;
+            this.imageFileManager = imageFileManager;
             this.identityRepository = identityRepository;
             this.imageRepository = imageRepository;
+            this.configuration = configuration;
         }
 
         protected override string GetFilterSessionID()
@@ -122,7 +124,9 @@ namespace EM.Cloud.Controllers.Backend
 
                 var image = new SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image { ContentType = modelInput.ImageFile.ContentType, Length = modelInput.ImageFile.Length, About = "Organization Client " + entity.Id };
 
-                imageFileManagerFacade.SaveImageFileContent(image.Id, memoryStream.ToArray(), modelInput.ImageFile.ContentType);
+                Providers.ImagesBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
+                
+                imageFileManager.SaveImageFileContent(image.Id, memoryStream.ToArray(), modelInput.ImageFile.ContentType);
 
                 entity.Identity.Image = image;
             }
@@ -132,11 +136,13 @@ namespace EM.Cloud.Controllers.Backend
         {
             base.PreEdit(entity, modelInput);
 
+            Providers.ImagesBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
+
             if (modelInput.ImageFile == null)
             {
                 if (modelInput.ResetImage && entity.Identity.Image != null)
                 {
-                    imageFileManagerFacade.DeleteImageFile(entity.Identity.Image);
+                    imageFileManager.DeleteImageFile(entity.Identity.Image);
 
                     imageRepository.Delete(entity.Identity.Image, User.Identity.Name);
                 }
@@ -146,7 +152,7 @@ namespace EM.Cloud.Controllers.Backend
 
             if (entity.Identity.Image != null)
             {
-                imageFileManagerFacade.DeleteImageFile(entity.Identity.Image);
+                imageFileManager.DeleteImageFile(entity.Identity.Image);
 
                 imageRepository.Delete(entity.Identity.Image, User.Identity.Name);
             }
@@ -157,7 +163,7 @@ namespace EM.Cloud.Controllers.Backend
 
                 var image = new SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image { ContentType = modelInput.ImageFile.ContentType, Length = modelInput.ImageFile.Length, About = "Organization Client " + entity.Id };
 
-                imageFileManagerFacade.SaveImageFileContent(image.Id, memoryStream.ToArray(), modelInput.ImageFile.ContentType);
+                imageFileManager.SaveImageFileContent(image.Id, memoryStream.ToArray(), modelInput.ImageFile.ContentType);
 
                 entity.Identity.Image = image;
             }
@@ -173,7 +179,9 @@ namespace EM.Cloud.Controllers.Backend
 
             imageRepository.Delete(entity.Identity.Image, User.Identity.Name);
 
-            imageFileManagerFacade.DeleteImageFile(entity.Identity.Image);
+            Providers.ImagesBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
+
+            imageFileManager.DeleteImageFile(entity.Identity.Image);
         }
 
         protected override void ConfigurePostFailEditValidation(Models.View.OrganizationClientInputViewModel modelInput)

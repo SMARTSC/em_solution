@@ -13,6 +13,7 @@ namespace EM.Cloud.Controllers.Api
 {
     [Microsoft.AspNetCore.Authorization.Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
+    [ApiController]
     public class PictureContentsController : SmartSolucionesCuba.SAPRESSC.Core.Web.Api.Controllers.AbstractEntityApiManagementController<PictureContent, System.Guid, PictureContentInputModel, PictureContentDisplayModel>
     {
         private readonly IEntityRepository<Album, System.Guid> albumRepository;
@@ -21,8 +22,9 @@ namespace EM.Cloud.Controllers.Api
         private readonly IImageFileManagerFacade imageFileManager;
         private readonly IThumbnailFileManagerFacade thumbnailFileManager;
         private readonly Microsoft.Extensions.Options.IOptions<Options.MediaThumbnailResizeOptions> mediaThumbnailResizeOptions;
+        private readonly Microsoft.Extensions.Configuration.IConfiguration configuration;
 
-        public PictureContentsController(Microsoft.Extensions.Options.IOptions<Options.MediaThumbnailResizeOptions> mediaThumbnailResizeOptions, IThumbnailFileManagerFacade thumbnailFileManager, IImageFileManagerFacade imageFileManager, IEntityRepository<Thumbnail, System.Guid> thumbnailRepository, IEntityRepository<Image, System.Guid> imageRepository, IEntityRepository<Album, System.Guid> albumRepository, IEntityRepository<PictureContent, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<PictureContentsController> localizer, ILogger<PictureContentsController> logger) : base(repository, localizer, logger)
+        public PictureContentsController(Microsoft.Extensions.Configuration.IConfiguration configuration, Microsoft.Extensions.Options.IOptions<Options.MediaThumbnailResizeOptions> mediaThumbnailResizeOptions, IThumbnailFileManagerFacade thumbnailFileManager, IImageFileManagerFacade imageFileManager, IEntityRepository<Thumbnail, System.Guid> thumbnailRepository, IEntityRepository<Image, System.Guid> imageRepository, IEntityRepository<Album, System.Guid> albumRepository, IEntityRepository<PictureContent, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<PictureContentsController> localizer, ILogger<PictureContentsController> logger) : base(repository, localizer, logger)
         {
             this.mediaThumbnailResizeOptions = mediaThumbnailResizeOptions;
             this.thumbnailFileManager = thumbnailFileManager;
@@ -30,6 +32,7 @@ namespace EM.Cloud.Controllers.Api
             this.thumbnailRepository = thumbnailRepository;
             this.imageRepository = imageRepository;
             this.albumRepository = albumRepository;
+            this.configuration = configuration;
         }
 
         public override IActionResult Get()
@@ -86,6 +89,9 @@ namespace EM.Cloud.Controllers.Api
                             About = string.Format("Image for Picture Content :{0}", inputModel.Id)
                         };
 
+                        Providers.ImagesBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Album.Id);
+                        Providers.ThumbnailsBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Album.Id);
+
                         imageFileManager.SaveImageFileContent(entity.Image.Id, inputModel.ContentData, inputModel.ContentType);
 
                         SkiaSharp.SKImageInfo desiredImageInfo;
@@ -123,6 +129,9 @@ namespace EM.Cloud.Controllers.Api
         protected override void PostDelete(PictureContent entity)
         {
             base.PostDelete(entity);
+
+            Providers.ImagesBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Album.Id);
+            Providers.ThumbnailsBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Album.Id);
 
             thumbnailRepository.Delete(entity.Image.Thumbnail, User.Identity.Name);
 

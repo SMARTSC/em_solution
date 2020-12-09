@@ -16,14 +16,16 @@ namespace EM.Cloud.Controllers
         private readonly IEntityRepository<SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image, System.Guid> imageRepository;
         private readonly IImageFileManagerFacade imageFileManager;
         private readonly IThumbnailFileManagerFacade thumbnailFileManager;
+        private readonly Microsoft.Extensions.Configuration.IConfiguration configuration;
 
-        public MediaController(IEntityRepository<SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Thumbnail, System.Guid> thumbnailRepository, IEntityRepository<SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image, System.Guid> imageRepository, IImageFileManagerFacade imageFileManager, IThumbnailFileManagerFacade thumbnailFileManager, Microsoft.Extensions.Localization.IStringLocalizer<MediaController> localizer, ILogger<MediaController> logger)
+        public MediaController(Microsoft.Extensions.Configuration.IConfiguration configuration, IEntityRepository<SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Thumbnail, System.Guid> thumbnailRepository, IEntityRepository<SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image, System.Guid> imageRepository, IImageFileManagerFacade imageFileManager, IThumbnailFileManagerFacade thumbnailFileManager, Microsoft.Extensions.Localization.IStringLocalizer<MediaController> localizer, ILogger<MediaController> logger)
             : base(localizer, logger)
         {
             this.thumbnailRepository = thumbnailRepository;
             this.imageRepository = imageRepository;
             this.imageFileManager = imageFileManager;
             this.thumbnailFileManager = thumbnailFileManager;
+            this.configuration = configuration;
         }
 
         [RequiresRoleBasePermission(Roles.ContentViewer)]
@@ -33,6 +35,8 @@ namespace EM.Cloud.Controllers
             try
             {
                 var image = imageRepository.Get(key);
+
+                Providers.ImagesBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
 
                 var content = imageFileManager.GetImageFileContent(image);
 
@@ -54,6 +58,8 @@ namespace EM.Cloud.Controllers
             try
             {
                 var thumbnail = thumbnailRepository.Get(key);
+
+                Providers.ThumbnailsBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
 
                 return new FileContentResult(thumbnailFileManager.GetThumbnailFileContent(thumbnail), thumbnail.ContentType);
             }

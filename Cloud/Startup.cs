@@ -144,6 +144,21 @@ namespace EM.Cloud
                 .PersistKeysToFileSystem(new System.IO.DirectoryInfo(System.IO.Path.Combine(env.ContentRootPath, "dpkeys")));
 
             services.AddSingleton<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider, Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>();
+
+            services.AddSwaggerGen(setup =>
+            {
+                setup.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "Espejo Molón Cloud API",
+                    Version = "v1"
+                });
+                setup.DocInclusionPredicate((string stringParam, Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription apiDescription) =>
+                {
+                    return apiDescription.RelativePath.StartsWith("api/");
+                });
+                setup.EnableAnnotations();
+                setup.IgnoreObsoleteActions();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -194,6 +209,16 @@ namespace EM.Cloud
             app.UseSession();
 
             app.UseEndpointRouting();
+
+            app.UseSwagger(setup =>
+            {
+                setup.RouteTemplate = "api/docs/{documentName}/swagger.json";
+            });
+            app.UseSwaggerUI(setup =>
+            {
+                setup.SwaggerEndpoint("/api/docs/v1/swagger.json", "Espejo Molón Cloud API v1");
+                setup.RoutePrefix = "api/docs";
+            });
 
             app.UseMiddleware<Middlewares.TerminalApiInvokeRegistrationMiddleware>();
 

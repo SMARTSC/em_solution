@@ -13,6 +13,7 @@ namespace EM.Cloud.Controllers.Api
 {
     [Microsoft.AspNetCore.Authorization.Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
+    [ApiController]
     public class PhotoSessionContentsController : SmartSolucionesCuba.SAPRESSC.Core.Web.Api.Controllers.AbstractEntityApiManagementController<PhotoSessionContent, System.Guid, PhotoSessionContentInputModel, PhotoSessionContentDisplayModel>
     {
         private readonly IEntityRepository<Album, System.Guid> albumRepository;
@@ -21,8 +22,9 @@ namespace EM.Cloud.Controllers.Api
         private readonly IImageFileManagerFacade imageFileManager;
         private readonly IThumbnailFileManagerFacade thumbnailFileManager;
         private readonly Microsoft.Extensions.Options.IOptions<Options.MediaThumbnailResizeOptions> mediaThumbnailResizeOptions;
+        private readonly Microsoft.Extensions.Configuration.IConfiguration configuration;
 
-        public PhotoSessionContentsController(Microsoft.Extensions.Options.IOptions<Options.MediaThumbnailResizeOptions> mediaThumbnailResizeOptions, IThumbnailFileManagerFacade thumbnailFileManager, IImageFileManagerFacade imageFileManager, IEntityRepository<Thumbnail, System.Guid> thumbnailRepository, IEntityRepository<Image, System.Guid> imageRepository, IEntityRepository<Album, System.Guid> albumRepository, IEntityRepository<PhotoSessionContent, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<PhotoSessionContentsController> localizer, ILogger<PhotoSessionContentsController> logger) : base(repository, localizer, logger)
+        public PhotoSessionContentsController(Microsoft.Extensions.Configuration.IConfiguration configuration, Microsoft.Extensions.Options.IOptions<Options.MediaThumbnailResizeOptions> mediaThumbnailResizeOptions, IThumbnailFileManagerFacade thumbnailFileManager, IImageFileManagerFacade imageFileManager, IEntityRepository<Thumbnail, System.Guid> thumbnailRepository, IEntityRepository<Image, System.Guid> imageRepository, IEntityRepository<Album, System.Guid> albumRepository, IEntityRepository<PhotoSessionContent, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<PhotoSessionContentsController> localizer, ILogger<PhotoSessionContentsController> logger) : base(repository, localizer, logger)
         {
             this.mediaThumbnailResizeOptions = mediaThumbnailResizeOptions;
             this.thumbnailFileManager = thumbnailFileManager;
@@ -30,6 +32,7 @@ namespace EM.Cloud.Controllers.Api
             this.thumbnailRepository = thumbnailRepository;
             this.imageRepository = imageRepository;
             this.albumRepository = albumRepository;
+            this.configuration = configuration;
         }
 
         public override IActionResult Get()
@@ -92,7 +95,8 @@ namespace EM.Cloud.Controllers.Api
 
                                 bridge.ImageId = bridge.Image.Id;
 
-                                imageFileManager.SaveImageFileContent(bridge.Image.Id, inputModel.ContentData, inputModel.ContentType);
+                                Providers.ImagesBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Album.Id);
+                                Providers.ThumbnailsBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Album.Id); imageFileManager.SaveImageFileContent(bridge.Image.Id, inputModel.ContentData, inputModel.ContentType);
 
                                 SkiaSharp.SKImageInfo desiredImageInfo;
 
@@ -167,6 +171,9 @@ namespace EM.Cloud.Controllers.Api
 
             foreach (var bridge in entity.ImageBridges)
             {
+                Providers.ImagesBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Album.Id);
+                Providers.ThumbnailsBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Album.Id); 
+                
                 thumbnailRepository.Delete(bridge.Image.Thumbnail, User.Identity.Name);
 
                 thumbnailFileManager.DeleteThumbnailFile(bridge.Image.Thumbnail);

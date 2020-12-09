@@ -17,21 +17,23 @@ namespace EM.Cloud.Controllers.Backend
     [Area("business")]
     public class EventsController : SmartSolucionesCuba.SAPRESSC.Core.Web.Backend.Controllers.AbstractEntityManagementFilteredController<Event, System.Guid, EventInputViewModel, EventDisplayViewModel, EventFilterModel>
     {
-        private readonly SmartSolucionesCuba.SAPRESSC.Middleware.Media.Web.Common.Managers.Facade.IImageFileManagerFacade imageFileManagerFacade;
+        private readonly SmartSolucionesCuba.SAPRESSC.Middleware.Media.Web.Common.Managers.Facade.IImageFileManagerFacade imageFileManager;
         private readonly IEntityRepository<SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image, System.Guid> imageRepository;
         private readonly IEntityRepository<Album, System.Guid> albumRepository;
         private readonly IEntityRepository<CollageLayout, System.Guid> collageLayoutRepository;
         private readonly Microsoft.Extensions.Options.IOptions<Options.EventMediaDimensionContraintOptions> mediaDimensionContraintOptions;
         private readonly IEntityRepository<PictureContent, System.Guid> pictureContentRepository;
+        private readonly Microsoft.Extensions.Configuration.IConfiguration configuration;
 
-        public EventsController(IEntityRepository<PictureContent, System.Guid> pictureContentRepository, Microsoft.Extensions.Options.IOptions<Options.EventMediaDimensionContraintOptions> mediaDimensionContraintOptions, IEntityRepository<CollageLayout, System.Guid> collageLayoutRepository, SmartSolucionesCuba.SAPRESSC.Middleware.Media.Web.Common.Managers.Facade.IImageFileManagerFacade imageFileManagerFacade, IEntityRepository<SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image, System.Guid> imageRepository, IEntityRepository<Album, System.Guid> albumRepository, IEntityRepository<Event, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<EventsController> localizer, ILogger<EventsController> logger) : base(repository, localizer, logger)
+        public EventsController(Microsoft.Extensions.Configuration.IConfiguration configuration, IEntityRepository<PictureContent, System.Guid> pictureContentRepository, Microsoft.Extensions.Options.IOptions<Options.EventMediaDimensionContraintOptions> mediaDimensionContraintOptions, IEntityRepository<CollageLayout, System.Guid> collageLayoutRepository, SmartSolucionesCuba.SAPRESSC.Middleware.Media.Web.Common.Managers.Facade.IImageFileManagerFacade imageFileManager, IEntityRepository<SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image, System.Guid> imageRepository, IEntityRepository<Album, System.Guid> albumRepository, IEntityRepository<Event, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<EventsController> localizer, ILogger<EventsController> logger) : base(repository, localizer, logger)
         {
-            this.imageFileManagerFacade = imageFileManagerFacade;
+            this.imageFileManager = imageFileManager;
             this.imageRepository = imageRepository;
             this.albumRepository = albumRepository;
             this.collageLayoutRepository = collageLayoutRepository;
             this.mediaDimensionContraintOptions = mediaDimensionContraintOptions;
             this.pictureContentRepository = pictureContentRepository;
+            this.configuration = configuration;
         }
 
         protected override string GetFilterSessionID()
@@ -354,7 +356,9 @@ namespace EM.Cloud.Controllers.Backend
 
                 entity.Logo = new SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image { ContentType = modelInput.LogoFile.ContentType, Length = modelInput.LogoFile.Length, About = "Event Logo " + entity.Id };
 
-                imageFileManagerFacade.SaveImageFileContent(entity.Logo.Id, memoryStream.ToArray(), modelInput.LogoFile.ContentType);
+                Providers.ImagesBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
+                
+                imageFileManager.SaveImageFileContent(entity.Logo.Id, memoryStream.ToArray(), modelInput.LogoFile.ContentType);
             }
 
             //using (var memoryStream = new System.IO.MemoryStream())
@@ -571,16 +575,18 @@ namespace EM.Cloud.Controllers.Backend
             {
                 var oldLogo = entity.Logo;
 
+                Providers.ImagesBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
+
                 using (var memoryStream = new System.IO.MemoryStream())
                 {
                     modelInput.LogoFile.CopyTo(memoryStream);
 
                     entity.Logo = new SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image { ContentType = modelInput.LogoFile.ContentType, Length = modelInput.LogoFile.Length, About = "Event " + entity.Id };
 
-                    imageFileManagerFacade.SaveImageFileContent(entity.Logo.Id, memoryStream.ToArray(), modelInput.LogoFile.ContentType);
+                    imageFileManager.SaveImageFileContent(entity.Logo.Id, memoryStream.ToArray(), modelInput.LogoFile.ContentType);
                 }
 
-                imageFileManagerFacade.DeleteImageFile(oldLogo);
+                imageFileManager.DeleteImageFile(oldLogo);
 
                 imageRepository.Delete(oldLogo, User.Identity.Name);
             }
@@ -686,7 +692,9 @@ namespace EM.Cloud.Controllers.Backend
             //imageRepository.Delete(entity.PrintSmallLogo, User.Identity.Name);
             //imageRepository.Delete(entity.PrintSmallStrechLogo, User.Identity.Name);
 
-            imageFileManagerFacade.DeleteImageFile(entity.Logo);
+            Providers.ImagesBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
+
+            imageFileManager.DeleteImageFile(entity.Logo);
             //imageFileManagerFacade.DeleteImageFile(entity.PrintMiddleLogo);
             //imageFileManagerFacade.DeleteImageFile(entity.PrintMiddleStrechLogo);
             //imageFileManagerFacade.DeleteImageFile(entity.PrintSmallLogo);
@@ -1033,6 +1041,8 @@ namespace EM.Cloud.Controllers.Backend
                 var album = @event.Albums.First(e => e.Id == modelDisplay.Id);
 
                 albumRepository.Delete(album, User.Identity.Name);
+
+                // TODO Remove album items from storage!!
 
                 SetDefaultNotification(NotificationType.Success, GetDeletionSuccessMessage());
             }

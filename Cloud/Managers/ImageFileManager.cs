@@ -1,28 +1,13 @@
 ﻿using EM.Cloud.Extensions;
-using Microsoft.Extensions.Configuration;
 using SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities;
 
 namespace EM.Cloud.Managers
 {
     public class ImageFileManager : SmartSolucionesCuba.SAPRESSC.Middleware.Media.Web.Common.Managers.Facade.IImageFileManagerFacade
     {
-        private readonly Azure.Storage.Blobs.BlobContainerClient blobStorageContainerClient;
-
-        public ImageFileManager(IConfiguration configuration)
-        {
-            blobStorageContainerClient = new Azure.Storage.Blobs.BlobContainerClient(configuration.GetConnectionString("BlobStorageConnection"), "media-images");
-
-            if (!blobStorageContainerClient.Exists())
-            {
-                blobStorageContainerClient.Create();
-
-                blobStorageContainerClient.SetAccessPolicy(Azure.Storage.Blobs.Models.PublicAccessType.Blob);
-            }
-        }
-
         public void DeleteImageFile(Image image)
         {
-            blobStorageContainerClient.DeleteBlobIfExists(GetBlobId(image.Id, image.ContentType));
+            Providers.ImagesBlobContainerClientProvider.Instance.GetBlobContainerClient().DeleteBlobIfExists(GetBlobId(image.Id, image.ContentType));
         }
 
         public string GetImageAbsoluteFilePath(Image image)
@@ -32,7 +17,7 @@ namespace EM.Cloud.Managers
 
         public byte[] GetImageFileContent(Image image)
         {
-            var blobClient = blobStorageContainerClient.GetBlobClient(GetBlobId(image.Id, image.ContentType));
+            var blobClient = Providers.ImagesBlobContainerClientProvider.Instance.GetBlobContainerClient().GetBlobClient(GetBlobId(image.Id, image.ContentType));
 
             var azureResponse = blobClient.Download();
 
@@ -50,7 +35,7 @@ namespace EM.Cloud.Managers
 
         public void SaveImageFileContent(System.Guid imageId, byte[] content, string contentType)
         {
-            blobStorageContainerClient.UploadBlob(GetBlobId(imageId, contentType), new System.IO.MemoryStream(content));
+            Providers.ImagesBlobContainerClientProvider.Instance.GetBlobContainerClient().UploadBlob(GetBlobId(imageId, contentType), new System.IO.MemoryStream(content));
         }
 
         private string GetBlobId(System.Guid id, string contentType)

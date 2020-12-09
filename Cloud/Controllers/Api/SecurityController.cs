@@ -19,7 +19,7 @@ namespace EM.Cloud.Controllers.Api
         }
 
         [HttpPost("[action]")]
-        public ActionResult Authenticate([FromBody]EM.Cloud.Api.Common.Models.CloudAuthenticationInputModel inputModel)
+        public ActionResult Authenticate([FromBody]Cloud.Api.Common.Models.CloudAuthenticationInputModel inputModel)
         {
             if (ModelState.IsValid)
             {
@@ -42,7 +42,7 @@ namespace EM.Cloud.Controllers.Api
         }
 
         [HttpPost("[action]")]
-        public ActionResult AuthenticateAsGuest([FromBody]EM.Cloud.Api.Common.Models.CloudGuestAuthenticationInputModel inputModel)
+        public ActionResult AuthenticateAsGuest([FromBody]Cloud.Api.Common.Models.CloudGuestAuthenticationInputModel inputModel)
         {
             if (ModelState.IsValid)
             {
