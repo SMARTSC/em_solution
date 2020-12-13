@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sscxftoolkitmvvmpages:BindingContextedContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pagemodels="clr-namespace:EM.Terminal.Dashboard.Models.Page"
+    xmlns:views="clr-namespace:EM.Terminal.Dashboard.Views"
+    xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
+    xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    mc:Ignorable="d"
+    x:Class="EM.Terminal.Dashboard.Pages.UserAuthenticationPage"
+    x:TypeArguments="pagemodels:UserAuthenticationPageModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <sscxftoolkitpresentationconverters:BoolToBoolNegationConverter x:Key="BoolToBoolNegationConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout
+                WidthRequest="240"
+                HorizontalOptions="Center" VerticalOptions="Center">
+                <Entry
+                    Text="{Binding Path=Server}"
+                    Placeholder="servidor cloud" />
+                <Entry
+                    Text="{Binding Path=Login}"
+                    Placeholder="usuario" />
+                <Entry
+                    Text="{Binding Path=Password}"
+                    Placeholder="contraseña"
+                    IsPassword="true" />
+                <Button
+                    IsEnabled="{Binding Path=IsBusy, Converter={StaticResource BoolToBoolNegationConverter}}"
+                    HorizontalOptions="FillAndExpand"
+                    Margin="24"
+                    BackgroundColor="Accent"
+                    Text="Iniciar"
+                    TextColor="White"
+                    Clicked="SignButton_Clicked" />
+            </StackLayout>
+            <views:BusyView />
+        </Grid>
+    </ContentPage.Content>
+</sscxftoolkitmvvmpages:BindingContextedContentPage>

@@ -6,7 +6,6 @@ using System.Linq;
 
 namespace EM.Cloud.Controllers.Api
 {
-    [Microsoft.AspNetCore.Authorization.Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class AlbumsController : SmartSolucionesCuba.SAPRESSC.Core.Web.Common.Controllers.BaseWebController
@@ -19,7 +18,7 @@ namespace EM.Cloud.Controllers.Api
         }
 
         [HttpGet("id/{id}")]
-        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumDisplayModel))]
+        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumModel))]
         [SwaggerResponse((int)System.Net.HttpStatusCode.PreconditionFailed, "Album no habilitado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.NoContent, "Album no encontrado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.Locked, "Album protegido!")]
@@ -39,7 +38,7 @@ namespace EM.Cloud.Controllers.Api
                     return StatusCode((int)System.Net.HttpStatusCode.Locked);
                 }
 
-                var model = new Cloud.Api.Common.Models.AlbumDisplayModel();
+                var model = new Cloud.Api.Common.Models.AlbumModel();
 
                 model.Import(entity);
 
@@ -58,7 +57,7 @@ namespace EM.Cloud.Controllers.Api
         }
 
         [HttpGet("alias/{alias}")]
-        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumDisplayModel))]
+        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumModel))]
         [SwaggerResponse((int)System.Net.HttpStatusCode.PreconditionFailed, "Album no habilitado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.NoContent, "Album no encontrado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.Locked, "Album protegido!")]
@@ -78,7 +77,7 @@ namespace EM.Cloud.Controllers.Api
                     return StatusCode((int)System.Net.HttpStatusCode.Locked);
                 }
 
-                var model = new Cloud.Api.Common.Models.AlbumDisplayModel();
+                var model = new Cloud.Api.Common.Models.AlbumModel();
 
                 model.Import(entity);
 
@@ -97,8 +96,8 @@ namespace EM.Cloud.Controllers.Api
         }
 
         [HttpGet("id/{id}/password/{key}")]
-        [SwaggerResponse(200, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumDisplayModel))]
-        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumDisplayModel))]
+        [SwaggerResponse(200, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumModel))]
+        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumModel))]
         [SwaggerResponse((int)System.Net.HttpStatusCode.PreconditionFailed, "Album no habilitado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.NoContent, "Album no encontrado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.Unauthorized, "Acceso al Album no autorizado!")]
@@ -120,7 +119,7 @@ namespace EM.Cloud.Controllers.Api
                     return Unauthorized();
                 }
 
-                var model = new Cloud.Api.Common.Models.AlbumDisplayModel();
+                var model = new Cloud.Api.Common.Models.AlbumModel();
 
                 model.Import(entity);
 
@@ -139,8 +138,8 @@ namespace EM.Cloud.Controllers.Api
         }
 
         [HttpGet("alias/{alias}/password/{key}")]
-        [SwaggerResponse(200, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumDisplayModel))]
-        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumDisplayModel))]
+        [SwaggerResponse(200, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumModel))]
+        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumModel))]
         [SwaggerResponse((int)System.Net.HttpStatusCode.PreconditionFailed, "Album no habilitado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.NoContent, "Album no encontrado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.Unauthorized, "Acceso al Album no autorizado!")]
@@ -162,7 +161,7 @@ namespace EM.Cloud.Controllers.Api
                     return Unauthorized();
                 }
 
-                var model = new Cloud.Api.Common.Models.AlbumDisplayModel();
+                var model = new Cloud.Api.Common.Models.AlbumModel();
 
                 model.Import(entity);
 

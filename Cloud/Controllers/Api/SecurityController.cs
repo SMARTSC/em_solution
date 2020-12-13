@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+﻿using EM.Cloud.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using SmartSolucionesCuba.SAPRESSC.Core.Web.Security.Providers.Facade;
 
 namespace EM.Cloud.Controllers.Api
@@ -19,7 +19,7 @@ namespace EM.Cloud.Controllers.Api
         }
 
         [HttpPost("[action]")]
-        public ActionResult Authenticate([FromBody]Cloud.Api.Common.Models.CloudAuthenticationInputModel inputModel)
+        public ActionResult Authenticate([FromBody]Cloud.Api.Common.Models.AuthenticationIntentModel inputModel)
         {
             if (ModelState.IsValid)
             {
@@ -32,7 +32,7 @@ namespace EM.Cloud.Controllers.Api
                         return Forbid();
                     }
 
-                    return GenerateToken(userIdentity);
+                    return Json(userIdentity.ToAuthenticatedSessionModel(jwtOptions));
                 }
 
                 return Unauthorized();
@@ -42,7 +42,7 @@ namespace EM.Cloud.Controllers.Api
         }
 
         [HttpPost("[action]")]
-        public ActionResult AuthenticateAsGuest([FromBody]Cloud.Api.Common.Models.CloudGuestAuthenticationInputModel inputModel)
+        public ActionResult AuthenticateAsGuest([FromBody]Cloud.Api.Common.Models.GuestAuthenticationInputModel inputModel)
         {
             if (ModelState.IsValid)
             {
@@ -64,16 +64,16 @@ namespace EM.Cloud.Controllers.Api
 
                 if (terminal.Enabled)
                 {
-                    var claims = new System.Collections.Generic.List<System.Security.Claims.Claim>();
-
-                    claims.Add(new System.Security.Claims.Claim(System.Security.Claims.ClaimsIdentity.DefaultNameClaimType, terminal.Id));
-
-                    claims.Add(new System.Security.Claims.Claim(System.Security.Claims.ClaimsIdentity.DefaultRoleClaimType, Security.Authorization.Roles.ContentViewer));
-                    claims.Add(new System.Security.Claims.Claim(System.Security.Claims.ClaimsIdentity.DefaultRoleClaimType, Security.Authorization.Roles.AlbumViewer));
+                    var claims = new System.Collections.Generic.List<System.Security.Claims.Claim>
+                    {
+                        new System.Security.Claims.Claim(System.Security.Claims.ClaimsIdentity.DefaultNameClaimType, terminal.Id),
+                        new System.Security.Claims.Claim(System.Security.Claims.ClaimsIdentity.DefaultRoleClaimType, Security.Authorization.Roles.ContentViewer),
+                        new System.Security.Claims.Claim(System.Security.Claims.ClaimsIdentity.DefaultRoleClaimType, Security.Authorization.Roles.AlbumViewer)
+                    };
 
                     var guestIndentity = new System.Security.Claims.ClaimsIdentity(claims, Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme);
 
-                    return GenerateToken(guestIndentity);
+                    return Json(guestIndentity.ToAuthenticatedSessionModel(jwtOptions));
                 }
 
                 return Forbid();
@@ -81,38 +81,5 @@ namespace EM.Cloud.Controllers.Api
 
             return BadRequest();
         }
-
-        #region Token Utility Methods
-
-        private ActionResult GenerateToken(System.Security.Claims.ClaimsIdentity userIdentity)
-        {
-            var token = GenerateJwtToken(userIdentity);
-
-            return Json(new EM.Cloud.Api.Common.Models.CloudAuthenticationDisplayModel
-            {
-                Token = token,
-                Type = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme,
-                ExpiresInSecond = jwtOptions.Value.ExpiresInSecond
-            });
-        }
-
-        private string GenerateJwtToken(System.Security.Claims.ClaimsIdentity userIdentity)
-        {
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(jwtOptions.Value.Key));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = System.DateTime.Now.AddSeconds(jwtOptions.Value.ExpiresInSecond);
-
-            var token = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(
-                jwtOptions.Value.Issuer,
-                jwtOptions.Value.Issuer,
-                userIdentity.Claims,
-                expires: expires,
-                signingCredentials: creds
-            );
-
-            return new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        #endregion
     }
 }

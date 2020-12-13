@@ -64,7 +64,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cloud.Api.Common\Cloud.Api.Common.csproj" />
+    <ProjectReference Include="..\Cloud.Backend.Api.Common\Cloud.Backend.Api.Common.csproj" />
     <ProjectReference Include="..\Cloud.Persistence\Cloud.Persistence.csproj" />
     <ProjectReference Include="..\Extend.Layout.Provision\Extend.Layout.Provision.csproj" />
     <ProjectReference Include="..\Extend.Lock.Provision\Extend.Lock.Provision.csproj" />

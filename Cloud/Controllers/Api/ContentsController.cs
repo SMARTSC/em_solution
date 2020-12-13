@@ -8,6 +8,7 @@ using SmartSolucionesCuba.SAPRESSC.Core.Web.Api.Controllers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace EM.Cloud.Controllers.Api
+#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
 {
     [Microsoft.AspNetCore.Authorization.Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
@@ -19,6 +20,7 @@ namespace EM.Cloud.Controllers.Api
         }
         
         [System.Obsolete]
+
         public override IActionResult Get()
         {
             //var all = Repository.GetAll().ToArray();
@@ -72,27 +74,6 @@ namespace EM.Cloud.Controllers.Api
         {
             return NotFound();
         }
-
-        protected override ContentDisplayModel EntityToDisplayModel(Content entity)
-        {
-            if (entity is PictureContent)
-            {
-                var model = new PictureContentDisplayModel();
-
-                model.Import(entity as PictureContent);
-
-                return model;
-            }
-            else if (entity is PhotoSessionContent)
-            {
-                var model = new PhotoSessionContentDisplayModel();
-
-                model.Import(entity as PhotoSessionContent);
-
-                return model;
-            }
-
-            throw new System.InvalidOperationException();
-        }
     }
+#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
 }
