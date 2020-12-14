@@ -71,5 +71,49 @@ namespace EM.Cloud.Controllers
 
             return new NotFoundResult();
         }
+
+        [RequiresRoleBasePermission(Roles.ContentViewer)]
+        [HttpGet("album/{albumId}/image/{key}")]
+        public IActionResult AlbumImage(System.Guid albumId, System.Guid key)
+        {
+            try
+            {
+                var image = imageRepository.Get(key);
+
+                Providers.ImagesBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, albumId);
+
+                var content = imageFileManager.GetImageFileContent(image);
+
+                return new FileContentResult(content, image.ContentType);
+            }
+            catch (System.IO.DirectoryNotFoundException e)
+            {
+                logger.LogError(e.Message, e.InnerException);
+            }
+            catch { }
+
+            return new NotFoundResult();
+        }
+
+        [RequiresRoleBasePermission(Roles.ContentViewer)]
+        [HttpGet("album/{albumId}/thumbnail/{key}")]
+        public IActionResult AlbumThumbnail(System.Guid albumId, System.Guid key)
+        {
+            try
+            {
+                var thumbnail = thumbnailRepository.Get(key);
+
+                Providers.ThumbnailsBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, albumId);
+
+                return new FileContentResult(thumbnailFileManager.GetThumbnailFileContent(thumbnail), thumbnail.ContentType);
+            }
+            catch (System.IO.DirectoryNotFoundException e)
+            {
+                logger.LogError(e.Message, e.InnerException);
+            }
+            catch { }
+
+            return new NotFoundResult();
+        }
     }
 }

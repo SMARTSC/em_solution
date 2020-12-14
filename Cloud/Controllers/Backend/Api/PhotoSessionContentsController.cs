@@ -15,7 +15,7 @@ namespace EM.Cloud.Controllers.Backend.Api
     [Microsoft.AspNetCore.Authorization.Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/backend/[controller]")]
     [ApiController]
-    public class PhotoSessionContentsController : SmartSolucionesCuba.SAPRESSC.Core.Web.Api.Controllers.AbstractEntityApiManagementController<PhotoSessionContent, System.Guid, PhotoSessionContentInputModel, PhotoSessionContentDisplayModel>
+    public class PhotoSessionContentsController : SmartSolucionesCuba.SAPRESSC.Core.Web.Api.Controllers.AbstractEntityApiManagementFilteredController<PhotoSessionContent, System.Guid, PhotoSessionContentInputModel, PhotoSessionContentDisplayModel, Cloud.Backend.Api.Common.Models.Filter.PhotoSessionContentFilterModel>
     {
         private readonly IEntityRepository<Album, System.Guid> albumRepository;
         private readonly IEntityRepository<Image, System.Guid> imageRepository;
@@ -41,15 +41,26 @@ namespace EM.Cloud.Controllers.Backend.Api
             return NotFound();
         }
 
+        [RequiresRoleBasePermission(Roles.ContentViewer)]
+        public override IActionResult Get(System.Guid key)
+        {
+            return base.Get(key);
+        }
+
         public override IActionResult GetPaginate(int sheet = 1, int limit = 25)
         {
             return NotFound();
         }
 
-        [RequiresRoleBasePermission(Roles.ContentViewer)]
-        public override IActionResult Get(System.Guid key)
+        public override IActionResult GetFiltered([FromBody] Cloud.Backend.Api.Common.Models.Filter.PhotoSessionContentFilterModel filterModel)
         {
-            return base.Get(key);
+            return NotFound();
+        }
+
+        [RequiresRoleBasePermission(Roles.ContentViewer)]
+        public override IActionResult GetPaginateFiltered([FromBody] Cloud.Backend.Api.Common.Models.Filter.PhotoSessionContentFilterModel filterModel, int sheet = 1, int limit = 25)
+        {
+            return base.GetPaginateFiltered(filterModel, sheet, limit);
         }
 
         [RequiresRoleBasePermission(Roles.ContentCreator)]

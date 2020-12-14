@@ -18,9 +18,9 @@ namespace EM.Terminal.Dashboard.UWP
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.Suspending += OnSuspending;
+            Suspending += OnSuspending;
         }
 
         /// <summary>
@@ -43,7 +43,13 @@ namespace EM.Terminal.Dashboard.UWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
+                FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+
+                Plugin.Toasts.UWP.ToastNotification.Init();
+
                 Xamarin.Forms.Forms.Init(e);
+
+                Xamarin.Forms.DependencyService.Register<Plugin.Toasts.UWP.ToastNotification>(); // Register your dependency
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

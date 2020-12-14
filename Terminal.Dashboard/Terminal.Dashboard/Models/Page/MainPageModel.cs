@@ -15,7 +15,7 @@
 
             foreach (var item in ActionGroups)
             {
-                item.Clear();
+                item.Actions.Clear();
             }
 
             ActionGroups.Clear();

@@ -8,13 +8,13 @@
 
   <Identity
     Name="a2f66e03-f67b-4dfc-af82-473291261419"
-    Publisher="CN=2ffc4e3f-0fb5-4522-90ee-0b236adbe2e1"
-    Version="1.0.0.0" />
+    Publisher="CN=SMART SOLUCIONES CUBA"
+    Version="0.1.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Terminal.Dashboard.UWP</DisplayName>
+    <DisplayName>Espejo Molón Dashboard</DisplayName>
     <PublisherDisplayName>2ffc4e3f-0fb5-4522-90ee-0b236adbe2e1</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -30,12 +30,12 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="Terminal.Dashboard.UWP.App">
+      EntryPoint="EM.Terminal.Dashboard.UWP.App">
       <uap:VisualElements
-        DisplayName="Terminal.Dashboard.UWP"
+        DisplayName="Espejo Molón Dashboard"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="Terminal.Dashboard.UWP"
+        Description="Consola de Administración del servicio Espejo Molón"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
           <uap:ShowNameOnTiles>

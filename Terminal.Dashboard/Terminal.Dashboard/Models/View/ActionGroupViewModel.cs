@@ -1,18 +1,15 @@
 ﻿namespace EM.Terminal.Dashboard.Models.View
 {
-    public class ActionGroupViewModel : System.Collections.Generic.List<ActionViewModel>
+    public class ActionGroupViewModel
     {
         public string Key { get; private set; }
 
-        public ActionGroupViewModel(string key)
+        public System.Collections.Generic.List<ActionViewModel> Actions { get; private set; }
+
+        public ActionGroupViewModel(string key, System.Collections.Generic.List<ActionViewModel> items = null)
         {
             Key = key;
-        }
-
-        public ActionGroupViewModel(string key, System.Collections.Generic.IEnumerable<ActionViewModel> items)
-            : this(key)
-        {
-            AddRange(items);
+            Actions = items ?? new System.Collections.Generic.List<ActionViewModel>();
         }
     }
 }

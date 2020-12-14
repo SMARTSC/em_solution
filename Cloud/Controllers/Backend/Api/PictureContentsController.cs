@@ -15,7 +15,7 @@ namespace EM.Cloud.Controllers.Backend.Api
     [Microsoft.AspNetCore.Authorization.Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/backend/[controller]")]
     [ApiController]
-    public class PictureContentsController : SmartSolucionesCuba.SAPRESSC.Core.Web.Api.Controllers.AbstractEntityApiManagementController<PictureContent, System.Guid, PictureContentInputModel, PictureContentDisplayModel>
+    public class PictureContentsController : SmartSolucionesCuba.SAPRESSC.Core.Web.Api.Controllers.AbstractEntityApiManagementFilteredController<PictureContent, System.Guid, PictureContentInputModel, PictureContentDisplayModel, Cloud.Backend.Api.Common.Models.Filter.PictureContentFilterModel>
     {
         private readonly IEntityRepository<Album, System.Guid> albumRepository;
         private readonly IEntityRepository<Image, System.Guid> imageRepository;
@@ -41,15 +41,27 @@ namespace EM.Cloud.Controllers.Backend.Api
             return NotFound();
         }
 
+        [RequiresRoleBasePermission(Roles.ContentViewer)]
+        public override IActionResult Get(System.Guid key)
+        {
+            return base.Get(key);
+        }
+
+        [RequiresRoleBasePermission(Roles.ContentViewer)]
         public override IActionResult GetPaginate(int sheet = 1, int limit = 25)
+        {
+            return base.GetPaginate(sheet, limit);
+        }
+
+        public override IActionResult GetFiltered([FromBody] Cloud.Backend.Api.Common.Models.Filter.PictureContentFilterModel filterModel)
         {
             return NotFound();
         }
 
         [RequiresRoleBasePermission(Roles.ContentViewer)]
-        public override IActionResult Get(System.Guid key)
+        public override IActionResult GetPaginateFiltered([FromBody] Cloud.Backend.Api.Common.Models.Filter.PictureContentFilterModel filterModel, int sheet = 1, int limit = 25)
         {
-            return base.Get(key);
+            return base.GetPaginateFiltered(filterModel, sheet, limit);
         }
 
         [RequiresRoleBasePermission(Roles.ContentCreator)]
@@ -60,7 +72,7 @@ namespace EM.Cloud.Controllers.Backend.Api
 
         public override IActionResult Edit([FromBody] PictureContentInputModel inputModel)
         {
-            return new ConflictResult();
+            return NotFound();
         }
 
         [RequiresRoleBasePermission(Roles.ContentRemover)]

@@ -1,6 +1,6 @@
 ﻿namespace EM.Cloud.Backend.Api.Connect.Clients
 {
-    public class PhotoSessionContentsApiClient : SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Clients.AbstractEntityApiManagementClient<Persistence.Entities.PhotoSessionContent, System.Guid, Common.Models.PhotoSessionContentInputModel, Cloud.Api.Common.Models.PhotoSessionContentDisplayModel>
+    public class PhotoSessionContentsApiClient : SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Clients.AbstractEntityApiManagementFilteredClient<Persistence.Entities.PhotoSessionContent, System.Guid, Common.Models.PhotoSessionContentInputModel, Cloud.Api.Common.Models.PhotoSessionContentDisplayModel, Common.Models.Filter.PhotoSessionContentFilterModel>
     {
         public PhotoSessionContentsApiClient(SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Providers.Facade.IHttpClientHelperProviderFacade httpClientHelperProvider) : base(httpClientHelperProvider)
         {

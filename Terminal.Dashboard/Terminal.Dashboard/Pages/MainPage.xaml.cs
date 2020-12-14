@@ -63,52 +63,31 @@ namespace EM.Terminal.Dashboard.Pages
             });
         }
 
-        private void ActionFrame_Tapped(object sender, System.EventArgs eventArgs)
+        private void ActionView_Tapped(object sender, System.EventArgs eventArgs)
         {
-            //switch (((sender as Xamarin.Forms.BindableObject).BindingContext as Models.View.ActionViewModel).Kind)
-            //{
-            //    case Enumerations.ActionKind.ManageImages:
-            //        this.NavigationPushPageAsync(new ManageImagesPage());
+            var action = (sender as Xamarin.Forms.BindableObject).BindingContext as Models.View.ActionViewModel;
 
-            //        break;
+            if (!action.IsEnabled) return;
 
-            //    case Enumerations.ActionKind.ManageVideos:
-            //        this.NavigationPushPageAsync(new ManageVideosPage());
+            switch (action.Kind)
+            {
+                case Enumerations.ActionKind.ManageEvents:
+                    this.NavigationPushPageAsync(new ManageEventsPage());
 
-            //        break;
+                    break;
 
-            //    case Enumerations.ActionKind.ManagePlayers:
-            //        this.NavigationPushPageAsync(new ManagePlayersPage());
+                default:
+                    DisplayAlert("Aviso", "Sección no disponible para esta versión", "Aceptar");
 
-            //        break;
-
-            //    case Enumerations.ActionKind.ManageScreenplays:
-            //        this.NavigationPushPageAsync(new ManageProgrammingPage());
-
-            //        break;
-
-            //    case Enumerations.ActionKind.ConfigAccount:
-            //        this.NavigationPushPageAsync(new AccountIdentityConfigurationPage());
-
-            //        break;
-
-            //    case Enumerations.ActionKind.ManagePlugins:
-            //        this.NavigationPushPageAsync(new ManageExtensionsPage());
-
-            //        break;
-
-            //    default:
-            //        DisplayAlert("Aviso", "Sección no disponible para esta versión", "Aceptar");
-
-            //        break;
-            //}
+                    break;
+            }
         }
 
         private void ReloadActions()
         {
             BindingContextPageModel.ActionGroups.Clear();
 
-            BindingContextPageModel.ActionGroups.Add(new Models.View.ActionGroupViewModel("Seguridad", new Models.View.ActionViewModel[]
+            BindingContextPageModel.ActionGroups.Add(new Models.View.ActionGroupViewModel("Seguridad", new System.Collections.Generic.List<Models.View.ActionViewModel>
             {
                 new Models.View.ActionViewModel
                 {
@@ -126,7 +105,7 @@ namespace EM.Terminal.Dashboard.Pages
                 }
             }));
 
-            BindingContextPageModel.ActionGroups.Add(new Models.View.ActionGroupViewModel("Negocio", new Models.View.ActionViewModel[]
+            BindingContextPageModel.ActionGroups.Add(new Models.View.ActionGroupViewModel("Negocio", new System.Collections.Generic.List<Models.View.ActionViewModel>
             {
                 new Models.View.ActionViewModel
                 {

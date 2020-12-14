@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sscxftoolkitmvvmpages:BindingContextedContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pagemodels="clr-namespace:EM.Terminal.Dashboard.Models.Page"
+    xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
+    xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    xmlns:pancakeviews="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    mc:Ignorable="d"
+    x:Class="EM.Terminal.Dashboard.Pages.ManageEventAlbumsPage"    
+    x:TypeArguments="pagemodels:ManageEventAlbumsPageModel"
+    Title="Albumes">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="320" ChildAbsoluteHorizontalMargin="20" />
+            <sscxftoolkitpresentationconverters:IfNullOrEmptyToStringConverter x:Key="IfNullOrEmptyToStringConverter" StringReplacement="-" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical">
+            <FlexLayout
+                Padding="10"
+                Wrap="Wrap"
+                AlignContent="Start" AlignItems="Start"
+                BindableLayout.ItemsSource="{Binding Path=Event.Albums}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <pancakeviews:PancakeView
+                            Padding="6"
+                            BackgroundColor="WhiteSmoke"
+                            WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}">
+                            <Grid HeightRequest="96">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Label 
+                                    Grid.Column="0" Grid.Row="0"
+                                    Text="{Binding Path=Title}"
+                                    FontSize="Medium" />
+                                <Label
+                                    Grid.Column="0" Grid.Row="1"
+                                    Text="{Binding Path=Description, Converter={StaticResource IfNullOrEmptyToStringConverter}}"
+                                    TextColor="DimGray" />
+                                <Button
+                                    Grid.Column="1" Grid.RowSpan="2"
+                                    VerticalOptions="Start"
+                                    BackgroundColor="Transparent"
+                                    BorderWidth="0"
+                                    Padding="0,6"
+                                    Text="&#xf1d9;"
+                                    FontFamily="Material Design Icons"
+                                    FontSize="Medium"
+                                    Clicked="AlbumOptionsButton_Clicked" />
+                            </Grid>
+                        </pancakeviews:PancakeView>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</sscxftoolkitmvvmpages:BindingContextedContentPage>
