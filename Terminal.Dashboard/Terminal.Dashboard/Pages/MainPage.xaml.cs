@@ -93,14 +93,14 @@ namespace EM.Terminal.Dashboard.Pages
                 {
                     Kind = Enumerations.ActionKind.ManageUsers,
                     Caption = "Usuarios",
-                    IconGlyph = "\uf0d6",
+                    IconGlyph = "\uf004",
                     IsEnabled = false
                 },
                 new Models.View.ActionViewModel
                 {
                     Kind = Enumerations.ActionKind.ManageUserGroups,
                     Caption = "Grupos de Usuarios",
-                    IconGlyph = "\uF431",
+                    IconGlyph = "\uf848",
                     IsEnabled = false
                 }
             }));
@@ -111,7 +111,7 @@ namespace EM.Terminal.Dashboard.Pages
                 {
                     Kind = Enumerations.ActionKind.ManageEvents,
                     Caption = "Eventos",
-                    IconGlyph = "\uFE3A",
+                    IconGlyph = "\uf254",
                     IsEnabled = true
                 }
             }));

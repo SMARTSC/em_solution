@@ -83,7 +83,7 @@ namespace EM.Terminal.Dashboard.Pages
                             break;
                     }
                 });
-            });            
+            });
         }
 
         private void AddToolbarItem_Activated(object sender, System.EventArgs e)

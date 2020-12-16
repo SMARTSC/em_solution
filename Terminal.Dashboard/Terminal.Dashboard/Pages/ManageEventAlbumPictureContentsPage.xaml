@@ -9,7 +9,6 @@
     xmlns:converters="clr-namespace:EM.Terminal.Dashboard.Converters"
     xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
     xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
-    xmlns:pancakeviews="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:ffimageloadingforms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     mc:Ignorable="d"
     x:Class="EM.Terminal.Dashboard.Pages.ManageEventAlbumPictureContentsPage"    
@@ -34,8 +33,14 @@
                     <FontImageSource.Color>
                         <OnPlatform x:TypeArguments="Color">
                             <On Platform="UWP" Value="Black" />
+                            <On Platform="macOS" Value="Black" />
                         </OnPlatform>
                     </FontImageSource.Color>
+                    <FontImageSource.Size>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="macOS" Value="10" />
+                        </OnPlatform>
+                    </FontImageSource.Size>
                 </FontImageSource>
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
@@ -57,29 +62,28 @@
                     </BindableLayout.EmptyView>
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <pancakeviews:PancakeView
+                            <Grid
                                 Margin="5" Padding="0"
                                 BackgroundColor="White"
-                                WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}">
-                                <Grid RowSpacing="0">
-                                    <ffimageloadingforms:CachedImage 
-                                        BackgroundColor="Black"
-                                        HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.777777777777778}"
-                                        Source="{Binding Converter={StaticResource ImageMediaDisplayModelToThumbnailImageSourceConverter}, ConverterParameter={Binding Path=Album.Id}}"
-                                        CacheType="Disk"
-                                        CacheDuration="8760:00:00" />
-                                    <StackLayout 
-                                        IsVisible="{Binding Path=About, Converter={StaticResource NotNullOrEmptyStringToBooleanConverter}}"
-                                        VerticalOptions="End" 
-                                        Padding="8"
-                                        BackgroundColor="#99000000">
-                                        <Label 
-                                            Text="{Binding Path=Created}"
-                                            TextColor="White"
-                                            LineBreakMode="TailTruncation" />
-                                    </StackLayout>
-                                </Grid>
-                            </pancakeviews:PancakeView>
+                                WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}"
+                                RowSpacing="0">
+                                <ffimageloadingforms:CachedImage 
+                                    BackgroundColor="Black"
+                                    HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.777777777777778}"
+                                    Source="{Binding Converter={StaticResource ImageMediaDisplayModelToThumbnailImageSourceConverter}, ConverterParameter={Binding Path=Album.Id}}"
+                                    CacheType="Disk"
+                                    CacheDuration="8760:00:00" />
+                                <StackLayout 
+                                    IsVisible="{Binding Path=About, Converter={StaticResource NotNullOrEmptyStringToBooleanConverter}}"
+                                    VerticalOptions="End" 
+                                    Padding="8"
+                                    BackgroundColor="#99000000">
+                                    <Label 
+                                        Text="{Binding Path=Created}"
+                                        TextColor="White"
+                                        LineBreakMode="TailTruncation" />
+                                </StackLayout>
+                            </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </FlexLayout>

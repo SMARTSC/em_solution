@@ -15,7 +15,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -89,7 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Terminal.PrintCenter\Terminal.PrintCenter.csproj">
-      <Project>{5F1AB309-7BEA-4268-8872-83930DB14C19}</Project>
+      <Project>{4774A43D-210F-4324-9D14-742908A51FFC}</Project>
       <Name>Terminal.PrintCenter</Name>
     </ProjectReference>
   </ItemGroup>

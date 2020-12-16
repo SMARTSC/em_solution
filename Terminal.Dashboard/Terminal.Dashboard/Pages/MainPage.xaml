@@ -8,7 +8,6 @@
     xmlns:views="clr-namespace:EM.Terminal.Dashboard.Views"
     xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
     xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
-    xmlns:pancakeviews="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     mc:Ignorable="d"
     x:Class="EM.Terminal.Dashboard.Pages.MainPage"
     x:TypeArguments="pagemodels:MainPageModel"
@@ -17,7 +16,7 @@
         <ResourceDictionary>
             <!--#region SSCXFToolkit.Presentation Convertes -->
             <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="GroupsBindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="720" ChildAbsoluteHorizontalMargin="20" />
-            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="ActiosBindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="240" ChildAbsoluteHorizontalMargin="10" />
+            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="ActiosBindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="240" ChildAbsoluteHorizontalMargin="30" />
             <sscxftoolkitpresentationconverters:BoolToStringConverter x:Key="EnabledBoolToBackgroundColorStringConverter" FalseString="DimGray" TrueString="Accent" />
             <!--#endregion-->
         </ResourceDictionary>
@@ -31,49 +30,48 @@
                 BindableLayout.ItemsSource="{Binding Path=ActionGroups}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <pancakeviews:PancakeView
+                        <StackLayout
                             Margin="10"
+                            Spacing="0"
                             WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource GroupsBindingLayoutWidthToResponsiveChildWidthConverter}}">
-                            <StackLayout Spacing="0">
-                                <Label 
-                                    Grid.Row="0"
-                                    Padding="5"
-                                    BackgroundColor="LightGray"
-                                    Text="{Binding Path=Key}"
-                                    FontAttributes="Bold" />
-                                <FlexLayout
-                                    Grid.Row="1"
-                                    Padding="5"
-                                    BackgroundColor="WhiteSmoke"
-                                    Wrap="Wrap"
-                                    AlignContent="Start" AlignItems="Start"
-                                    BindableLayout.ItemsSource="{Binding Path=Actions}">
-                                    <BindableLayout.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackLayout
-                                                Margin="5" Padding="10"
-                                                BackgroundColor="{Binding Path=IsEnabled, Converter={StaticResource EnabledBoolToBackgroundColorStringConverter}}"
-                                                Spacing="2"
-                                                WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource ActiosBindingLayoutWidthToResponsiveChildWidthConverter}}">
-                                                <StackLayout.GestureRecognizers>
-                                                    <TapGestureRecognizer Tapped="ActionView_Tapped" />
-                                                </StackLayout.GestureRecognizers>
-                                                <Label
-                                                    HorizontalOptions="Center"
-                                                    Text="{Binding Path=IconGlyph}"
-                                                    TextColor="White"
-                                                    FontFamily="Material Design Icons"
-                                                    FontSize="48" />
-                                                <Label 
-                                                    HorizontalTextAlignment="Center"
-                                                    Text="{Binding Path=Caption}"
-                                                    TextColor="White" />
-                                            </StackLayout>
-                                        </DataTemplate>
-                                    </BindableLayout.ItemTemplate>  
-                                </FlexLayout>
-                            </StackLayout>
-                        </pancakeviews:PancakeView>
+                            <Label 
+                                Grid.Row="0"
+                                Padding="5"
+                                BackgroundColor="LightGray"
+                                Text="{Binding Path=Key}"
+                                FontAttributes="Bold" />
+                            <FlexLayout
+                                Grid.Row="1"
+                                Padding="5"
+                                BackgroundColor="WhiteSmoke"
+                                Wrap="Wrap"
+                                AlignContent="Start" AlignItems="Start"
+                                BindableLayout.ItemsSource="{Binding Path=Actions}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout
+                                            Margin="5" Padding="10"
+                                            BackgroundColor="{Binding Path=IsEnabled, Converter={StaticResource EnabledBoolToBackgroundColorStringConverter}}"
+                                            Spacing="2"
+                                            WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource ActiosBindingLayoutWidthToResponsiveChildWidthConverter}}">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="ActionView_Tapped" />
+                                            </StackLayout.GestureRecognizers>
+                                            <Label
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Path=IconGlyph}"
+                                                TextColor="White"
+                                                FontFamily="Material Design Icons"
+                                                FontSize="48" />
+                                            <Label 
+                                                HorizontalTextAlignment="Center"
+                                                Text="{Binding Path=Caption}"
+                                                TextColor="White" />
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>  
+                            </FlexLayout>
+                        </StackLayout>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </FlexLayout>

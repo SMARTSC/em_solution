@@ -4,7 +4,7 @@ namespace EM.Terminal.Dashboard.Pages
 {
     public partial class UserAuthenticationPage : SmartSolucionesCuba.XFToolKit.Mvvm.Pages.BindingContextedContentPage<Models.Page.UserAuthenticationPageModel>
     {
-        public UserAuthenticationPage() : base(new Models.Page.UserAuthenticationPageModel { Server = Managers.SessionManager.Instance.Server })
+        public UserAuthenticationPage() : base(new Models.Page.UserAuthenticationPageModel { Server = Managers.SessionManager.Instance.LastServer })
         {
             InitializeComponent();
         }

@@ -130,9 +130,6 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
-    <PackageReference Include="Xamarin.Forms.PancakeView">
-      <Version>2.3.0.759</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Plugin.FilePicker">
       <Version>2.1.41</Version>
     </PackageReference>
@@ -140,7 +137,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Terminal.Dashboard\Terminal.Dashboard.csproj">
-      <Project>{13422DBB-A02E-4FDD-8F4A-318FD7A7BFD6}</Project>
+      <Project>{D01175B7-DA90-4B4B-8C3F-EC3D5829AFE2}</Project>
       <Name>Terminal.Dashboard</Name>
     </ProjectReference>
   </ItemGroup>

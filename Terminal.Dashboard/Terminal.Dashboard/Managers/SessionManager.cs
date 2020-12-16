@@ -26,6 +26,8 @@
 
         public bool HasAuthenticatedIdentity => UserLogin != null;
 
+        public string LastServer => Xamarin.Forms.Application.Current.Properties[LAST_CLOUD_SERVER_KEY]?.ToString() ?? string.Empty;
+
         private System.Collections.Generic.KeyValuePair<string, string> AuthorizeHeader
         {
             get
@@ -60,6 +62,7 @@
 
             await Xamarin.Forms.Application.Current.SavePropertiesAsync();
 
+            Server = server;
             AuthenticationType = result.Type;
             AuthorizationToken = result.Token;
             UserLogin = login;
