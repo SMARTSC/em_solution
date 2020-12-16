@@ -173,5 +173,9 @@ namespace EM.Terminal.Dashboard.Pages
                 });
             });
         }
+
+        private void CachedImage_Error(object sender, FFImageLoading.Forms.CachedImageEvents.ErrorEventArgs e)
+        {
+        }
     }
 }

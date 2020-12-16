@@ -133,6 +133,9 @@
     <PackageReference Include="Xamarin.Plugin.FilePicker">
       <Version>2.1.41</Version>
     </PackageReference>
+    <PackageReference Include="MagicGradients">
+      <Version>1.2.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

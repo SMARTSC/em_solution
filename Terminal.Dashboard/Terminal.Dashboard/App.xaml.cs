@@ -12,7 +12,9 @@ namespace EM.Terminal.Dashboard
 
             FFImageLoading.ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration
             {
-                HttpClient = new System.Net.Http.HttpClient(new Helpers.HttpClientHandlingHelper())
+                HttpClient = new System.Net.Http.HttpClient(new Helpers.HttpClientHandlingHelper()),
+                HttpHeadersTimeout = 60000,
+                HttpReadTimeout = 90000
             });
 
             MainPage = new Xamarin.Forms.NavigationPage(new Pages.MainPage());

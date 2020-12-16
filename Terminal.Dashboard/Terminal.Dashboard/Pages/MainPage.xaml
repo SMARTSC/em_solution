@@ -22,6 +22,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid>
+        <views:BackgroundView />
         <ScrollView Orientation="Vertical">
             <FlexLayout
                 Padding="10"
@@ -34,16 +35,15 @@
                             Margin="10"
                             Spacing="0"
                             WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource GroupsBindingLayoutWidthToResponsiveChildWidthConverter}}">
-                            <Label 
-                                Grid.Row="0"
-                                Padding="5"
-                                BackgroundColor="LightGray"
-                                Text="{Binding Path=Key}"
-                                FontAttributes="Bold" />
+                            <ContentView BackgroundColor="WhiteSmoke">
+                                <Label 
+                                    Margin="5"
+                                    Text="{Binding Path=Key}"
+                                    FontAttributes="Bold" />
+                            </ContentView>
                             <FlexLayout
-                                Grid.Row="1"
                                 Padding="5"
-                                BackgroundColor="WhiteSmoke"
+                                BackgroundColor="White"
                                 Wrap="Wrap"
                                 AlignContent="Start" AlignItems="Start"
                                 BindableLayout.ItemsSource="{Binding Path=Actions}">

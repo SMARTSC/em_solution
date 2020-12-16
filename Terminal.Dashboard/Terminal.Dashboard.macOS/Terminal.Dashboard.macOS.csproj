@@ -114,6 +114,18 @@
     <Reference Include="SmartSolucionesCuba.XFToolKit.Presentation">
       <HintPath>..\..\packages\SSCXFToolKit.Presentation.0.4.10-alpha\lib\netstandard2.0\SmartSolucionesCuba.XFToolKit.Presentation.dll</HintPath>
     </Reference>
+    <Reference Include="SkiaSharp">
+      <HintPath>..\..\packages\SkiaSharp.1.68.1.1\lib\Xamarin.Mac20\SkiaSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.Mac">
+      <HintPath>..\..\packages\SkiaSharp.Views.1.68.1.1\lib\Xamarin.Mac20\SkiaSharp.Views.Mac.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.Forms">
+      <HintPath>..\..\packages\SkiaSharp.Views.Forms.1.68.1.1\lib\Xamarin.Mac20\SkiaSharp.Views.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="MagicGradients">
+      <HintPath>..\..\packages\MagicGradients.1.2.0\lib\netstandard2.0\MagicGradients.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -142,10 +154,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="ViewController.cs" />
-    <Compile Include="ViewController.designer.cs">
-      <DependentUpon>ViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Managers\ApplicationManager.cs" />
   </ItemGroup>
   <ItemGroup>

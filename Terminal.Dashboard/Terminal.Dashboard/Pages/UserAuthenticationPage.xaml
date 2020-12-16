@@ -10,7 +10,8 @@
     xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
     mc:Ignorable="d"
     x:Class="EM.Terminal.Dashboard.Pages.UserAuthenticationPage"
-    x:TypeArguments="pagemodels:UserAuthenticationPageModel">
+    x:TypeArguments="pagemodels:UserAuthenticationPageModel"
+    IsEnabled="{Binding Path=IsBusy, Converter={StaticResource BoolToBoolNegationConverter}}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <sscxftoolkitpresentationconverters:BoolToBoolNegationConverter x:Key="BoolToBoolNegationConverter" />
@@ -32,10 +33,10 @@
                     Placeholder="contraseña"
                     IsPassword="true" />
                 <Button
-                    IsEnabled="{Binding Path=IsBusy, Converter={StaticResource BoolToBoolNegationConverter}}"
+                    Margin="0,10,0,0"
                     HorizontalOptions="FillAndExpand"
-                    Margin="24"
                     BackgroundColor="Accent"
+                    HeightRequest="36"
                     Text="Iniciar"
                     TextColor="White"
                     Clicked="SignButton_Clicked" />

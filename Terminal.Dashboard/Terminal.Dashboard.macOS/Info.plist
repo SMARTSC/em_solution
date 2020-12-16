@@ -5,9 +5,9 @@
 	<key>CFBundleName</key>
 	<string>Espejo Molón Dashboard</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.cubansconnection.Terminal.Dashboard</string>
+	<string>com.espejomolon.Terminal.Dashboard</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>0.1.0-alpha</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSMinimumSystemVersion</key>

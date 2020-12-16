@@ -21,7 +21,7 @@
             <sscxftoolkitpresentationconverters:FractionConverter x:Key="FractionConverter" />
             <sscxftoolkitpresentationconverters:NotNullOrEmptyStringToBooleanConverter x:Key="NotNullOrEmptyStringToBooleanConverter" />
             <sscxftoolkitpresentationconverters:BoolToBoolNegationConverter x:Key="BoolToBoolNegationConverter" />
-            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="320" ChildAbsoluteHorizontalMargin="10" />
+            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="320" ChildAbsoluteHorizontalMargin="20" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
@@ -49,27 +49,26 @@
         <Grid>
             <ScrollView Orientation="Vertical">
                 <FlexLayout
-                    Margin="5"
+                    Padding="10"
                     Wrap="Wrap"
                     AlignItems="Start" AlignContent="Start"
                     BindableLayout.ItemsSource="{Binding Path=Items}">
                     <BindableLayout.EmptyView>
                         <Label
                             IsVisible="{Binding Path=IsBusy, Converter={StaticResource BoolToBoolNegationConverter}}"
-                            Margin="20"
+                            Margin="10"
                             Text="Sin elementos que mostrar"
                             TextColor="Black" />
                     </BindableLayout.EmptyView>
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Grid
-                                Margin="5" Padding="0"
-                                BackgroundColor="White"
+                                Margin="10"
                                 WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}"
                                 RowSpacing="0">
-                                <ffimageloadingforms:CachedImage 
+                                <ffimageloadingforms:CachedImage
                                     BackgroundColor="Black"
-                                    HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.777777777777778}"
+                                    HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}"
                                     Source="{Binding Converter={StaticResource ImageMediaDisplayModelToThumbnailImageSourceConverter}, ConverterParameter={Binding Path=Album.Id}}"
                                     CacheType="Disk"
                                     CacheDuration="8760:00:00" />

@@ -5,6 +5,7 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pagemodels="clr-namespace:EM.Terminal.Dashboard.Models.Page"
+    xmlns:views="clr-namespace:EM.Terminal.Dashboard.Views"
     xmlns:converters="clr-namespace:EM.Terminal.Dashboard.Converters"
     xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
     xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
@@ -21,83 +22,88 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <ScrollView Orientation="Vertical">
-            <FlexLayout
-                Padding="10"
-                Wrap="Wrap"
-                AlignContent="Start" AlignItems="Start"
-                BindableLayout.ItemsSource="{Binding Path=Items}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Grid
-                            Padding="6"
-                            BackgroundColor="WhiteSmoke"
-                            WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}"
-                            HeightRequest="110">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <ffimageloadingforms:CachedImage 
-                                Grid.Column="0" Grid.RowSpan="4"
-                                BackgroundColor="White"
-                                WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type Grid}}, Path=HeightRequest}" HeightRequest="{Binding Source={x:RelativeSource AncestorType={x:Type Grid}}, Path=HeightRequest}"
-                                Source="{Binding Converter={StaticResource EventDisplayModelToLogoImageSourceConverter}}"
-                                CacheType="Disk"
-                                CacheDuration="8760:00:00" />
-                            <Label 
-                                Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0"
-                                Text="{Binding Path=Name}"
-                                FontSize="Medium" />
-                            <Label
-                                Grid.Column="1" Grid.Row="1"
-                                Text="&#xf0ed;"
-                                FontFamily="Material Design Icons"
-                                FontSize="Medium" />
-                            <Label 
-                                Grid.Column="2" Grid.Row="1"
-                                Padding="0,2,0,0">
-                                <Label.Text>
-                                    <MultiBinding StringFormat="{}{0} - {1}">
-                                        <Binding Path="Start" Converter="{StaticResource DateDateTimeToStringConverter}" ConverterParameter="dd/MM/yyyy" />
-                                        <Binding Path="End" Converter="{StaticResource DateDateTimeToStringConverter}" ConverterParameter="dd/MM/yyyy" />
-                                    </MultiBinding>
-                                </Label.Text>
-                            </Label>
-                            <Label
-                                Grid.Column="1" Grid.Row="2"
-                                Text="&#xf352;"
-                                FontFamily="Material Design Icons"
-                                FontSize="Medium" />
-                            <Label 
-                                Grid.Column="2" Grid.Row="2"
-                                Padding="0,2,0,0"
-                                Text="{Binding Path=PlaceName}"
-                                LineBreakMode="WordWrap"
-                                MaxLines="2" />
-                            <Label
-                                Grid.Column="3" Grid.RowSpan="4"
-                                VerticalOptions="Start"
-                                Padding="0,6"
-                                Text="&#xf1d9;"
-                                FontFamily="Material Design Icons"
-                                FontSize="Medium">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="EventOptionsButton_Clicked" />
-                                </Label.GestureRecognizers>
-                            </Label>
-                        </Grid>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </FlexLayout>
-        </ScrollView>
+        <Grid>
+            <views:BackgroundView />
+            <ScrollView Orientation="Vertical">
+                <FlexLayout
+                    Padding="10"
+                    Wrap="Wrap"
+                    AlignContent="Start" AlignItems="Start"
+                    BindableLayout.ItemsSource="{Binding Path=Items}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                Margin="10"
+                                BackgroundColor="GhostWhite"
+                                WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}"
+                                HeightRequest="110">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <ffimageloadingforms:CachedImage 
+                                    Grid.Column="0" Grid.RowSpan="4"
+                                    BackgroundColor="White"
+                                    WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type Grid}}, Path=HeightRequest}" HeightRequest="{Binding Source={x:RelativeSource AncestorType={x:Type Grid}}, Path=HeightRequest}"
+                                    Source="{Binding Converter={StaticResource EventDisplayModelToLogoImageSourceConverter}}"
+                                    CacheType="None"
+                                    CacheDuration="8760:00:00"
+                                    RetryCount="0"
+                                    Error="CachedImage_Error" />
+                                <Label 
+                                    Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0"
+                                    Text="{Binding Path=Name}"
+                                    FontSize="Medium" />
+                                <Label
+                                    Grid.Column="1" Grid.Row="1"
+                                    Text="&#xf0ed;"
+                                    FontFamily="Material Design Icons"
+                                    FontSize="Medium" />
+                                <Label 
+                                    Grid.Column="2" Grid.Row="1"
+                                    Padding="0,2,0,0">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                            <Binding Path="Start" Converter="{StaticResource DateDateTimeToStringConverter}" ConverterParameter="dd/MM/yyyy" />
+                                            <Binding Path="End" Converter="{StaticResource DateDateTimeToStringConverter}" ConverterParameter="dd/MM/yyyy" />
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                                <Label
+                                    Grid.Column="1" Grid.Row="2"
+                                    Text="&#xf352;"
+                                    FontFamily="Material Design Icons"
+                                    FontSize="Medium" />
+                                <Label 
+                                    Grid.Column="2" Grid.Row="2"
+                                    Padding="0,2,0,0"
+                                    Text="{Binding Path=PlaceName}"
+                                    LineBreakMode="WordWrap"
+                                    MaxLines="2" />
+                                <Label
+                                    Grid.Column="3" Grid.RowSpan="4"
+                                    VerticalOptions="Start"
+                                    Padding="0,6"
+                                    Text="&#xf1d9;"
+                                    FontFamily="Material Design Icons"
+                                    FontSize="Medium">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="EventOptionsButton_Clicked" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </ScrollView>
+        </Grid>        
     </ContentPage.Content>
 </sscxftoolkitmvvmpages:BindingContextedContentPage>

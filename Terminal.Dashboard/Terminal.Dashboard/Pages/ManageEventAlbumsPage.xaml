@@ -14,7 +14,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="320" ChildAbsoluteHorizontalMargin="20" />
-            <sscxftoolkitpresentationconverters:IfNullOrEmptyToStringConverter x:Key="IfNullOrEmptyToStringConverter" StringReplacement="-" />
+            <sscxftoolkitpresentationconverters:IfNullOrEmptyToStringConverter x:Key="IfNullOrEmptyToStringConverter" StringReplacement="Album sin descripción especificada" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -27,7 +27,7 @@
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
                         <Grid
-                            Padding="6"
+                            Margin="10" Padding="6"
                             BackgroundColor="WhiteSmoke"
                             WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}"
                             HeightRequest="96">
