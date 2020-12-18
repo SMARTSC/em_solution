@@ -10,7 +10,9 @@ namespace EM.Cloud.Persistence.EF.Repositories
 
         protected override System.Linq.IQueryable<Entities.PictureContent> GetQueryableDbSet()
         {
-            return base.GetQueryableDbSet().Include(entity => entity.Image).ThenInclude(entity => entity.Thumbnail);
+            return base.GetQueryableDbSet()
+                .Include(entity => entity.Album)
+                .Include(entity => entity.Image).ThenInclude(entity => entity.Thumbnail);
         }
     }
 }

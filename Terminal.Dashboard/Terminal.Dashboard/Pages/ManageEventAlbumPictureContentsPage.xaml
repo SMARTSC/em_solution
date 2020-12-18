@@ -50,10 +50,19 @@
             <views:BackgroundView />
             <ScrollView Orientation="Vertical">
                 <FlexLayout
-                    Padding="5"
+                    Margin="5"
                     Wrap="Wrap"
                     AlignItems="Start" AlignContent="Start"
                     BindableLayout.ItemsSource="{Binding Path=Items}">
+                    <BindableLayout.EmptyView>
+                        <Label
+                            IsVisible="{Binding Path=IsBusy, Converter={StaticResource BoolToBoolNegationConverter}}"
+                            Margin="10"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="Sin elementos que mostrar"
+                            TextColor="Black" />
+                    </BindableLayout.EmptyView>
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Grid
@@ -67,7 +76,6 @@
                                     CacheType="Disk"
                                     CacheDuration="8760:00:00" />
                                 <StackLayout 
-                                    IsVisible="{Binding Path=About, Converter={StaticResource NotNullOrEmptyStringToBooleanConverter}}"
                                     VerticalOptions="End" 
                                     Padding="8"
                                     BackgroundColor="#99000000">
@@ -76,6 +84,27 @@
                                         TextColor="White"
                                         LineBreakMode="TailTruncation" />
                                 </StackLayout>
+                                <ImageButton
+                                    VerticalOptions="Start" HorizontalOptions="End"
+                                    Margin="4"
+                                    WidthRequest="24"
+                                    HeightRequest="24"
+                                    BackgroundColor="#99000000"
+                                    BorderWidth="0"
+                                    CornerRadius="12"
+                                    Clicked="DeleteItemButton_Clicked">
+                                    <ImageButton.Padding>
+                                        <OnPlatform x:TypeArguments="Thickness">
+                                            <On Platform="UWP" Value="1,0,0,0" />
+                                        </OnPlatform>
+                                    </ImageButton.Padding>
+                                    <ImageButton.Source>
+                                        <FontImageSource 
+                                            Color="White"
+                                            FontFamily="Material Design Icons"
+                                            Glyph="&#xF156;" />
+                                    </ImageButton.Source>
+                                </ImageButton>
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

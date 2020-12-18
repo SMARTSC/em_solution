@@ -25,7 +25,7 @@
         <views:BackgroundView />
         <ScrollView Orientation="Vertical">
             <FlexLayout
-                Padding="5"
+                Margin="5"
                 Wrap="Wrap"
                 AlignContent="Start" AlignItems="Start"
                 BindableLayout.ItemsSource="{Binding Path=ActionGroups}">
@@ -37,40 +37,41 @@
                             WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource GroupsBindingLayoutWidthToResponsiveChildWidthConverter}}">
                             <ContentView BackgroundColor="WhiteSmoke">
                                 <Label 
-                                    Margin="5"
+                                    Margin="8,5"
                                     Text="{Binding Path=Key}"
                                     FontAttributes="Bold" />
                             </ContentView>
-                            <FlexLayout
-                                Padding="5"
-                                BackgroundColor="White"
-                                Wrap="Wrap"
-                                AlignContent="Start" AlignItems="Start"
-                                BindableLayout.ItemsSource="{Binding Path=Actions}">
-                                <BindableLayout.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackLayout
-                                            Margin="5" Padding="10"
-                                            BackgroundColor="{Binding Path=IsEnabled, Converter={StaticResource EnabledBoolToBackgroundColorStringConverter}}"
-                                            Spacing="2"
-                                            WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource ActiosBindingLayoutWidthToResponsiveChildWidthConverter}}">
-                                            <StackLayout.GestureRecognizers>
-                                                <TapGestureRecognizer Tapped="ActionView_Tapped" />
-                                            </StackLayout.GestureRecognizers>
-                                            <Label
-                                                HorizontalOptions="Center"
-                                                Text="{Binding Path=IconGlyph}"
-                                                TextColor="White"
-                                                FontFamily="Material Design Icons"
-                                                FontSize="48" />
-                                            <Label 
-                                                HorizontalTextAlignment="Center"
-                                                Text="{Binding Path=Caption}"
-                                                TextColor="White" />
-                                        </StackLayout>
-                                    </DataTemplate>
-                                </BindableLayout.ItemTemplate>  
-                            </FlexLayout>
+                            <Grid BackgroundColor="White">
+                                <FlexLayout
+                                    Margin="5"
+                                    Wrap="Wrap"
+                                    AlignContent="Start" AlignItems="Start"
+                                    BindableLayout.ItemsSource="{Binding Path=Actions}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout
+                                                Margin="5" Padding="10"
+                                                BackgroundColor="{Binding Path=IsEnabled, Converter={StaticResource EnabledBoolToBackgroundColorStringConverter}}"
+                                                Spacing="2"
+                                                WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource ActiosBindingLayoutWidthToResponsiveChildWidthConverter}}">
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="ActionView_Tapped" />
+                                                </StackLayout.GestureRecognizers>
+                                                <Label
+                                                    HorizontalOptions="Center"
+                                                    Text="{Binding Path=IconGlyph}"
+                                                    TextColor="White"
+                                                    FontFamily="Material Design Icons"
+                                                    FontSize="48" />
+                                                <Label 
+                                                    HorizontalTextAlignment="Center"
+                                                    Text="{Binding Path=Caption}"
+                                                    TextColor="White" />
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>  
+                                </FlexLayout>
+                            </Grid>
                         </StackLayout>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>

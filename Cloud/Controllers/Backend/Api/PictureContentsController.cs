@@ -146,9 +146,11 @@ namespace EM.Cloud.Controllers.Backend.Api
             Providers.ImagesBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Album.Id);
             Providers.ThumbnailsBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Album.Id);
 
-            thumbnailRepository.Delete(entity.Image.Thumbnail, User.Identity.Name);
+            var thumbnail = entity.Image.Thumbnail;
 
-            thumbnailFileManager.DeleteThumbnailFile(entity.Image.Thumbnail);
+            thumbnailRepository.Delete(thumbnail, User.Identity.Name);
+
+            thumbnailFileManager.DeleteThumbnailFile(thumbnail);
 
             imageRepository.Delete(entity.Image, User.Identity.Name);
 

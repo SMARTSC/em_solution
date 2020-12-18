@@ -23,7 +23,7 @@
             <views:BackgroundView />
             <ScrollView Orientation="Vertical">
                 <FlexLayout
-                    Padding="5"
+                    Margin="5"
                     Wrap="Wrap"
                     AlignContent="Start" AlignItems="Start"
                     BindableLayout.ItemsSource="{Binding Path=Event.Albums}">
