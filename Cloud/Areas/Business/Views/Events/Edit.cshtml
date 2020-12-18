@@ -166,7 +166,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-6" style="margin-bottom: 20px;">
                     <div class="card">
-                        <img src="@Url.Action("eventlogo", "image", new { Area = "business", key = Model.Id })" class="card-img-top" id="LogoFilePreview" />
+                        <img src="@Url.Action("image", "media", new { Area = "business", key = Model.LogoId })" class="card-img-top" id="LogoFilePreview" />
                         <label class="btn btn-light" style="border-top-left-radius: 0; border-top-right-radius: 0; margin-bottom: 0;">
                             @GlobalViewLocalizationHelper.Localize("Upload", ViewLocalizer) ...
                             @Html.EditorFor(model => model.LogoFile)
