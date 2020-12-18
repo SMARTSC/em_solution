@@ -15,7 +15,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <!--#region SSCXFToolkit.Presentation Convertes -->
-            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="GroupsBindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="720" ChildAbsoluteHorizontalMargin="20" />
+            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="GroupsBindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="480" ChildAbsoluteHorizontalMargin="10" />
             <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="ActiosBindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="240" ChildAbsoluteHorizontalMargin="30" />
             <sscxftoolkitpresentationconverters:BoolToStringConverter x:Key="EnabledBoolToBackgroundColorStringConverter" FalseString="DimGray" TrueString="Accent" />
             <!--#endregion-->
@@ -25,14 +25,14 @@
         <views:BackgroundView />
         <ScrollView Orientation="Vertical">
             <FlexLayout
-                Padding="10"
+                Padding="5"
                 Wrap="Wrap"
                 AlignContent="Start" AlignItems="Start"
                 BindableLayout.ItemsSource="{Binding Path=ActionGroups}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
                         <StackLayout
-                            Margin="10"
+                            Margin="5"
                             Spacing="0"
                             WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource GroupsBindingLayoutWidthToResponsiveChildWidthConverter}}">
                             <ContentView BackgroundColor="WhiteSmoke">

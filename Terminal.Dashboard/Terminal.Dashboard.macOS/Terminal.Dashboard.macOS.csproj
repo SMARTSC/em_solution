@@ -7,7 +7,7 @@
     <ProjectGuid>{E174F7A5-AC82-49B6-95F9-965A70B139E8}</ProjectGuid>
     <ProjectTypeGuids>{A3F8F2AB-B479-4A4A-A458-A89E7DC349F1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Terminal.Dashboard.macOS</RootNamespace>
+    <RootNamespace>EM.Terminal.Dashboard.macOS</RootNamespace>
     <AssemblyName>Espejo Molón Dashboard</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <TargetFrameworkIdentifier>Xamarin.Mac</TargetFrameworkIdentifier>
@@ -31,6 +31,7 @@
     <HttpClientHandler></HttpClientHandler>
     <LinkMode></LinkMode>
     <XamMacArch></XamMacArch>
+    <AOTMode>None</AOTMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,6 +49,7 @@
     <LinkMode>SdkOnly</LinkMode>
     <HttpClientHandler></HttpClientHandler>
     <XamMacArch></XamMacArch>
+    <AOTMode>None</AOTMode>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -142,9 +144,10 @@
     <ImageAsset Include="Assets.xcassets\Contents.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
     <Folder Include="Managers\" />
-    <Folder Include="Resources\Fonts\" />
+    <Folder Include="Providers\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -155,6 +158,10 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Managers\ApplicationManager.cs" />
+    <Compile Include="Providers\ConstantProvider.cs" />
+    <Compile Include="Helpers\ToastNotificationHelper.cs" />
+    <Compile Include="Extensions\DateExtensions.cs" />
+    <Compile Include="Managers\UNNotificationManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
@@ -184,9 +191,6 @@
       <Project>{C32DC075-9DF1-4EEB-9968-548F265EB3F3}</Project>
       <Name>Cloud.Persistence</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\Fonts\materialdesignicons-webfont.ttf" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.4.8.0.1687\build\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.4.8.0.1687\build\Xamarin.Forms.targets')" />

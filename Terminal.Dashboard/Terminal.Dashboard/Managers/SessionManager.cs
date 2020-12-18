@@ -26,7 +26,7 @@
 
         public bool HasAuthenticatedIdentity => UserLogin != null;
 
-        public string LastServer => Xamarin.Forms.Application.Current.Properties[LAST_CLOUD_SERVER_KEY]?.ToString() ?? string.Empty;
+        public string LastServer => Xamarin.Forms.Application.Current.Properties.ContainsKey(LAST_CLOUD_SERVER_KEY) ? Xamarin.Forms.Application.Current.Properties[LAST_CLOUD_SERVER_KEY]?.ToString() ?? string.Empty : string.Empty;
 
         private System.Collections.Generic.KeyValuePair<string, string> AuthorizeHeader
         {

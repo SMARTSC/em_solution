@@ -5,6 +5,7 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pagemodels="clr-namespace:EM.Terminal.Dashboard.Models.Page"
+    xmlns:views="clr-namespace:EM.Terminal.Dashboard.Views"
     xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
     xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
     mc:Ignorable="d"
@@ -13,55 +14,59 @@
     Title="Albumes">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="320" ChildAbsoluteHorizontalMargin="20" />
+            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="320" ChildAbsoluteHorizontalMargin="10" />
             <sscxftoolkitpresentationconverters:IfNullOrEmptyToStringConverter x:Key="IfNullOrEmptyToStringConverter" StringReplacement="Album sin descripción especificada" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <ScrollView Orientation="Vertical">
-            <FlexLayout
-                Padding="10"
-                Wrap="Wrap"
-                AlignContent="Start" AlignItems="Start"
-                BindableLayout.ItemsSource="{Binding Path=Event.Albums}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Grid
-                            Margin="10" Padding="6"
-                            BackgroundColor="WhiteSmoke"
-                            WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}"
-                            HeightRequest="96">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Label 
-                                Grid.Column="0" Grid.Row="0"
-                                Text="{Binding Path=Title}"
-                                FontSize="Medium" />
-                            <Label
-                                Grid.Column="0" Grid.Row="1"
-                                Text="{Binding Path=Description, Converter={StaticResource IfNullOrEmptyToStringConverter}}"
-                                TextColor="DimGray" />
-                            <Label
-                                Grid.Column="1" Grid.RowSpan="2"
-                                VerticalOptions="Start"
-                                Padding="0,6"
-                                Text="&#xf1d9;"
-                                FontFamily="Material Design Icons"
-                                FontSize="Medium">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="AlbumOptionsButton_Clicked" />
-                                </Label.GestureRecognizers>
-                            </Label>
-                        </Grid>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </FlexLayout>
-        </ScrollView>
+        <Grid>
+            <views:BackgroundView />
+            <ScrollView Orientation="Vertical">
+                <FlexLayout
+                    Padding="5"
+                    Wrap="Wrap"
+                    AlignContent="Start" AlignItems="Start"
+                    BindableLayout.ItemsSource="{Binding Path=Event.Albums}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                Margin="5" Padding="8,8,0,8"
+                                BackgroundColor="WhiteSmoke"
+                                WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}"
+                                HeightRequest="96">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Label 
+                                    Grid.Column="0" Grid.Row="0"
+                                    Text="{Binding Path=Title}"
+                                    Style="{StaticResource NormalTitleFontLabelStyle}" />
+                                <Label
+                                    Grid.Column="0" Grid.Row="1"
+                                    Text="{Binding Path=Description, Converter={StaticResource IfNullOrEmptyToStringConverter}}"
+                                    TextColor="{StaticResource SecundaryTextColor}" />
+                                <Label
+                                    Grid.Column="1" Grid.RowSpan="2"
+                                    VerticalOptions="Start"
+                                    Padding="0,6"
+                                    Text="&#xf1d9;"
+                                    TextColor="Accent"
+                                    FontFamily="Material Design Icons"
+                                    Style="{StaticResource NormalTitleFontLabelStyle}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="AlbumOptionsButton_Clicked" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </ScrollView>
+        </Grid>        
     </ContentPage.Content>
 </sscxftoolkitmvvmpages:BindingContextedContentPage>

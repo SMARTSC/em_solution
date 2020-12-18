@@ -28,6 +28,8 @@ namespace EM.Terminal.Dashboard.macOS
 
         public override void DidFinishLaunching(NSNotification notification)
         {
+            Helpers.ToastNotificationHelper.Init();
+
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
 
             Xamarin.Forms.Forms.Init();

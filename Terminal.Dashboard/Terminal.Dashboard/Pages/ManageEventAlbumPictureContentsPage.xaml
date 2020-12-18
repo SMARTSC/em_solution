@@ -21,7 +21,7 @@
             <sscxftoolkitpresentationconverters:FractionConverter x:Key="FractionConverter" />
             <sscxftoolkitpresentationconverters:NotNullOrEmptyStringToBooleanConverter x:Key="NotNullOrEmptyStringToBooleanConverter" />
             <sscxftoolkitpresentationconverters:BoolToBoolNegationConverter x:Key="BoolToBoolNegationConverter" />
-            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="320" ChildAbsoluteHorizontalMargin="20" />
+            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="240" ChildAbsoluteHorizontalMargin="10" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.ToolbarItems>
@@ -37,7 +37,7 @@
                         </OnPlatform>
                     </FontImageSource.Color>
                     <FontImageSource.Size>
-                        <OnPlatform x:TypeArguments="x:Double">
+                        <OnPlatform Default="16" x:TypeArguments="x:Double">
                             <On Platform="macOS" Value="10" />
                         </OnPlatform>
                     </FontImageSource.Size>
@@ -47,23 +47,17 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>
+            <views:BackgroundView />
             <ScrollView Orientation="Vertical">
                 <FlexLayout
-                    Padding="10"
+                    Padding="5"
                     Wrap="Wrap"
                     AlignItems="Start" AlignContent="Start"
                     BindableLayout.ItemsSource="{Binding Path=Items}">
-                    <BindableLayout.EmptyView>
-                        <Label
-                            IsVisible="{Binding Path=IsBusy, Converter={StaticResource BoolToBoolNegationConverter}}"
-                            Margin="10"
-                            Text="Sin elementos que mostrar"
-                            TextColor="Black" />
-                    </BindableLayout.EmptyView>
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Grid
-                                Margin="10"
+                                Margin="5"
                                 WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}"
                                 RowSpacing="0">
                                 <ffimageloadingforms:CachedImage

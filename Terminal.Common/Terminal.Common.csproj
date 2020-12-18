@@ -7,15 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Font\materialdesignicons-webfont.ttf" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Font\materialdesignicons-webfont.ttf" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="AssemblyInfo.cs" />
+  </ItemGroup>
 </Project>

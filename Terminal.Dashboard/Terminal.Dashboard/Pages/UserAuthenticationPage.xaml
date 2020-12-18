@@ -24,7 +24,7 @@
                 HorizontalOptions="Center" VerticalOptions="Center">
                 <Entry
                     Text="{Binding Path=Server}"
-                    Placeholder="servidor cloud" />
+                    Placeholder="servidor" />
                 <Entry
                     Text="{Binding Path=Login}"
                     Placeholder="usuario" />

@@ -67,9 +67,10 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Managers\ApplicationManager.cs" />
+    <Compile Include="Providers\ConstantProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -143,5 +144,13 @@
       <Project>{D01175B7-DA90-4B4B-8C3F-EC3D5829AFE2}</Project>
       <Name>Terminal.Dashboard</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Terminal.Common\Terminal.Common.csproj">
+      <Project>{D0A186C8-201F-4B47-B1F0-820FC466CAFA}</Project>
+      <Name>Terminal.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Managers\" />
+    <Folder Include="Providers\" />
   </ItemGroup>
 </Project>
