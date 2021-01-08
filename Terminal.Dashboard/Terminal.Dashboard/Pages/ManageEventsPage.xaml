@@ -100,7 +100,6 @@
                                     <Label
                                         Grid.Column="2" Grid.RowSpan="4"
                                         VerticalOptions="Start"
-                                        Padding="0,6"
                                         Text="&#xf1d9;"
                                         TextColor="Accent"
                                         FontFamily="Material Design Icons"
@@ -108,6 +107,11 @@
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="EventOptionsButton_Clicked" />
                                         </Label.GestureRecognizers>
+                                        <Label.Padding>
+                                            <OnPlatform x:TypeArguments="Thickness" Default="6">
+                                                <On Platform="macOS" Value="0,6" />
+                                            </OnPlatform>
+                                        </Label.Padding>
                                     </Label>
                                 </Grid>
                             </Grid>

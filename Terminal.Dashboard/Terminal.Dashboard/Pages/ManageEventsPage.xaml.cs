@@ -35,6 +35,11 @@ namespace EM.Terminal.Dashboard.Pages
                 {
                     switch (task.Result)
                     {
+                        case EVENT_OPTION_DETAIL:
+                            Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new Popup.EventDetailPopupPage((sender as Xamarin.Forms.BindableObject).BindingContext as Cloud.Backend.Api.Common.Models.EventDisplayModel));
+
+                            break;
+
                         case EVENT_OPTION_MANAGE_ALBUMS:
                             this.NavigationPushPageAsync(new ManageEventAlbumsPage((sender as Xamarin.Forms.BindableObject).BindingContext as Cloud.Backend.Api.Common.Models.EventDisplayModel));
 

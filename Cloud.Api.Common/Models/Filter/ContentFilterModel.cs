@@ -4,6 +4,8 @@ namespace EM.Cloud.Api.Common.Models.Filter
 {
     public class ContentFilterModel : SmartSolucionesCuba.SAPRESSC.Core.Persistence.Models.Filter.IEntityFilterModel<Persistence.Entities.Content, System.Guid>
     {
+        public System.DateTime AfterAt { get; set; }
+
         public System.Guid AlbumId { get; set; }
 
         public System.Collections.Generic.Dictionary<Enumerations.ContentKind, bool> TargetKinds { get; set; }

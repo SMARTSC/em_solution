@@ -30,38 +30,61 @@
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Grid
-                                Margin="5" Padding="8,8,0,8"
-                                BackgroundColor="WhiteSmoke"
+                                Margin="5"
+                                BackgroundColor="GhostWhite"
                                 WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}"
                                 HeightRequest="96">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <Label 
-                                    Grid.Column="0" Grid.Row="0"
-                                    Text="{Binding Path=Title}"
-                                    Style="{StaticResource NormalTitleFontLabelStyle}" />
+                                <BoxView 
+                                    Grid.Column="0"
+                                    BackgroundColor="White"
+                                    WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type Grid}}, Path=HeightRequest}" />
                                 <Label
-                                    Grid.Column="0" Grid.Row="1"
-                                    Text="{Binding Path=Description, Converter={StaticResource IfNullOrEmptyToStringConverter}}"
-                                    TextColor="{StaticResource SecundaryTextColor}" />
-                                <Label
-                                    Grid.Column="1" Grid.RowSpan="2"
-                                    VerticalOptions="Start"
-                                    Padding="0,6"
-                                    Text="&#xf1d9;"
-                                    TextColor="Accent"
+                                    Grid.Column="0"
+                                    HorizontalOptions="Center" VerticalOptions="Center"
+                                    Text="&#xf24f;"
+                                    TextColor="Black"
                                     FontFamily="Material Design Icons"
-                                    Style="{StaticResource NormalTitleFontLabelStyle}">
-                                    <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="AlbumOptionsButton_Clicked" />
-                                    </Label.GestureRecognizers>
-                                </Label>
+                                    FontSize="48" />
+                                <Grid
+                                    Grid.Column="1"
+                                    Padding="8,8,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Label 
+                                        Grid.Column="0" Grid.Row="0"
+                                        Text="{Binding Path=Title}"
+                                        Style="{StaticResource NormalTitleFontLabelStyle}" />
+                                    <Label
+                                        Grid.Column="0" Grid.Row="1"
+                                        Text="{Binding Path=Description, Converter={StaticResource IfNullOrEmptyToStringConverter}}"
+                                        TextColor="{StaticResource SecundaryTextColor}" />
+                                    <Label
+                                        Grid.Column="1" Grid.RowSpan="2"
+                                        VerticalOptions="Start"
+                                        Text="&#xf1d9;"
+                                        TextColor="Accent"
+                                        FontFamily="Material Design Icons"
+                                        Style="{StaticResource NormalTitleFontLabelStyle}">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="AlbumOptionsButton_Clicked" />
+                                        </Label.GestureRecognizers>
+                                        <Label.Padding>
+                                            <OnPlatform x:TypeArguments="Thickness" Default="6">
+                                                <On Platform="macOS" Value="0,6" />
+                                            </OnPlatform>
+                                        </Label.Padding>
+                                    </Label>
+                                </Grid>
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

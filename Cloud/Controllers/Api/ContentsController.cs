@@ -47,11 +47,13 @@ namespace EM.Cloud.Controllers.Api
             return NotFound();
         }
 
+        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Contenido", typeof(SmartSolucionesCuba.SAPRESSC.Core.Common.Models.PaginationModel<ContentDisplayModel>))]
         public override IActionResult GetFiltered([FromBody] ContentFilterModel filterModel)
         {
             return base.GetFiltered(filterModel);
         }
 
+        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Contenido", typeof(SmartSolucionesCuba.SAPRESSC.Core.Common.Models.PaginationModel<ContentDisplayModel>))]
         public override IActionResult GetPaginateFiltered([FromBody] ContentFilterModel filterModel, int sheet = 1, int limit = 25)
         {
             return base.GetPaginateFiltered(filterModel, sheet, limit);
