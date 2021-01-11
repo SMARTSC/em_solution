@@ -145,6 +145,16 @@ namespace EM.Cloud
 
             services.AddSingleton<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider, Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider>();
 
+            var openApiSecurityScheme = new Microsoft.OpenApi.Models.OpenApiSecurityScheme()
+            {
+                Description = "JWT Authorization Header \"Authorization: Bearer {token}\"",
+                Name = "Authorization",
+                In = Microsoft.OpenApi.Models.ParameterLocation.Header,                
+                Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey
+            };
+
+            services.AddSingleton(openApiSecurityScheme);
+
             services.AddSwaggerGen(setup =>
             {
                 setup.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -156,6 +166,12 @@ namespace EM.Cloud
                 {
                     return apiDescription.RelativePath.StartsWith("api/");
                 });
+                setup.AddSecurityDefinition("Bearer", openApiSecurityScheme);
+                //setup.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement()
+                //{
+                //    { openApiSecurityScheme, new System.Collections.Generic.List<string> { } }
+                //});
+                setup.OperationFilter<Filters.Swagger.OperationSwaggerFilter>();
                 setup.EnableAnnotations();
                 setup.IgnoreObsoleteActions();
             });

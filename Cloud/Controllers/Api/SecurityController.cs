@@ -1,6 +1,7 @@
 ﻿using EM.Cloud.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using SmartSolucionesCuba.SAPRESSC.Core.Web.Security.Providers.Facade;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace EM.Cloud.Controllers.Api
 {

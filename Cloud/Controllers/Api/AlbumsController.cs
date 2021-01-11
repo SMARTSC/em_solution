@@ -101,7 +101,7 @@ namespace EM.Cloud.Controllers.Api
         [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumModel))]
         [SwaggerResponse((int)System.Net.HttpStatusCode.PreconditionFailed, "Album no habilitado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.NoContent, "Album no encontrado!")]
-        [SwaggerResponse((int)System.Net.HttpStatusCode.Unauthorized, "Acceso al Album no autorizado!")]
+        [SwaggerResponse((int)System.Net.HttpStatusCode.Forbidden, "Credencial no válida!")]
         public virtual IActionResult GetByIdAndPassword(System.Guid id, string key)
         {
             try
@@ -117,7 +117,7 @@ namespace EM.Cloud.Controllers.Api
 
                 if (password != key)
                 {
-                    return Unauthorized();
+                    return Forbid();
                 }
 
                 var model = new Cloud.Api.Common.Models.AlbumModel();
@@ -143,7 +143,7 @@ namespace EM.Cloud.Controllers.Api
         [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumModel))]
         [SwaggerResponse((int)System.Net.HttpStatusCode.PreconditionFailed, "Album no habilitado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.NoContent, "Album no encontrado!")]
-        [SwaggerResponse((int)System.Net.HttpStatusCode.Unauthorized, "Acceso al Album no autorizado!")]
+        [SwaggerResponse((int)System.Net.HttpStatusCode.Forbidden, "Credencial no válida!")]
         public virtual IActionResult GetByAliasAndPassword(string alias, string key)
         {
             try
@@ -159,7 +159,7 @@ namespace EM.Cloud.Controllers.Api
 
                 if (password != key)
                 {
-                    return Unauthorized();
+                    return Forbid();
                 }
 
                 var model = new Cloud.Api.Common.Models.AlbumModel();
