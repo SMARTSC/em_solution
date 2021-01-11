@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace EM.Cloud.Controllers.Api
 {
+    [Microsoft.AspNetCore.Authorization.Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class AlbumsController : SmartSolucionesCuba.SAPRESSC.Core.Web.Common.Controllers.BaseWebController
