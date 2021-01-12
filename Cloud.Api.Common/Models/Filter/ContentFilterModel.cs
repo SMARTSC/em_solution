@@ -12,7 +12,7 @@ namespace EM.Cloud.Api.Common.Models.Filter
 
         public System.Linq.Expressions.Expression<System.Func<Persistence.Entities.Content, bool>> GetSelector()
         {
-            return entity => entity.Album.Id == AlbumId && TargetKinds.ContainsKey(entity.ToContentKind()) && TargetKinds[entity.ToContentKind()] && AssertConcreteContentContrains(entity);
+            return entity => entity.Created <= AfterAt && entity.Album.Id == AlbumId && TargetKinds.ContainsKey(entity.ToContentKind()) && TargetKinds[entity.ToContentKind()] && AssertConcreteContentContrains(entity);
         }
 
         private bool AssertConcreteContentContrains(Persistence.Entities.Content entity)
