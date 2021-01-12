@@ -7,7 +7,7 @@ namespace EM.Cloud.Managers
     {
         public void DeleteThumbnailFile(Thumbnail thumbnail)
         {
-            Providers.ThumbnailsBlobContainerClientProvider.Instance.GetBlobContainerClient().DeleteBlobIfExists(GetBlobId(thumbnail.Id, thumbnail.ContentType));
+            Providers.ThumbnailsBlobContainerClientProvider.Instance.GetBlobContainerClient().DeleteBlobIfExists(thumbnail.Id.ToBlobId(thumbnail.ContentType));
         }
 
         public string GetThumbnailAbsoluteFilePath(Thumbnail thumbnail)
@@ -17,7 +17,7 @@ namespace EM.Cloud.Managers
 
         public byte[] GetThumbnailFileContent(Thumbnail thumbnail)
         {
-            var blobClient = Providers.ThumbnailsBlobContainerClientProvider.Instance.GetBlobContainerClient().GetBlobClient(GetBlobId(thumbnail.Id, thumbnail.ContentType));
+            var blobClient = Providers.ThumbnailsBlobContainerClientProvider.Instance.GetBlobContainerClient().GetBlobClient(thumbnail.Id.ToBlobId(thumbnail.ContentType));
 
             var azureResponse = blobClient.Download();
 
@@ -35,12 +35,7 @@ namespace EM.Cloud.Managers
 
         public void SaveThumbnailFileContent(System.Guid thumbnailId, byte[] content, string contentType)
         {
-            Providers.ThumbnailsBlobContainerClientProvider.Instance.GetBlobContainerClient().UploadBlob(GetBlobId(thumbnailId, contentType), new System.IO.MemoryStream(content));
-        }
-
-        private string GetBlobId(System.Guid id, string contentType)
-        {
-            return string.Format("{0}.{1}", id, contentType.ContentTypeToExtension());
+            Providers.ThumbnailsBlobContainerClientProvider.Instance.GetBlobContainerClient().UploadBlob(thumbnailId.ToBlobId(contentType), new System.IO.MemoryStream(content));
         }
     }
 }

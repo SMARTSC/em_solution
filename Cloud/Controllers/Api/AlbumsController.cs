@@ -39,6 +39,8 @@ namespace EM.Cloud.Controllers.Api
                     return StatusCode((int)System.Net.HttpStatusCode.Locked);
                 }
 
+                // TODO Link album width authenticated device or user
+
                 var model = new Cloud.Api.Common.Models.AlbumModel();
 
                 model.Import(entity);
@@ -78,6 +80,8 @@ namespace EM.Cloud.Controllers.Api
                     return StatusCode((int)System.Net.HttpStatusCode.Locked);
                 }
 
+                // TODO Link album width authenticated device or user
+
                 var model = new Cloud.Api.Common.Models.AlbumModel();
 
                 model.Import(entity);
@@ -97,7 +101,6 @@ namespace EM.Cloud.Controllers.Api
         }
 
         [HttpGet("id/{id}/password/{key}")]
-        [SwaggerResponse(200, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumModel))]
         [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Album", typeof(Cloud.Api.Common.Models.AlbumModel))]
         [SwaggerResponse((int)System.Net.HttpStatusCode.PreconditionFailed, "Album no habilitado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.NoContent, "Album no encontrado!")]
@@ -119,6 +122,8 @@ namespace EM.Cloud.Controllers.Api
                 {
                     return Forbid();
                 }
+
+                // TODO Link album width authenticated device or user
 
                 var model = new Cloud.Api.Common.Models.AlbumModel();
 
@@ -161,6 +166,8 @@ namespace EM.Cloud.Controllers.Api
                 {
                     return Forbid();
                 }
+
+                // TODO Link album width authenticated device or user
 
                 var model = new Cloud.Api.Common.Models.AlbumModel();
 

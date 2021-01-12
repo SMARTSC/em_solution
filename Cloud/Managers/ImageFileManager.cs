@@ -7,7 +7,7 @@ namespace EM.Cloud.Managers
     {
         public void DeleteImageFile(Image image)
         {
-            Providers.ImagesBlobContainerClientProvider.Instance.GetBlobContainerClient().DeleteBlobIfExists(GetBlobId(image.Id, image.ContentType));
+            Providers.ImagesBlobContainerClientProvider.Instance.GetBlobContainerClient().DeleteBlobIfExists(image.Id.ToBlobId(image.ContentType));
         }
 
         public string GetImageAbsoluteFilePath(Image image)
@@ -17,7 +17,7 @@ namespace EM.Cloud.Managers
 
         public byte[] GetImageFileContent(Image image)
         {
-            var blobClient = Providers.ImagesBlobContainerClientProvider.Instance.GetBlobContainerClient().GetBlobClient(GetBlobId(image.Id, image.ContentType));
+            var blobClient = Providers.ImagesBlobContainerClientProvider.Instance.GetBlobContainerClient().GetBlobClient(image.Id.ToBlobId(image.ContentType));
 
             var azureResponse = blobClient.Download();
 
@@ -35,12 +35,7 @@ namespace EM.Cloud.Managers
 
         public void SaveImageFileContent(System.Guid imageId, byte[] content, string contentType)
         {
-            Providers.ImagesBlobContainerClientProvider.Instance.GetBlobContainerClient().UploadBlob(GetBlobId(imageId, contentType), new System.IO.MemoryStream(content));
-        }
-
-        private string GetBlobId(System.Guid id, string contentType)
-        {
-            return string.Format("{0}.{1}", id, contentType.ContentTypeToExtension());
+            Providers.ImagesBlobContainerClientProvider.Instance.GetBlobContainerClient().UploadBlob(imageId.ToBlobId(contentType), new System.IO.MemoryStream(content));
         }
     }
 }
