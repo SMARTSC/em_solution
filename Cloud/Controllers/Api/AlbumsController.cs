@@ -70,6 +70,8 @@ namespace EM.Cloud.Controllers.Api
             {
                 var entity = albumRepository.FindOneBy(e => e.Alias == alias);
 
+                if (entity == null) return NoContent();
+
                 if (!entity.Enabled)
                 {
                     return StatusCode((int)System.Net.HttpStatusCode.PreconditionFailed);
@@ -120,7 +122,7 @@ namespace EM.Cloud.Controllers.Api
 
                 if (password != key)
                 {
-                    return Forbid();
+                    return Forbid(new string[] { Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme });
                 }
 
                 // TODO Link album width authenticated device or user
@@ -155,6 +157,8 @@ namespace EM.Cloud.Controllers.Api
             {
                 var entity = albumRepository.FindOneBy(e => e.Alias == alias);
 
+                if (entity == null) return NoContent();
+
                 if (!entity.Enabled)
                 {
                     return StatusCode((int)System.Net.HttpStatusCode.PreconditionFailed);
@@ -164,7 +168,7 @@ namespace EM.Cloud.Controllers.Api
 
                 if (password != key)
                 {
-                    return Forbid();
+                    return Forbid(new string[] { Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme });
                 }
 
                 // TODO Link album width authenticated device or user

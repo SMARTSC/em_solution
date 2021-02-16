@@ -8,7 +8,7 @@
 
         public ImageMediaDisplayModel Logo { get; set; }
 
-        public string Descrition { get; set; }
+        public string Description { get; set; }
 
         public System.DateTime Start { get; set; }
 
@@ -22,7 +22,8 @@
         {
             Id = entity.Id;
             Name = entity.Name;
-            Descrition = entity.Descrition;
+            // TODO Rename Entity property too!
+            Description = entity.Descrition;
             Start = entity.Start;
             End = entity.End;
             PlaceName = entity.PlaceName;

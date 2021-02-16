@@ -1,7 +1,6 @@
 ﻿using EM.Cloud.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using SmartSolucionesCuba.SAPRESSC.Core.Web.Security.Providers.Facade;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace EM.Cloud.Controllers.Api
 {
@@ -30,13 +29,13 @@ namespace EM.Cloud.Controllers.Api
                 {
                     if (userIdentity.HasClaim(match => match.Type.Equals(SmartSolucionesCuba.SAPRESSC.Core.Web.Security.ClaimTypes.AccountDisabled) && match.Value.Equals(true.ToString())))
                     {
-                        return Forbid();
+                        return Forbid(new string[] { Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme });
                     }
 
                     return Json(userIdentity.ToAuthenticatedSessionModel(jwtOptions));
                 }
 
-                return Unauthorized();
+                return Unauthorized(new string[] { Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme });
             }
 
             return BadRequest();
@@ -77,7 +76,7 @@ namespace EM.Cloud.Controllers.Api
                     return Json(guestIndentity.ToAuthenticatedSessionModel(jwtOptions));
                 }
 
-                return Forbid();
+                return Forbid(new string[] { Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme });
             }
 
             return BadRequest();

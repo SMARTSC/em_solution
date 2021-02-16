@@ -3,7 +3,6 @@ using System;
 using EM.Cloud.Persistence.EF.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EM.Cloud.Migrations
@@ -16,8 +15,7 @@ namespace EM.Cloud.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("EM.Cloud.Persistence.Entities.Album", b =>
                 {
@@ -343,8 +341,7 @@ namespace EM.Cloud.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("Attended")
                         .HasColumnName("attended");
@@ -436,8 +433,7 @@ namespace EM.Cloud.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("id");
 
                     b.Property<string>("AfterData")
                         .HasColumnName("afterdata");
@@ -487,7 +483,7 @@ namespace EM.Cloud.Migrations
                     b.HasKey("Id")
                         .HasName("pk_groups");
 
-                    b.ToTable("groups","espejomolon_sapressc_core_securitylocal");
+                    b.ToTable("groups","elespejomolon_sapressc_core_securitylocal");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Core.Security.Persistence.Entities.GroupRoleBridge", b =>
@@ -504,15 +500,14 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("RoleId")
                         .HasName("ix_grouprolebridges_roleid");
 
-                    b.ToTable("grouprolebridges","espejomolon_sapressc_core_securitylocal");
+                    b.ToTable("grouprolebridges","elespejomolon_sapressc_core_securitylocal");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Core.Security.Persistence.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("id");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -528,7 +523,7 @@ namespace EM.Cloud.Migrations
                     b.HasKey("Id")
                         .HasName("pk_roles");
 
-                    b.ToTable("roles","espejomolon_sapressc_core_securitylocal");
+                    b.ToTable("roles","elespejomolon_sapressc_core_securitylocal");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Core.Security.Persistence.Entities.User", b =>
@@ -566,7 +561,7 @@ namespace EM.Cloud.Migrations
                     b.HasKey("Id")
                         .HasName("pk_users");
 
-                    b.ToTable("users","espejomolon_sapressc_core_securitylocal");
+                    b.ToTable("users","elespejomolon_sapressc_core_securitylocal");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Core.Security.Persistence.Entities.UserGroupBridge", b =>
@@ -583,7 +578,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("GroupId")
                         .HasName("ix_usergroupbridges_groupid");
 
-                    b.ToTable("usergroupbridges","espejomolon_sapressc_core_securitylocal");
+                    b.ToTable("usergroupbridges","elespejomolon_sapressc_core_securitylocal");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.EmailContactItem", b =>
@@ -602,7 +597,7 @@ namespace EM.Cloud.Migrations
                     b.HasKey("Id")
                         .HasName("pk_emailcontactitems");
 
-                    b.ToTable("emailcontactitems","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("emailcontactitems","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.Membership", b =>
@@ -622,7 +617,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("PersonId")
                         .HasName("ix_memberships_personid");
 
-                    b.ToTable("memberships","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("memberships","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.OrganizationEmailContactItemBridge", b =>
@@ -639,7 +634,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("ContactItemId")
                         .HasName("ix_organizationemailcontactitembridges_contactitemid");
 
-                    b.ToTable("organizationemailcontactitembridges","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("organizationemailcontactitembridges","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.OrganizationIdentity", b =>
@@ -673,7 +668,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("OwnerId")
                         .HasName("ix_organizationidentities_ownerid");
 
-                    b.ToTable("organizationidentities","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("organizationidentities","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.OrganizationPhoneContactItemBridge", b =>
@@ -690,7 +685,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("ContactItemId")
                         .HasName("ix_organizationphonecontactitembridges_contactitemid");
 
-                    b.ToTable("organizationphonecontactitembridges","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("organizationphonecontactitembridges","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.OrganizationPostalContactItemBridge", b =>
@@ -707,7 +702,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("ContactItemId")
                         .HasName("ix_organizationpostalcontactitembridges_contactitemid");
 
-                    b.ToTable("organizationpostalcontactitembridges","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("organizationpostalcontactitembridges","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.OrganizationSocialContactItemBridge", b =>
@@ -724,7 +719,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("ContactItemId")
                         .HasName("ix_organizationsocialcontactitembridges_contactitemid");
 
-                    b.ToTable("organizationsocialcontactitembridges","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("organizationsocialcontactitembridges","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.OrganizationWebSiteContactItemBridge", b =>
@@ -741,7 +736,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("ContactItemId")
                         .HasName("ix_organizationwebsitecontactitembridges_contactitemid");
 
-                    b.ToTable("organizationwebsitecontactitembridges","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("organizationwebsitecontactitembridges","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.PersonEmailContactItemBridge", b =>
@@ -758,7 +753,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("ContactItemId")
                         .HasName("ix_personemailcontactitembridges_contactitemid");
 
-                    b.ToTable("personemailcontactitembridges","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("personemailcontactitembridges","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.PersonIdentity", b =>
@@ -798,7 +793,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("ImageId")
                         .HasName("ix_personidentities_imageid");
 
-                    b.ToTable("personidentities","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("personidentities","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.PersonPhoneContactItemBridge", b =>
@@ -815,7 +810,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("ContactItemId")
                         .HasName("ix_personphonecontactitembridges_contactitemid");
 
-                    b.ToTable("personphonecontactitembridges","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("personphonecontactitembridges","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.PersonPostalContactItemBridge", b =>
@@ -832,7 +827,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("ContactItemId")
                         .HasName("ix_personpostalcontactitembridges_contactitemid");
 
-                    b.ToTable("personpostalcontactitembridges","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("personpostalcontactitembridges","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.PersonSocialContactItemBridge", b =>
@@ -849,7 +844,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("ContactItemId")
                         .HasName("ix_personsocialcontactitembridges_contactitemid");
 
-                    b.ToTable("personsocialcontactitembridges","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("personsocialcontactitembridges","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.PersonWebSiteContactItemBridge", b =>
@@ -866,7 +861,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("ContactItemId")
                         .HasName("ix_personwebsitecontactitembridges_contactitemid");
 
-                    b.ToTable("personwebsitecontactitembridges","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("personwebsitecontactitembridges","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.PhoneContactItem", b =>
@@ -885,7 +880,7 @@ namespace EM.Cloud.Migrations
                     b.HasKey("Id")
                         .HasName("pk_phonecontactitems");
 
-                    b.ToTable("phonecontactitems","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("phonecontactitems","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.PostalContactItem", b =>
@@ -913,7 +908,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("RegionId")
                         .HasName("ix_postalcontactitems_regionid");
 
-                    b.ToTable("postalcontactitems","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("postalcontactitems","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.SocialContactItem", b =>
@@ -932,7 +927,7 @@ namespace EM.Cloud.Migrations
                     b.HasKey("Id")
                         .HasName("pk_socialcontactitems");
 
-                    b.ToTable("socialcontactitems","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("socialcontactitems","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.WebSiteContactItem", b =>
@@ -951,7 +946,7 @@ namespace EM.Cloud.Migrations
                     b.HasKey("Id")
                         .HasName("pk_websitecontactitems");
 
-                    b.ToTable("websitecontactitems","espejomolon_sapressc_middleware_identity");
+                    b.ToTable("websitecontactitems","elespejomolon_sapressc_middleware_identity");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image", b =>
@@ -989,7 +984,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("ThumbnailId")
                         .HasName("ix_images_thumbnailid");
 
-                    b.ToTable("images","espejomolon_sapressc_middleware_media");
+                    b.ToTable("images","elespejomolon_sapressc_middleware_media");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Thumbnail", b =>
@@ -1012,7 +1007,7 @@ namespace EM.Cloud.Migrations
                     b.HasKey("Id")
                         .HasName("pk_thumbnails");
 
-                    b.ToTable("thumbnails","espejomolon_sapressc_middleware_media");
+                    b.ToTable("thumbnails","elespejomolon_sapressc_middleware_media");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Video", b =>
@@ -1070,7 +1065,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("ThumbnailId")
                         .HasName("ix_videos_thumbnailid");
 
-                    b.ToTable("videos","espejomolon_sapressc_middleware_media");
+                    b.ToTable("videos","elespejomolon_sapressc_middleware_media");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Region.Persistence.Entities.Country", b =>
@@ -1098,7 +1093,7 @@ namespace EM.Cloud.Migrations
                         .IsUnique()
                         .HasName("ix_countries_name");
 
-                    b.ToTable("countries","espejomolon_sapressc_middleware_region");
+                    b.ToTable("countries","elespejomolon_sapressc_middleware_region");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Region.Persistence.Entities.Locality", b =>
@@ -1124,7 +1119,7 @@ namespace EM.Cloud.Migrations
                         .IsUnique()
                         .HasName("ix_localities_name_municipalityid");
 
-                    b.ToTable("localities","espejomolon_sapressc_middleware_region");
+                    b.ToTable("localities","elespejomolon_sapressc_middleware_region");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Region.Persistence.Entities.Municipality", b =>
@@ -1150,7 +1145,7 @@ namespace EM.Cloud.Migrations
                         .IsUnique()
                         .HasName("ix_municipalities_name_stateid");
 
-                    b.ToTable("municipalities","espejomolon_sapressc_middleware_region");
+                    b.ToTable("municipalities","elespejomolon_sapressc_middleware_region");
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Region.Persistence.Entities.Region", b =>
@@ -1166,7 +1161,7 @@ namespace EM.Cloud.Migrations
                     b.HasKey("Id")
                         .HasName("pk_regions");
 
-                    b.ToTable("regions");
+                    b.ToTable("regions","elespejomolon_sapressc_middleware_region");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Region");
                 });
@@ -1190,7 +1185,7 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("CountryId")
                         .HasName("ix_states_countryid");
 
-                    b.ToTable("states","espejomolon_sapressc_middleware_region");
+                    b.ToTable("states","elespejomolon_sapressc_middleware_region");
                 });
 
             modelBuilder.Entity("EM.Cloud.Persistence.Entities.OrganizationClient", b =>
@@ -1278,13 +1273,13 @@ namespace EM.Cloud.Migrations
                 {
                     b.HasBaseType("SmartSolucionesCuba.SAPRESSC.Middleware.Region.Persistence.Entities.Region");
 
-                    b.Property<Guid>("CountryId")
+                    b.Property<Guid?>("CountryId")
                         .HasColumnName("countryid");
 
                     b.HasIndex("CountryId")
                         .HasName("ix_regions_countryid");
 
-                    b.ToTable("regions","espejomolon_sapressc_middleware_region");
+                    b.ToTable("regions","elespejomolon_sapressc_middleware_region");
 
                     b.HasDiscriminator().HasValue("CountryRegion");
                 });
@@ -1293,13 +1288,13 @@ namespace EM.Cloud.Migrations
                 {
                     b.HasBaseType("SmartSolucionesCuba.SAPRESSC.Middleware.Region.Persistence.Entities.Region");
 
-                    b.Property<Guid>("LocalityId")
+                    b.Property<Guid?>("LocalityId")
                         .HasColumnName("localityid");
 
                     b.HasIndex("LocalityId")
                         .HasName("ix_regions_localityid");
 
-                    b.ToTable("regions","espejomolon_sapressc_middleware_region");
+                    b.ToTable("regions","elespejomolon_sapressc_middleware_region");
 
                     b.HasDiscriminator().HasValue("LocalityRegion");
                 });
@@ -1308,16 +1303,13 @@ namespace EM.Cloud.Migrations
                 {
                     b.HasBaseType("SmartSolucionesCuba.SAPRESSC.Middleware.Region.Persistence.Entities.Region");
 
-                    b.Property<Guid?>("CountryId")
-                        .HasColumnName("countryid");
-
-                    b.Property<Guid>("MunicipalityId")
+                    b.Property<Guid?>("MunicipalityId")
                         .HasColumnName("municipalityid");
 
-                    b.HasIndex("CountryId")
-                        .HasName("ix_regions_countryid");
+                    b.HasIndex("MunicipalityId")
+                        .HasName("ix_regions_municipalityid");
 
-                    b.ToTable("regions","espejomolon_sapressc_middleware_region");
+                    b.ToTable("regions","elespejomolon_sapressc_middleware_region");
 
                     b.HasDiscriminator().HasValue("MunicipalityRegion");
                 });
@@ -1326,13 +1318,13 @@ namespace EM.Cloud.Migrations
                 {
                     b.HasBaseType("SmartSolucionesCuba.SAPRESSC.Middleware.Region.Persistence.Entities.Region");
 
-                    b.Property<Guid>("StateId")
+                    b.Property<Guid?>("StateId")
                         .HasColumnName("stateid");
 
                     b.HasIndex("StateId")
                         .HasName("ix_regions_stateid");
 
-                    b.ToTable("regions","espejomolon_sapressc_middleware_region");
+                    b.ToTable("regions","elespejomolon_sapressc_middleware_region");
 
                     b.HasDiscriminator().HasValue("StateRegion");
                 });
@@ -1342,7 +1334,7 @@ namespace EM.Cloud.Migrations
                     b.HasOne("EM.Cloud.Persistence.Entities.CollageLayout", "DefaultPhotoSessionContentCollageLayout")
                         .WithMany()
                         .HasForeignKey("DefaultPhotoSessionContentCollageLayoutId")
-                        .HasConstraintName("fk_albums_collagelayouts_defaultphotosessioncontentcollagelayoutid");
+                        .HasConstraintName("fk_albums_collagelayouts_defaultphotosessioncontentcollagelayou~");
 
                     b.HasOne("EM.Cloud.Persistence.Entities.CollageLayout", "DefaultPictureContentCollageLayout")
                         .WithMany()
@@ -1548,13 +1540,13 @@ namespace EM.Cloud.Migrations
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.EmailContactItem", "ContactItem")
                         .WithMany()
                         .HasForeignKey("ContactItemId")
-                        .HasConstraintName("fk_organizationemailcontactitembridges_emailcontactitems_contactitemid")
+                        .HasConstraintName("fk_organizationemailcontactitembridges_emailcontactitems_contac~")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.OrganizationIdentity", "Organization")
                         .WithMany("OrganizationEmailContactItemBridges")
                         .HasForeignKey("OrganizationId")
-                        .HasConstraintName("fk_organizationemailcontactitembridges_organizationidentities_organizationid")
+                        .HasConstraintName("fk_organizationemailcontactitembridges_organizationidentities_o~")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1576,13 +1568,13 @@ namespace EM.Cloud.Migrations
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.PhoneContactItem", "ContactItem")
                         .WithMany()
                         .HasForeignKey("ContactItemId")
-                        .HasConstraintName("fk_organizationphonecontactitembridges_phonecontactitems_contactitemid")
+                        .HasConstraintName("fk_organizationphonecontactitembridges_phonecontactitems_contac~")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.OrganizationIdentity", "Organization")
                         .WithMany("OrganizationPhoneContactItemBridges")
                         .HasForeignKey("OrganizationId")
-                        .HasConstraintName("fk_organizationphonecontactitembridges_organizationidentities_organizationid")
+                        .HasConstraintName("fk_organizationphonecontactitembridges_organizationidentities_o~")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1591,13 +1583,13 @@ namespace EM.Cloud.Migrations
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.PostalContactItem", "ContactItem")
                         .WithMany()
                         .HasForeignKey("ContactItemId")
-                        .HasConstraintName("fk_organizationpostalcontactitembridges_postalcontactitems_contactitemid")
+                        .HasConstraintName("fk_organizationpostalcontactitembridges_postalcontactitems_cont~")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.OrganizationIdentity", "Organization")
                         .WithMany("OrganizationPostalContactItemBridges")
                         .HasForeignKey("OrganizationId")
-                        .HasConstraintName("fk_organizationpostalcontactitembridges_organizationidentities_organizationid")
+                        .HasConstraintName("fk_organizationpostalcontactitembridges_organizationidentities_~")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1606,13 +1598,13 @@ namespace EM.Cloud.Migrations
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.SocialContactItem", "ContactItem")
                         .WithMany()
                         .HasForeignKey("ContactItemId")
-                        .HasConstraintName("fk_organizationsocialcontactitembridges_socialcontactitems_contactitemid")
+                        .HasConstraintName("fk_organizationsocialcontactitembridges_socialcontactitems_cont~")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.OrganizationIdentity", "Organization")
                         .WithMany("OrganizationSocialContactItemBridges")
                         .HasForeignKey("OrganizationId")
-                        .HasConstraintName("fk_organizationsocialcontactitembridges_organizationidentities_organizationid")
+                        .HasConstraintName("fk_organizationsocialcontactitembridges_organizationidentities_~")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1621,13 +1613,13 @@ namespace EM.Cloud.Migrations
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.WebSiteContactItem", "ContactItem")
                         .WithMany()
                         .HasForeignKey("ContactItemId")
-                        .HasConstraintName("fk_organizationwebsitecontactitembridges_websitecontactitems_contactitemid")
+                        .HasConstraintName("fk_organizationwebsitecontactitembridges_websitecontactitems_co~")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.OrganizationIdentity", "Organization")
                         .WithMany("OrganizationWebSiteContactItemBridges")
                         .HasForeignKey("OrganizationId")
-                        .HasConstraintName("fk_organizationwebsitecontactitembridges_organizationidentities_organizationid")
+                        .HasConstraintName("fk_organizationwebsitecontactitembridges_organizationidentities~")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1674,7 +1666,7 @@ namespace EM.Cloud.Migrations
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.PostalContactItem", "ContactItem")
                         .WithMany()
                         .HasForeignKey("ContactItemId")
-                        .HasConstraintName("fk_personpostalcontactitembridges_postalcontactitems_contactitemid")
+                        .HasConstraintName("fk_personpostalcontactitembridges_postalcontactitems_contactite~")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.PersonIdentity", "Person")
@@ -1689,7 +1681,7 @@ namespace EM.Cloud.Migrations
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.SocialContactItem", "ContactItem")
                         .WithMany()
                         .HasForeignKey("ContactItemId")
-                        .HasConstraintName("fk_personsocialcontactitembridges_socialcontactitems_contactitemid")
+                        .HasConstraintName("fk_personsocialcontactitembridges_socialcontactitems_contactite~")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.PersonIdentity", "Person")
@@ -1704,7 +1696,7 @@ namespace EM.Cloud.Migrations
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.WebSiteContactItem", "ContactItem")
                         .WithMany()
                         .HasForeignKey("ContactItemId")
-                        .HasConstraintName("fk_personwebsitecontactitembridges_websitecontactitems_contactitemid")
+                        .HasConstraintName("fk_personwebsitecontactitembridges_websitecontactitems_contacti~")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Identity.Persistence.Entities.PersonIdentity", "Person")
@@ -1806,7 +1798,7 @@ namespace EM.Cloud.Migrations
                         .WithMany()
                         .HasForeignKey("CountryId")
                         .HasConstraintName("fk_regions_countries_countryid")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Region.Persistence.Entities.LocalityRegion", b =>
@@ -1815,15 +1807,16 @@ namespace EM.Cloud.Migrations
                         .WithMany()
                         .HasForeignKey("LocalityId")
                         .HasConstraintName("fk_regions_localities_localityid")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Region.Persistence.Entities.MunicipalityRegion", b =>
                 {
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Region.Persistence.Entities.Municipality", "Municipality")
                         .WithMany()
-                        .HasForeignKey("CountryId")
-                        .HasConstraintName("fk_regions_municipalities_countryid");
+                        .HasForeignKey("MunicipalityId")
+                        .HasConstraintName("fk_regions_municipalities_municipalityid")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("SmartSolucionesCuba.SAPRESSC.Middleware.Region.Persistence.Entities.StateRegion", b =>
@@ -1832,7 +1825,7 @@ namespace EM.Cloud.Migrations
                         .WithMany()
                         .HasForeignKey("StateId")
                         .HasConstraintName("fk_regions_states_stateid")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618
         }

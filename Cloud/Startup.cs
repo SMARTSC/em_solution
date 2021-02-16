@@ -35,7 +35,28 @@ namespace EM.Cloud
             services.Configure<Options.MediaThumbnailResizeOptions>(configuration.GetSection("MediaThumbnailResize"));
             services.Configure<Options.JwtOptions>(configuration.GetSection("JWT"));
 
-            services.AddDbContext<Persistence.EF.Context.ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("SqlDatabaseConnection")));
+            //var databaseServerEngine = configuration["DatabaseServer:Engine"];
+
+            //switch (databaseServerEngine)
+            //{
+            //    case "MSSQL":
+            //        services.AddDbContext<Persistence.EF.Context.ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("MSSQLServerDatabaseConnection")));
+
+            //        break;
+            //    case "MySQL":
+            //    default:
+            //        services.AddDbContext<Persistence.EF.Context.ApplicationDbContext>(options => options.UseMySql(configuration.GetConnectionString("LocalMySQLDatabaseConnection"), mySqlOptions =>
+            //        {
+            //            mySqlOptions.ServerVersion(new System.Version(configuration["DatabaseServer:Version"]), Pomelo.EntityFrameworkCore.MySql.Infrastructure.ServerType.MySql);
+            //        }));
+
+            //        break;
+            //}
+
+            services.AddDbContext<Persistence.EF.Context.ApplicationDbContext>(options => options.UseMySql(configuration.GetConnectionString("LocalMySQLDatabaseConnection"), mySqlOptions =>
+            {
+                mySqlOptions.ServerVersion(new System.Version(configuration["DatabaseServer:Version"]), Pomelo.EntityFrameworkCore.MySql.Infrastructure.ServerType.MySql);
+            }));
 
             services.AddScoped<DbContext, Persistence.EF.Context.ApplicationDbContext>();
 

@@ -9,16 +9,16 @@ namespace EM.Cloud.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "espejomolon_sapressc_core_securitylocal");
+                name: "elespejomolon_sapressc_core_securitylocal");
 
             migrationBuilder.EnsureSchema(
-                name: "espejomolon_sapressc_middleware_identity");
+                name: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.EnsureSchema(
-                name: "espejomolon_sapressc_middleware_media");
+                name: "elespejomolon_sapressc_middleware_media");
 
             migrationBuilder.EnsureSchema(
-                name: "espejomolon_sapressc_middleware_region");
+                name: "elespejomolon_sapressc_middleware_region");
 
             migrationBuilder.CreateTable(
                 name: "collagelayouts",
@@ -37,7 +37,7 @@ namespace EM.Cloud.Migrations
                 columns: table => new
                 {
                     id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     enabled = table.Column<bool>(nullable: false),
                     created = table.Column<DateTime>(nullable: false),
                     attended = table.Column<DateTime>(nullable: false),
@@ -71,7 +71,7 @@ namespace EM.Cloud.Migrations
                 columns: table => new
                 {
                     id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     type = table.Column<int>(nullable: false),
                     author = table.Column<string>(nullable: true),
                     registered = table.Column<DateTime>(nullable: false),
@@ -88,7 +88,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "groups",
-                schema: "espejomolon_sapressc_core_securitylocal",
+                schema: "elespejomolon_sapressc_core_securitylocal",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -102,11 +102,11 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "roles",
-                schema: "espejomolon_sapressc_core_securitylocal",
+                schema: "elespejomolon_sapressc_core_securitylocal",
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     code = table.Column<string>(nullable: false),
                     name = table.Column<string>(nullable: false),
                     description = table.Column<string>(nullable: true)
@@ -118,7 +118,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "users",
-                schema: "espejomolon_sapressc_core_securitylocal",
+                schema: "elespejomolon_sapressc_core_securitylocal",
                 columns: table => new
                 {
                     id = table.Column<string>(nullable: false),
@@ -138,7 +138,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "emailcontactitems",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -152,7 +152,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "phonecontactitems",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -166,7 +166,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "socialcontactitems",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -180,7 +180,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "websitecontactitems",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -194,7 +194,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "thumbnails",
-                schema: "espejomolon_sapressc_middleware_media",
+                schema: "elespejomolon_sapressc_middleware_media",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -209,7 +209,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "countries",
-                schema: "espejomolon_sapressc_middleware_region",
+                schema: "elespejomolon_sapressc_middleware_region",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -249,7 +249,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "grouprolebridges",
-                schema: "espejomolon_sapressc_core_securitylocal",
+                schema: "elespejomolon_sapressc_core_securitylocal",
                 columns: table => new
                 {
                     groupid = table.Column<Guid>(nullable: false),
@@ -261,14 +261,14 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_grouprolebridges_groups_groupid",
                         column: x => x.groupid,
-                        principalSchema: "espejomolon_sapressc_core_securitylocal",
+                        principalSchema: "elespejomolon_sapressc_core_securitylocal",
                         principalTable: "groups",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_grouprolebridges_roles_roleid",
                         column: x => x.roleid,
-                        principalSchema: "espejomolon_sapressc_core_securitylocal",
+                        principalSchema: "elespejomolon_sapressc_core_securitylocal",
                         principalTable: "roles",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -276,7 +276,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "usergroupbridges",
-                schema: "espejomolon_sapressc_core_securitylocal",
+                schema: "elespejomolon_sapressc_core_securitylocal",
                 columns: table => new
                 {
                     userid = table.Column<string>(nullable: false),
@@ -288,14 +288,14 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_usergroupbridges_groups_groupid",
                         column: x => x.groupid,
-                        principalSchema: "espejomolon_sapressc_core_securitylocal",
+                        principalSchema: "elespejomolon_sapressc_core_securitylocal",
                         principalTable: "groups",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_usergroupbridges_users_userid",
                         column: x => x.userid,
-                        principalSchema: "espejomolon_sapressc_core_securitylocal",
+                        principalSchema: "elespejomolon_sapressc_core_securitylocal",
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -303,7 +303,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "images",
-                schema: "espejomolon_sapressc_middleware_media",
+                schema: "elespejomolon_sapressc_middleware_media",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -321,7 +321,7 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_images_thumbnails_thumbnailid",
                         column: x => x.thumbnailid,
-                        principalSchema: "espejomolon_sapressc_middleware_media",
+                        principalSchema: "elespejomolon_sapressc_middleware_media",
                         principalTable: "thumbnails",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -329,7 +329,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "videos",
-                schema: "espejomolon_sapressc_middleware_media",
+                schema: "elespejomolon_sapressc_middleware_media",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -352,7 +352,7 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_videos_thumbnails_thumbnailid",
                         column: x => x.thumbnailid,
-                        principalSchema: "espejomolon_sapressc_middleware_media",
+                        principalSchema: "elespejomolon_sapressc_middleware_media",
                         principalTable: "thumbnails",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -360,7 +360,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "states",
-                schema: "espejomolon_sapressc_middleware_region",
+                schema: "elespejomolon_sapressc_middleware_region",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -373,7 +373,7 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_states_countries_countryid",
                         column: x => x.countryid,
-                        principalSchema: "espejomolon_sapressc_middleware_region",
+                        principalSchema: "elespejomolon_sapressc_middleware_region",
                         principalTable: "countries",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -398,7 +398,7 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_events_images_logoid",
                         column: x => x.logoid,
-                        principalSchema: "espejomolon_sapressc_middleware_media",
+                        principalSchema: "elespejomolon_sapressc_middleware_media",
                         principalTable: "images",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -406,7 +406,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "organizationidentities",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -422,14 +422,14 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_organizationidentities_images_imageid",
                         column: x => x.imageid,
-                        principalSchema: "espejomolon_sapressc_middleware_media",
+                        principalSchema: "elespejomolon_sapressc_middleware_media",
                         principalTable: "images",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "fk_organizationidentities_organizationidentities_ownerid",
                         column: x => x.ownerid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "organizationidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -437,7 +437,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "personidentities",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -456,7 +456,7 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_personidentities_images_imageid",
                         column: x => x.imageid,
-                        principalSchema: "espejomolon_sapressc_middleware_media",
+                        principalSchema: "elespejomolon_sapressc_middleware_media",
                         principalTable: "images",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -464,7 +464,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "municipalities",
-                schema: "espejomolon_sapressc_middleware_region",
+                schema: "elespejomolon_sapressc_middleware_region",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -477,7 +477,7 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_municipalities_states_stateid",
                         column: x => x.stateid,
-                        principalSchema: "espejomolon_sapressc_middleware_region",
+                        principalSchema: "elespejomolon_sapressc_middleware_region",
                         principalTable: "states",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -503,7 +503,7 @@ namespace EM.Cloud.Migrations
                 {
                     table.PrimaryKey("pk_albums", x => x.id);
                     table.ForeignKey(
-                        name: "fk_albums_collagelayouts_defaultphotosessioncontentcollagelayoutid",
+                        name: "fk_albums_collagelayouts_defaultphotosessioncontentcollagelayou~",
                         column: x => x.defaultphotosessioncontentcollagelayoutid,
                         principalTable: "collagelayouts",
                         principalColumn: "id",
@@ -523,7 +523,7 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_albums_images_frontimageid",
                         column: x => x.frontimageid,
-                        principalSchema: "espejomolon_sapressc_middleware_media",
+                        principalSchema: "elespejomolon_sapressc_middleware_media",
                         principalTable: "images",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -531,7 +531,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "organizationemailcontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     organizationid = table.Column<Guid>(nullable: false),
@@ -541,16 +541,16 @@ namespace EM.Cloud.Migrations
                 {
                     table.PrimaryKey("pk_organizationemailcontactitembridges", x => new { x.organizationid, x.contactitemid });
                     table.ForeignKey(
-                        name: "fk_organizationemailcontactitembridges_emailcontactitems_contactitemid",
+                        name: "fk_organizationemailcontactitembridges_emailcontactitems_contac~",
                         column: x => x.contactitemid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "emailcontactitems",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_organizationemailcontactitembridges_organizationidentities_organizationid",
+                        name: "fk_organizationemailcontactitembridges_organizationidentities_o~",
                         column: x => x.organizationid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "organizationidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -558,7 +558,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "organizationphonecontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     organizationid = table.Column<Guid>(nullable: false),
@@ -568,16 +568,16 @@ namespace EM.Cloud.Migrations
                 {
                     table.PrimaryKey("pk_organizationphonecontactitembridges", x => new { x.organizationid, x.contactitemid });
                     table.ForeignKey(
-                        name: "fk_organizationphonecontactitembridges_phonecontactitems_contactitemid",
+                        name: "fk_organizationphonecontactitembridges_phonecontactitems_contac~",
                         column: x => x.contactitemid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "phonecontactitems",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_organizationphonecontactitembridges_organizationidentities_organizationid",
+                        name: "fk_organizationphonecontactitembridges_organizationidentities_o~",
                         column: x => x.organizationid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "organizationidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -585,7 +585,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "organizationsocialcontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     organizationid = table.Column<Guid>(nullable: false),
@@ -595,16 +595,16 @@ namespace EM.Cloud.Migrations
                 {
                     table.PrimaryKey("pk_organizationsocialcontactitembridges", x => new { x.organizationid, x.contactitemid });
                     table.ForeignKey(
-                        name: "fk_organizationsocialcontactitembridges_socialcontactitems_contactitemid",
+                        name: "fk_organizationsocialcontactitembridges_socialcontactitems_cont~",
                         column: x => x.contactitemid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "socialcontactitems",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_organizationsocialcontactitembridges_organizationidentities_organizationid",
+                        name: "fk_organizationsocialcontactitembridges_organizationidentities_~",
                         column: x => x.organizationid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "organizationidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -612,7 +612,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "organizationwebsitecontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     organizationid = table.Column<Guid>(nullable: false),
@@ -622,16 +622,16 @@ namespace EM.Cloud.Migrations
                 {
                     table.PrimaryKey("pk_organizationwebsitecontactitembridges", x => new { x.organizationid, x.contactitemid });
                     table.ForeignKey(
-                        name: "fk_organizationwebsitecontactitembridges_websitecontactitems_contactitemid",
+                        name: "fk_organizationwebsitecontactitembridges_websitecontactitems_co~",
                         column: x => x.contactitemid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "websitecontactitems",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_organizationwebsitecontactitembridges_organizationidentities_organizationid",
+                        name: "fk_organizationwebsitecontactitembridges_organizationidentities~",
                         column: x => x.organizationid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "organizationidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -653,14 +653,14 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_clients_organizationidentities_organizationidentityid",
                         column: x => x.organizationidentityid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "organizationidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_clients_personidentities_personidentityid",
                         column: x => x.personidentityid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "personidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -668,7 +668,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "memberships",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     personid = table.Column<Guid>(nullable: false),
@@ -681,14 +681,14 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_memberships_organizationidentities_organizationid",
                         column: x => x.organizationid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "organizationidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_memberships_personidentities_personid",
                         column: x => x.personid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "personidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -696,7 +696,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "personemailcontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     personid = table.Column<Guid>(nullable: false),
@@ -708,14 +708,14 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_personemailcontactitembridges_emailcontactitems_contactitemid",
                         column: x => x.contactitemid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "emailcontactitems",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_personemailcontactitembridges_personidentities_personid",
                         column: x => x.personid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "personidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -723,7 +723,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "personphonecontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     personid = table.Column<Guid>(nullable: false),
@@ -735,14 +735,14 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_personphonecontactitembridges_phonecontactitems_contactitemid",
                         column: x => x.contactitemid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "phonecontactitems",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_personphonecontactitembridges_personidentities_personid",
                         column: x => x.personid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "personidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -750,7 +750,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "personsocialcontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     personid = table.Column<Guid>(nullable: false),
@@ -760,16 +760,16 @@ namespace EM.Cloud.Migrations
                 {
                     table.PrimaryKey("pk_personsocialcontactitembridges", x => new { x.personid, x.contactitemid });
                     table.ForeignKey(
-                        name: "fk_personsocialcontactitembridges_socialcontactitems_contactitemid",
+                        name: "fk_personsocialcontactitembridges_socialcontactitems_contactite~",
                         column: x => x.contactitemid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "socialcontactitems",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_personsocialcontactitembridges_personidentities_personid",
                         column: x => x.personid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "personidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -777,7 +777,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "personwebsitecontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     personid = table.Column<Guid>(nullable: false),
@@ -787,16 +787,16 @@ namespace EM.Cloud.Migrations
                 {
                     table.PrimaryKey("pk_personwebsitecontactitembridges", x => new { x.personid, x.contactitemid });
                     table.ForeignKey(
-                        name: "fk_personwebsitecontactitembridges_websitecontactitems_contactitemid",
+                        name: "fk_personwebsitecontactitembridges_websitecontactitems_contacti~",
                         column: x => x.contactitemid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "websitecontactitems",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_personwebsitecontactitembridges_personidentities_personid",
                         column: x => x.personid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "personidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -804,7 +804,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "localities",
-                schema: "espejomolon_sapressc_middleware_region",
+                schema: "elespejomolon_sapressc_middleware_region",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -817,7 +817,7 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_localities_municipalities_municipalityid",
                         column: x => x.municipalityid,
-                        principalSchema: "espejomolon_sapressc_middleware_region",
+                        principalSchema: "elespejomolon_sapressc_middleware_region",
                         principalTable: "municipalities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -887,7 +887,7 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_contents_videos_videoid",
                         column: x => x.videoid,
-                        principalSchema: "espejomolon_sapressc_middleware_media",
+                        principalSchema: "elespejomolon_sapressc_middleware_media",
                         principalTable: "videos",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -900,7 +900,7 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_contents_images_imageid",
                         column: x => x.imageid,
-                        principalSchema: "espejomolon_sapressc_middleware_media",
+                        principalSchema: "elespejomolon_sapressc_middleware_media",
                         principalTable: "images",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -1004,6 +1004,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "regions",
+                schema: "elespejomolon_sapressc_middleware_region",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -1019,31 +1020,31 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_regions_countries_countryid",
                         column: x => x.countryid,
-                        principalSchema: "espejomolon_sapressc_middleware_region",
+                        principalSchema: "elespejomolon_sapressc_middleware_region",
                         principalTable: "countries",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "fk_regions_localities_localityid",
                         column: x => x.localityid,
-                        principalSchema: "espejomolon_sapressc_middleware_region",
+                        principalSchema: "elespejomolon_sapressc_middleware_region",
                         principalTable: "localities",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
-                        name: "fk_regions_municipalities_countryid",
-                        column: x => x.countryid,
-                        principalSchema: "espejomolon_sapressc_middleware_region",
+                        name: "fk_regions_municipalities_municipalityid",
+                        column: x => x.municipalityid,
+                        principalSchema: "elespejomolon_sapressc_middleware_region",
                         principalTable: "municipalities",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "fk_regions_states_stateid",
                         column: x => x.stateid,
-                        principalSchema: "espejomolon_sapressc_middleware_region",
+                        principalSchema: "elespejomolon_sapressc_middleware_region",
                         principalTable: "states",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -1065,7 +1066,7 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_animatecontentimagebridges_images_imageid",
                         column: x => x.imageid,
-                        principalSchema: "espejomolon_sapressc_middleware_media",
+                        principalSchema: "elespejomolon_sapressc_middleware_media",
                         principalTable: "images",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -1084,7 +1085,7 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_photosessioncontentimagebridges_images_imageid",
                         column: x => x.imageid,
-                        principalSchema: "espejomolon_sapressc_middleware_media",
+                        principalSchema: "elespejomolon_sapressc_middleware_media",
                         principalTable: "images",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -1098,7 +1099,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "postalcontactitems",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     id = table.Column<Guid>(nullable: false),
@@ -1113,6 +1114,7 @@ namespace EM.Cloud.Migrations
                     table.ForeignKey(
                         name: "fk_postalcontactitems_regions_regionid",
                         column: x => x.regionid,
+                        principalSchema: "elespejomolon_sapressc_middleware_region",
                         principalTable: "regions",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -1120,7 +1122,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "organizationpostalcontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     organizationid = table.Column<Guid>(nullable: false),
@@ -1130,16 +1132,16 @@ namespace EM.Cloud.Migrations
                 {
                     table.PrimaryKey("pk_organizationpostalcontactitembridges", x => new { x.organizationid, x.contactitemid });
                     table.ForeignKey(
-                        name: "fk_organizationpostalcontactitembridges_postalcontactitems_contactitemid",
+                        name: "fk_organizationpostalcontactitembridges_postalcontactitems_cont~",
                         column: x => x.contactitemid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "postalcontactitems",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_organizationpostalcontactitembridges_organizationidentities_organizationid",
+                        name: "fk_organizationpostalcontactitembridges_organizationidentities_~",
                         column: x => x.organizationid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "organizationidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -1147,7 +1149,7 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateTable(
                 name: "personpostalcontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 columns: table => new
                 {
                     personid = table.Column<Guid>(nullable: false),
@@ -1157,16 +1159,16 @@ namespace EM.Cloud.Migrations
                 {
                     table.PrimaryKey("pk_personpostalcontactitembridges", x => new { x.personid, x.contactitemid });
                     table.ForeignKey(
-                        name: "fk_personpostalcontactitembridges_postalcontactitems_contactitemid",
+                        name: "fk_personpostalcontactitembridges_postalcontactitems_contactite~",
                         column: x => x.contactitemid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "postalcontactitems",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_personpostalcontactitembridges_personidentities_personid",
                         column: x => x.personid,
-                        principalSchema: "espejomolon_sapressc_middleware_identity",
+                        principalSchema: "elespejomolon_sapressc_middleware_identity",
                         principalTable: "personidentities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -1259,21 +1261,6 @@ namespace EM.Cloud.Migrations
                 column: "clientid");
 
             migrationBuilder.CreateIndex(
-                name: "ix_regions_countryid",
-                table: "regions",
-                column: "countryid");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_regions_localityid",
-                table: "regions",
-                column: "localityid");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_regions_stateid",
-                table: "regions",
-                column: "stateid");
-
-            migrationBuilder.CreateIndex(
                 name: "ix_sponsoringeventclientbridges_clientid",
                 table: "sponsoringeventclientbridges",
                 column: "clientid");
@@ -1285,161 +1272,185 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "ix_grouprolebridges_roleid",
-                schema: "espejomolon_sapressc_core_securitylocal",
+                schema: "elespejomolon_sapressc_core_securitylocal",
                 table: "grouprolebridges",
                 column: "roleid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_usergroupbridges_groupid",
-                schema: "espejomolon_sapressc_core_securitylocal",
+                schema: "elespejomolon_sapressc_core_securitylocal",
                 table: "usergroupbridges",
                 column: "groupid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_memberships_personid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "memberships",
                 column: "personid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_organizationemailcontactitembridges_contactitemid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "organizationemailcontactitembridges",
                 column: "contactitemid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_organizationidentities_imageid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "organizationidentities",
                 column: "imageid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_organizationidentities_ownerid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "organizationidentities",
                 column: "ownerid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_organizationphonecontactitembridges_contactitemid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "organizationphonecontactitembridges",
                 column: "contactitemid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_organizationpostalcontactitembridges_contactitemid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "organizationpostalcontactitembridges",
                 column: "contactitemid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_organizationsocialcontactitembridges_contactitemid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "organizationsocialcontactitembridges",
                 column: "contactitemid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_organizationwebsitecontactitembridges_contactitemid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "organizationwebsitecontactitembridges",
                 column: "contactitemid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_personemailcontactitembridges_contactitemid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "personemailcontactitembridges",
                 column: "contactitemid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_personidentities_imageid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "personidentities",
                 column: "imageid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_personphonecontactitembridges_contactitemid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "personphonecontactitembridges",
                 column: "contactitemid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_personpostalcontactitembridges_contactitemid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "personpostalcontactitembridges",
                 column: "contactitemid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_personsocialcontactitembridges_contactitemid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "personsocialcontactitembridges",
                 column: "contactitemid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_personwebsitecontactitembridges_contactitemid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "personwebsitecontactitembridges",
                 column: "contactitemid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_postalcontactitems_regionid",
-                schema: "espejomolon_sapressc_middleware_identity",
+                schema: "elespejomolon_sapressc_middleware_identity",
                 table: "postalcontactitems",
                 column: "regionid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_images_thumbnailid",
-                schema: "espejomolon_sapressc_middleware_media",
+                schema: "elespejomolon_sapressc_middleware_media",
                 table: "images",
                 column: "thumbnailid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_videos_thumbnailid",
-                schema: "espejomolon_sapressc_middleware_media",
+                schema: "elespejomolon_sapressc_middleware_media",
                 table: "videos",
                 column: "thumbnailid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_countries_isocode",
-                schema: "espejomolon_sapressc_middleware_region",
+                schema: "elespejomolon_sapressc_middleware_region",
                 table: "countries",
                 column: "isocode",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_countries_name",
-                schema: "espejomolon_sapressc_middleware_region",
+                schema: "elespejomolon_sapressc_middleware_region",
                 table: "countries",
                 column: "name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_localities_municipalityid",
-                schema: "espejomolon_sapressc_middleware_region",
+                schema: "elespejomolon_sapressc_middleware_region",
                 table: "localities",
                 column: "municipalityid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_localities_name_municipalityid",
-                schema: "espejomolon_sapressc_middleware_region",
+                schema: "elespejomolon_sapressc_middleware_region",
                 table: "localities",
                 columns: new[] { "name", "municipalityid" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_municipalities_stateid",
-                schema: "espejomolon_sapressc_middleware_region",
+                schema: "elespejomolon_sapressc_middleware_region",
                 table: "municipalities",
                 column: "stateid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_municipalities_name_stateid",
-                schema: "espejomolon_sapressc_middleware_region",
+                schema: "elespejomolon_sapressc_middleware_region",
                 table: "municipalities",
                 columns: new[] { "name", "stateid" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "ix_regions_countryid",
+                schema: "elespejomolon_sapressc_middleware_region",
+                table: "regions",
+                column: "countryid");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_regions_localityid",
+                schema: "elespejomolon_sapressc_middleware_region",
+                table: "regions",
+                column: "localityid");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_regions_municipalityid",
+                schema: "elespejomolon_sapressc_middleware_region",
+                table: "regions",
+                column: "municipalityid");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_regions_stateid",
+                schema: "elespejomolon_sapressc_middleware_region",
+                table: "regions",
+                column: "stateid");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_states_countryid",
-                schema: "espejomolon_sapressc_middleware_region",
+                schema: "elespejomolon_sapressc_middleware_region",
                 table: "states",
                 column: "countryid");
         }
@@ -1481,55 +1492,55 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.DropTable(
                 name: "grouprolebridges",
-                schema: "espejomolon_sapressc_core_securitylocal");
+                schema: "elespejomolon_sapressc_core_securitylocal");
 
             migrationBuilder.DropTable(
                 name: "usergroupbridges",
-                schema: "espejomolon_sapressc_core_securitylocal");
+                schema: "elespejomolon_sapressc_core_securitylocal");
 
             migrationBuilder.DropTable(
                 name: "memberships",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "organizationemailcontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "organizationphonecontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "organizationpostalcontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "organizationsocialcontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "organizationwebsitecontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "personemailcontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "personphonecontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "personpostalcontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "personsocialcontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "personwebsitecontactitembridges",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "contents");
@@ -1542,53 +1553,54 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.DropTable(
                 name: "roles",
-                schema: "espejomolon_sapressc_core_securitylocal");
+                schema: "elespejomolon_sapressc_core_securitylocal");
 
             migrationBuilder.DropTable(
                 name: "groups",
-                schema: "espejomolon_sapressc_core_securitylocal");
+                schema: "elespejomolon_sapressc_core_securitylocal");
 
             migrationBuilder.DropTable(
                 name: "users",
-                schema: "espejomolon_sapressc_core_securitylocal");
+                schema: "elespejomolon_sapressc_core_securitylocal");
 
             migrationBuilder.DropTable(
                 name: "emailcontactitems",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "phonecontactitems",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "postalcontactitems",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "socialcontactitems",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "websitecontactitems",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "videos",
-                schema: "espejomolon_sapressc_middleware_media");
+                schema: "elespejomolon_sapressc_middleware_media");
 
             migrationBuilder.DropTable(
                 name: "albums");
 
             migrationBuilder.DropTable(
                 name: "organizationidentities",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
                 name: "personidentities",
-                schema: "espejomolon_sapressc_middleware_identity");
+                schema: "elespejomolon_sapressc_middleware_identity");
 
             migrationBuilder.DropTable(
-                name: "regions");
+                name: "regions",
+                schema: "elespejomolon_sapressc_middleware_region");
 
             migrationBuilder.DropTable(
                 name: "collagelayouts");
@@ -1598,27 +1610,27 @@ namespace EM.Cloud.Migrations
 
             migrationBuilder.DropTable(
                 name: "localities",
-                schema: "espejomolon_sapressc_middleware_region");
+                schema: "elespejomolon_sapressc_middleware_region");
 
             migrationBuilder.DropTable(
                 name: "images",
-                schema: "espejomolon_sapressc_middleware_media");
+                schema: "elespejomolon_sapressc_middleware_media");
 
             migrationBuilder.DropTable(
                 name: "municipalities",
-                schema: "espejomolon_sapressc_middleware_region");
+                schema: "elespejomolon_sapressc_middleware_region");
 
             migrationBuilder.DropTable(
                 name: "thumbnails",
-                schema: "espejomolon_sapressc_middleware_media");
+                schema: "elespejomolon_sapressc_middleware_media");
 
             migrationBuilder.DropTable(
                 name: "states",
-                schema: "espejomolon_sapressc_middleware_region");
+                schema: "elespejomolon_sapressc_middleware_region");
 
             migrationBuilder.DropTable(
                 name: "countries",
-                schema: "espejomolon_sapressc_middleware_region");
+                schema: "elespejomolon_sapressc_middleware_region");
         }
     }
 }
