@@ -23,12 +23,12 @@ namespace EM.Cloud.Controllers.Api
             this.eventRepository = eventRepository;
         }
 
-        [HttpPost("[action]/{key}")]
+        [HttpGet("[action]/{key}")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos de Acceso al Album", typeof(Cloud.Api.Common.Models.AlbumBlobSharedAccessSignatureModel))]
         [SwaggerResponse((int)System.Net.HttpStatusCode.PreconditionFailed, "Album no habilitado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.NoContent, "Album no encontrado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.Forbidden, "No autorizado a acceder al Album!")]
-        public ActionResult Album(System.Guid key)
+        public IActionResult Album(System.Guid key)
         {
             var entity = albumRepository.Get(key);
 
@@ -47,12 +47,12 @@ namespace EM.Cloud.Controllers.Api
             });
         }
 
-        [HttpPost("[action]/{key}")]
+        [HttpGet("[action]/{key}")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos de Acceso al Logo del Eveto", typeof(Cloud.Api.Common.Models.EventBlobSharedAccessSignatureModel))]
         [SwaggerResponse((int)System.Net.HttpStatusCode.PreconditionFailed, "Album no habilitado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.NoContent, "Album no encontrado!")]
         [SwaggerResponse((int)System.Net.HttpStatusCode.Forbidden, "No autorizado a acceder al Album!")]
-        public ActionResult Event(System.Guid key)
+        public IActionResult Event(System.Guid key)
         {
             var entity = eventRepository.Get(key);
 

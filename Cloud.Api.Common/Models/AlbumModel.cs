@@ -6,6 +6,8 @@
 
         public string Title { get; set; }
 
+        public string Alias { get; set; }
+
         public bool Enabled { get; set; }
 
         public string Description { get; set; }
@@ -16,6 +18,7 @@
         {
             Id = entity.Id;
             Title = entity.Title;
+            Alias = entity.Alias;
             Enabled = entity.Enabled;
             Description = entity.Description;
 
