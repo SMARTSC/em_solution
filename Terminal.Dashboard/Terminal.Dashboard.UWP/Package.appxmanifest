@@ -7,7 +7,7 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="a2f66e03-f67b-4dfc-af82-473291261419"
+    Name="EM-Dashboard"
     Publisher="CN=SMART SOLUCIONES CUBA"
     Version="0.1.0.0" />
 
@@ -15,7 +15,7 @@
 
   <Properties>
     <DisplayName>Espejo Molón Dashboard</DisplayName>
-    <PublisherDisplayName>2ffc4e3f-0fb5-4522-90ee-0b236adbe2e1</PublisherDisplayName>
+    <PublisherDisplayName>EM Development Team</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
