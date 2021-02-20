@@ -4,7 +4,7 @@ namespace EM.Cloud.Api.Common.Models.Filter
 {
     public class ContentFilterModel : SmartSolucionesCuba.SAPRESSC.Core.Persistence.Models.Filter.IEntityFilterModel<Persistence.Entities.Content, System.Guid>
     {
-        public System.DateTime AfterAt { get; set; }
+        public System.DateTime BeforeAt { get; set; }
 
         public System.Guid AlbumId { get; set; }
 
@@ -12,7 +12,7 @@ namespace EM.Cloud.Api.Common.Models.Filter
 
         public System.Linq.Expressions.Expression<System.Func<Persistence.Entities.Content, bool>> GetSelector()
         {
-            return entity => entity.Created <= AfterAt && entity.Album.Id == AlbumId && TargetKinds.ContainsKey(entity.ToContentKind()) && TargetKinds[entity.ToContentKind()] && AssertConcreteContentContrains(entity);
+            return entity => entity.Created <= BeforeAt && entity.Album.Id == AlbumId && TargetKinds.ContainsKey(entity.ToContentKind()) && TargetKinds[entity.ToContentKind()] && AssertConcreteContentContrains(entity);
         }
 
         private bool AssertConcreteContentContrains(Persistence.Entities.Content entity)

@@ -4,6 +4,12 @@
     {
         private const string LAST_CLOUD_SERVER_KEY = "last-cloud-server";
 
+#if DEBUG
+        public const string CLOUD_CONNECTION_SCHEMA = "http";
+#else
+        public const string CLOUD_CONNECTION_SCHEMA = "https";
+#endif
+
         private static SessionManager instance;
 
         public static SessionManager Instance
@@ -75,8 +81,8 @@
             UserLogin = null;
         }
 
-        #region SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Providers.Facade.IHttpClientHelperProviderFacade implementation
-        public SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Helpers.HttpClientHelper HttpClientHelper => new SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Helpers.HttpClientHelper(string.Format("https://{0}/api/", Server), () => AuthorizeHeader, null);
-        #endregion
+#region SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Providers.Facade.IHttpClientHelperProviderFacade implementation
+        public SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Helpers.HttpClientHelper HttpClientHelper => new SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Helpers.HttpClientHelper(string.Format("{1}://{0}/api/", Server, CLOUD_CONNECTION_SCHEMA), () => AuthorizeHeader, null);
+#endregion
     }
 }

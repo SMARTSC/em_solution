@@ -47,13 +47,13 @@ namespace EM.Cloud.Controllers.Api
             return NotFound();
         }
 
-        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Contenido", typeof(SmartSolucionesCuba.SAPRESSC.Core.Common.Models.PaginationModel<ContentDisplayModel>))]
+        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Paginación de Contenidos", typeof(SmartSolucionesCuba.SAPRESSC.Core.Common.Models.PaginationModel<ContentDisplayModel>))]
         public override IActionResult GetFiltered([FromBody] ContentFilterModel filterModel)
         {
             return base.GetFiltered(filterModel);
         }
 
-        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Datos del Contenido", typeof(SmartSolucionesCuba.SAPRESSC.Core.Common.Models.PaginationModel<ContentDisplayModel>))]
+        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Paginación de Contenidos", typeof(SmartSolucionesCuba.SAPRESSC.Core.Common.Models.PaginationModel<ContentDisplayModel>))]
         public override IActionResult GetPaginateFiltered([FromBody] ContentFilterModel filterModel, int sheet = 1, int limit = 25)
         {
             return base.GetPaginateFiltered(filterModel, sheet, limit);
@@ -75,6 +75,31 @@ namespace EM.Cloud.Controllers.Api
         public override IActionResult Delete(System.Guid key)
         {
             return NotFound();
+        }
+
+        protected override ContentDisplayModel EntityToDisplayModel(Content entity)
+        {
+            if (entity is PhotoSessionContent)
+            {
+                var result = new PhotoSessionContentDisplayModel();
+
+                result.Import(entity as PhotoSessionContent);
+
+                return result;
+            }
+
+            if (entity is PictureContent)
+            {
+                var result = new PictureContentDisplayModel();
+
+                result.Import(entity as PictureContent);
+
+                return result;
+            }
+
+            // TODO Return concrete model for the rest of Content Types!
+
+            throw new System.InvalidOperationException();
         }
     }
 #pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
