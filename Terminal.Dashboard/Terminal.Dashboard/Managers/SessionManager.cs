@@ -4,11 +4,11 @@
     {
         private const string LAST_CLOUD_SERVER_KEY = "last-cloud-server";
 
-//#if DEBUG
-//        public const string CLOUD_CONNECTION_SCHEMA = "http";
-//#else
+#if DEBUG
+        public const string CLOUD_CONNECTION_SCHEMA = "http";
+#else
         public const string CLOUD_CONNECTION_SCHEMA = "https";
-//#endif
+#endif
 
         private static SessionManager instance;
 

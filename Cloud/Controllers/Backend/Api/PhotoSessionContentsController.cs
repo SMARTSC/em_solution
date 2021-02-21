@@ -184,11 +184,13 @@ namespace EM.Cloud.Controllers.Backend.Api
             foreach (var bridge in entity.ImageBridges)
             {
                 Providers.ImagesBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Album.Id);
-                Providers.ThumbnailsBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Album.Id); 
-                
-                thumbnailRepository.Delete(bridge.Image.Thumbnail, User.Identity.Name);
+                Providers.ThumbnailsBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Album.Id);
 
-                thumbnailFileManager.DeleteThumbnailFile(bridge.Image.Thumbnail);
+                var thumbnail = bridge.Image.Thumbnail;
+
+                thumbnailRepository.Delete(thumbnail, User.Identity.Name);
+
+                thumbnailFileManager.DeleteThumbnailFile(thumbnail);
 
                 imageRepository.Delete(bridge.Image, User.Identity.Name);
 

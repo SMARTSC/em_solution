@@ -7,8 +7,8 @@ namespace EM.Terminal.Dashboard.Pages
         private const string ALBUM_OPTION_DETAIL = "Detalles";
         private const string ALBUM_OPTION_EDIT_METADATA = "Modificar Metadatos";
         private const string ALBUM_OPTION_MANAGE_PHOTO_CONTENTS = "Gestionar Contenidos (Retratos)";
-        private const string ALBUM_OPTION_MANAGE_PHOTOSESSION_CONTENTS = "Gestionar Contenidos (Sesión de Foto)";
-        private const string ALBUM_OPTION_MANAGE_VIDEO_CONTENTS = "Gestionar Contenidos (Video)";
+        private const string ALBUM_OPTION_MANAGE_PHOTOSESSION_CONTENTS = "Gestionar Contenidos (Sesiones de Fotos)";
+        private const string ALBUM_OPTION_MANAGE_VIDEO_CONTENTS = "Gestionar Contenidos (Videos)";
         private const string ALBUM_OPTION_DELETE = "Eliminar";
 
         public ManageEventAlbumsPage(Cloud.Backend.Api.Common.Models.EventDisplayModel @event) 

@@ -1,15 +1,142 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="EM.Terminal.Dashboard.Pages.ManageEventAlbumPhotoSessionContentsPage">
+<sscxftoolkitmvvmpages:BindingContextedContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pagemodels="clr-namespace:EM.Terminal.Dashboard.Models.Page"
+    xmlns:views="clr-namespace:EM.Terminal.Dashboard.Views"
+    xmlns:converters="clr-namespace:EM.Terminal.Dashboard.Converters"
+    xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
+    xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    xmlns:ffimageloadingforms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    mc:Ignorable="d"
+    x:Class="EM.Terminal.Dashboard.Pages.ManageEventAlbumPhotoSessionContentsPage"    
+    x:TypeArguments="pagemodels:ManageEventAlbumPhotoSessionContentsPageModel"
+    Title="Contenidos (Sesiones de Fotos)">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter x:Key="PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter" />
+
+            <sscxftoolkitpresentationconverters:FractionConverter x:Key="FractionConverter" />
+            <sscxftoolkitpresentationconverters:NotNullOrEmptyStringToBooleanConverter x:Key="NotNullOrEmptyStringToBooleanConverter" />
+            <sscxftoolkitpresentationconverters:BoolToBoolNegationConverter x:Key="BoolToBoolNegationConverter" />
+            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="240" ChildAbsoluteHorizontalMargin="10" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Text="Agregar"
+            Activated="AddToolbarItem_Activated">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="Material Design Icons" Glyph="&#xf415;">
+                    <FontImageSource.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="UWP" Value="Black" />
+                            <On Platform="macOS" Value="Black" />
+                        </OnPlatform>
+                    </FontImageSource.Color>
+                    <FontImageSource.Size>
+                        <OnPlatform Default="16" x:TypeArguments="x:Double">
+                            <On Platform="macOS" Value="10" />
+                        </OnPlatform>
+                    </FontImageSource.Size>
+                </FontImageSource>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <views:BackgroundView />
+            <ScrollView Orientation="Vertical">
+                <FlexLayout
+                    Margin="5"
+                    Wrap="Wrap"
+                    AlignItems="Start" AlignContent="Start"
+                    BindableLayout.ItemsSource="{Binding Path=Items}">
+                    <BindableLayout.EmptyView>
+                        <Label
+                            IsVisible="{Binding Path=IsBusy, Converter={StaticResource BoolToBoolNegationConverter}}"
+                            Margin="10"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="Sin elementos que mostrar"
+                            TextColor="Black" />
+                    </BindableLayout.EmptyView>
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                ColumnSpacing="0" RowSpacing="0"
+                                Margin="5"
+                                BackgroundColor="White"
+                                WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}"
+                                HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <ffimageloadingforms:CachedImage
+                                    Grid.Column="0" Grid.Row="0"
+                                    Source="{Binding Converter={StaticResource PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter}, ConverterParameter=0}"
+                                    CacheType="Disk"
+                                    CacheDuration="8760:00:00" />
+                                <ffimageloadingforms:CachedImage
+                                    Grid.Column="1" Grid.Row="0"
+                                    Source="{Binding Converter={StaticResource PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter}, ConverterParameter=1}"
+                                    CacheType="Disk"
+                                    CacheDuration="8760:00:00" />
+                                <ffimageloadingforms:CachedImage
+                                    Grid.Column="0" Grid.Row="1"
+                                    Source="{Binding Converter={StaticResource PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter}, ConverterParameter=2}"
+                                    CacheType="Disk"
+                                    CacheDuration="8760:00:00" />
+                                <ffimageloadingforms:CachedImage
+                                    Grid.Column="1" Grid.Row="1"
+                                    Source="{Binding Converter={StaticResource PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter}, ConverterParameter=3}"
+                                    CacheType="Disk"
+                                    CacheDuration="8760:00:00" />
+                                <StackLayout
+                                    Grid.ColumnSpan="2" Grid.RowSpan="2"
+                                    VerticalOptions="End" 
+                                    Padding="8"
+                                    BackgroundColor="#99000000">
+                                    <Label 
+                                        Text="{Binding Path=Created}"
+                                        TextColor="White"
+                                        LineBreakMode="TailTruncation" />
+                                </StackLayout>
+                                <ImageButton
+                                    Grid.ColumnSpan="2" Grid.RowSpan="2"
+                                    VerticalOptions="Start" HorizontalOptions="End"
+                                    Margin="4"
+                                    WidthRequest="24"
+                                    HeightRequest="24"
+                                    BackgroundColor="#99000000"
+                                    BorderWidth="0"
+                                    CornerRadius="12"
+                                    Clicked="DeleteItemButton_Clicked">
+                                    <ImageButton.Padding>
+                                        <OnPlatform x:TypeArguments="Thickness">
+                                            <On Platform="UWP" Value="1,0,0,0" />
+                                        </OnPlatform>
+                                    </ImageButton.Padding>
+                                    <ImageButton.Source>
+                                        <FontImageSource 
+                                            Color="White"
+                                            FontFamily="Material Design Icons"
+                                            Glyph="&#xF156;" />
+                                    </ImageButton.Source>
+                                </ImageButton>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </ScrollView>
+            <views:BusyView />
+        </Grid>
     </ContentPage.Content>
-</ContentPage>
+</sscxftoolkitmvvmpages:BindingContextedContentPage>

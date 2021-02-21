@@ -1,4 +1,6 @@
-﻿namespace EM.Terminal.Dashboard.Pages
+﻿using Xamarin.Essentials;
+
+namespace EM.Terminal.Dashboard.Pages
 {
     public partial class ManageEventAlbumPictureContentsPage : SmartSolucionesCuba.XFToolKit.Mvvm.Pages.BindingContextedContentPage<Models.Page.ManageEventAlbumPictureContentsPageModel>
     {
@@ -35,72 +37,69 @@
                 {
                     try
                     {
-                        string[] fileSelector = null;
-
-                        switch (Xamarin.Forms.Device.RuntimePlatform)
+                        var pickOptions = new PickOptions
                         {
-                            case Xamarin.Forms.Device.Android:
-                                fileSelector = new string[] { "image/*" };
+                            FileTypes = new FilePickerFileType(
+                                new System.Collections.Generic.Dictionary<DevicePlatform, System.Collections.Generic.IEnumerable<string>>
+                                {
+                                    { DevicePlatform.Android, new string[] { "image/jpeg"} },
+                                    { DevicePlatform.iOS, new string[] { "public.image" } },
+                                    { DevicePlatform.macOS, new string[] { "public.image" } },
+                                    { DevicePlatform.UWP, new string[] { ".jpg", ".jpeg" } },
+                                }),
+                            PickerTitle = "Seleccione las capturas a importar"
+                        };
 
-                                break;
+                        var pickResult = await FilePicker.PickMultipleAsync(pickOptions);
 
-                            case Xamarin.Forms.Device.UWP:
-                                fileSelector = new string[] { ".jpg", ".jpeg" };
-
-                                break;
-                        }
-
-                        var targetFileData = await Plugin.FilePicker.CrossFilePicker.Current.PickFile(fileSelector);
-
-                        if (targetFileData != null)
+                        if (pickResult != null)
                         {
-                            using (var imageFileStream = targetFileData.GetStream())
+                            var reloadRequired = false;
+
+                            foreach (var pick in pickResult)
                             {
-                                var imageData = new byte[imageFileStream.Length];
-
-                                await imageFileStream.ReadAsync(imageData, 0, imageData.Length);
-
-                                var client = new Cloud.Backend.Api.Connect.Clients.PictureContentsApiClient(Managers.SessionManager.Instance);
-
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                                client.CreateAsync(new Cloud.Backend.Api.Common.Models.PictureContentInputModel
+                                if (!reloadRequired)
                                 {
-                                    Id = System.Guid.NewGuid(),
-                                    Created = System.DateTime.Now,
-                                    AlbumId = BindingContextPageModel.Album.Id,
-                                    ContentData = targetFileData.DataArray,
-                                    ContentType = "image/jpeg",
-                                    Enabled = true
-                                }).ContinueWith(task =>
+                                    reloadRequired = true;
+                                }
+
+                                using (var imageFileStream = await pick.OpenReadAsync())
                                 {
-                                    Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                                    var imageData = new byte[imageFileStream.Length];
+
+                                    await imageFileStream.ReadAsync(imageData, 0, imageData.Length);
+
+                                    var client = new Cloud.Backend.Api.Connect.Clients.PictureContentsApiClient(Managers.SessionManager.Instance);
+
+                                    await client.CreateAsync(new Cloud.Backend.Api.Common.Models.PictureContentInputModel
                                     {
-                                        if (task.Exception != null || task.IsCanceled)
-                                        {
-                                            BindingContextPageModel.IsBusy = false;
-
-                                            (Xamarin.Forms.Application.Current as Helpers.Facade.IExceptionHandleHelperFacade).HandleException(task.Exception);
-
-                                            return;
-                                        }
-
-                                        Presenters.NotificationPresenter.Instance.PresentNotification("Información", "Cambios aplicados con éxito.");
-
-                                        LoadItems();
+                                        Id = System.Guid.NewGuid(),
+                                        Created = System.DateTime.Now,
+                                        AlbumId = BindingContextPageModel.Album.Id,
+                                        ContentData = imageData,
+                                        ContentType = pick.ContentType,
+                                        Enabled = true
                                     });
+                                }
+                            }
+
+                            if (reloadRequired)
+                            {
+                                Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                                {
+                                    Presenters.NotificationPresenter.Instance.PresentNotification("Información", "Cambios aplicados con éxito.");
+
+                                    LoadItems();
                                 });
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                             }
                         }
-                        else
-                        {
-                            BindingContextPageModel.IsBusy = false;
-                        }
                     }
-                    catch
+                    catch (System.Exception exception)
                     {
-                        BindingContextPageModel.IsBusy = false;
+                        (Xamarin.Forms.Application.Current as Helpers.Facade.IExceptionHandleHelperFacade).HandleException(exception);
                     }
+
+                    BindingContextPageModel.IsBusy = false;
                 });
             });
         }
