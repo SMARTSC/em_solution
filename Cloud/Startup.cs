@@ -31,6 +31,7 @@ namespace EM.Cloud
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<Options.SharedAccessSignatureOptions>(configuration.GetSection("SAS"));
             services.Configure<Options.EventMediaDimensionContraintOptions>(configuration.GetSection("EventMediaDimensionContraint"));
             services.Configure<Options.MediaThumbnailResizeOptions>(configuration.GetSection("MediaThumbnailResize"));
             services.Configure<Options.JwtOptions>(configuration.GetSection("JWT"));
