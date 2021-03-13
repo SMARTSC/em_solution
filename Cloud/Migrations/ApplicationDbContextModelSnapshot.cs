@@ -27,10 +27,10 @@ namespace EM.Cloud.Migrations
                         .IsRequired()
                         .HasColumnName("alias");
 
-                    b.Property<Guid?>("DefaultPhotoSessionContentCollageLayoutId")
+                    b.Property<Guid>("DefaultPhotoSessionContentCollageLayoutId")
                         .HasColumnName("defaultphotosessioncontentcollagelayoutid");
 
-                    b.Property<Guid?>("DefaultPictureContentCollageLayoutId")
+                    b.Property<Guid>("DefaultPictureContentCollageLayoutId")
                         .HasColumnName("defaultpicturecontentcollagelayoutid");
 
                     b.Property<string>("Description")
@@ -40,11 +40,11 @@ namespace EM.Cloud.Migrations
                     b.Property<bool>("Enabled")
                         .HasColumnName("enabled");
 
-                    b.Property<Guid?>("EventId")
+                    b.Property<Guid>("EventId")
                         .HasColumnName("eventid");
 
-                    b.Property<Guid?>("FrontImageId")
-                        .HasColumnName("frontimageid");
+                    b.Property<Guid>("OverlayId")
+                        .HasColumnName("overlayid");
 
                     b.Property<int>("PhotoSessionCaptureCount")
                         .HasColumnName("photosessioncapturecount");
@@ -72,8 +72,8 @@ namespace EM.Cloud.Migrations
                     b.HasIndex("EventId")
                         .HasName("ix_albums_eventid");
 
-                    b.HasIndex("FrontImageId")
-                        .HasName("ix_albums_frontimageid");
+                    b.HasIndex("OverlayId")
+                        .HasName("ix_albums_overlayid");
 
                     b.ToTable("albums");
                 });
@@ -229,8 +229,8 @@ namespace EM.Cloud.Migrations
                     b.Property<string>("Annotations")
                         .HasColumnName("annotations");
 
-                    b.Property<string>("Descrition")
-                        .HasColumnName("descrition")
+                    b.Property<string>("Description")
+                        .HasColumnName("description")
                         .HasMaxLength(255);
 
                     b.Property<DateTime>("End")
@@ -243,6 +243,9 @@ namespace EM.Cloud.Migrations
                         .IsRequired()
                         .HasColumnName("name");
 
+                    b.Property<Guid?>("OverlayId")
+                        .HasColumnName("overlayid");
+
                     b.Property<string>("PlaceName")
                         .HasColumnName("placename");
 
@@ -254,6 +257,9 @@ namespace EM.Cloud.Migrations
 
                     b.HasIndex("LogoId")
                         .HasName("ix_events_logoid");
+
+                    b.HasIndex("OverlayId")
+                        .HasName("ix_events_overlayid");
 
                     b.ToTable("events");
                 });
@@ -1334,22 +1340,26 @@ namespace EM.Cloud.Migrations
                     b.HasOne("EM.Cloud.Persistence.Entities.CollageLayout", "DefaultPhotoSessionContentCollageLayout")
                         .WithMany()
                         .HasForeignKey("DefaultPhotoSessionContentCollageLayoutId")
-                        .HasConstraintName("fk_albums_collagelayouts_defaultphotosessioncontentcollagelayou~");
+                        .HasConstraintName("fk_albums_collagelayouts_defaultphotosessioncontentcollagelayou~")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("EM.Cloud.Persistence.Entities.CollageLayout", "DefaultPictureContentCollageLayout")
                         .WithMany()
                         .HasForeignKey("DefaultPictureContentCollageLayoutId")
-                        .HasConstraintName("fk_albums_collagelayouts_defaultpicturecontentcollagelayoutid");
+                        .HasConstraintName("fk_albums_collagelayouts_defaultpicturecontentcollagelayoutid")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("EM.Cloud.Persistence.Entities.Event", "Event")
                         .WithMany("Albums")
                         .HasForeignKey("EventId")
-                        .HasConstraintName("fk_albums_events_eventid");
+                        .HasConstraintName("fk_albums_events_eventid")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image", "FrontImage")
+                    b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image", "Overlay")
                         .WithMany()
-                        .HasForeignKey("FrontImageId")
-                        .HasConstraintName("fk_albums_images_frontimageid");
+                        .HasForeignKey("OverlayId")
+                        .HasConstraintName("fk_albums_images_overlayid")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("EM.Cloud.Persistence.Entities.AlbumCollageLayoutBridge", b =>
@@ -1420,6 +1430,11 @@ namespace EM.Cloud.Migrations
                         .WithMany()
                         .HasForeignKey("LogoId")
                         .HasConstraintName("fk_events_images_logoid");
+
+                    b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image", "Overlay")
+                        .WithMany()
+                        .HasForeignKey("OverlayId")
+                        .HasConstraintName("fk_events_images_overlayid");
                 });
 
             modelBuilder.Entity("EM.Cloud.Persistence.Entities.Invokation", b =>

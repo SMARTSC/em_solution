@@ -1,14 +1,14 @@
 ﻿namespace EM.Terminal.Dashboard.Converters
 {
-    public class EventDisplayModelToLogoImageSourceConverter : Xamarin.Forms.IValueConverter
+    public class ImageMediaDisplayModelToImageSourceConverter : Xamarin.Forms.IValueConverter
     {
         public object Convert(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value == null) return null;
 
-            var model = value as Cloud.Backend.Api.Common.Models.EventDisplayModel;
+            var model = value as Cloud.Api.Common.Models.ImageMediaDisplayModel;
 
-            return Xamarin.Forms.ImageSource.FromUri(new System.Uri(string.Format("{1}://{0}/business/media/image/{2}", Managers.SessionManager.Instance.Server, Managers.SessionManager.CLOUD_CONNECTION_SCHEMA, model.Logo.Id)));
+            return Xamarin.Forms.ImageSource.FromUri(Factories.UriFactory.BuildImageUri(model.Id));
         }
 
         public object ConvertBack(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)

@@ -16,7 +16,7 @@
     Title="Contenidos (Retratos)">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:ImageMediaDisplayModelToThumbnailImageSourceConverter x:Key="ImageMediaDisplayModelToThumbnailImageSourceConverter" />
+            <converters:PictureContentDisplayModelToThumbnailImageSourceConverter x:Key="PictureContentDisplayModelToThumbnailImageSourceConverter" />
 
             <sscxftoolkitpresentationconverters:FractionConverter x:Key="FractionConverter" />
             <sscxftoolkitpresentationconverters:NotNullOrEmptyStringToBooleanConverter x:Key="NotNullOrEmptyStringToBooleanConverter" />
@@ -72,7 +72,7 @@
                                 <ffimageloadingforms:CachedImage
                                     BackgroundColor="Black"
                                     HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}"
-                                    Source="{Binding Converter={StaticResource ImageMediaDisplayModelToThumbnailImageSourceConverter}, ConverterParameter={Binding Path=Album.Id}}"
+                                    Source="{Binding Converter={StaticResource PictureContentDisplayModelToThumbnailImageSourceConverter}, ConverterParameter={Binding Path=Album.Id}}"
                                     CacheType="Disk"
                                     CacheDuration="8760:00:00" />
                                 <StackLayout 

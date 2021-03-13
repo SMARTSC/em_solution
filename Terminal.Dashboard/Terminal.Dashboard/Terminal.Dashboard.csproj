@@ -13,7 +13,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.9" />
+    <None Remove="Resources\Image\000101E5-C6DD-4E1C-B821-FACF619DD99D.jpg" />
+    <None Remove="Resources\Image\000203E5-C6DD-4E1C-B821-FACF619DD99D.jpg" />
+    <None Remove="Resources\Image\000301F5-C60D-4E1C-AA21-FACF619DD91C.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="SSCXFToolKit.Mvvm" Version="0.4.10-alpha" />
     <PackageReference Include="SSCXFToolKit.Presentation" Version="0.4.10-alpha" />
     <PackageReference Include="Toasts.Forms.Plugin" Version="3.3.2" />
@@ -27,6 +32,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Cloud.Api.Connect\Cloud.Api.Connect.csproj" />
     <ProjectReference Include="..\..\Cloud.Backend.Api.Connect\Cloud.Backend.Api.Connect.csproj" />
+    <ProjectReference Include="..\..\Extend.Layout.Provision\Extend.Layout.Provision.csproj" />
+    <ProjectReference Include="..\..\Extend.Lock.Provision\Extend.Lock.Provision.csproj" />
     <ProjectReference Include="..\..\Terminal.Common\Terminal.Common.csproj" />
   </ItemGroup>
 
@@ -37,9 +44,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Fonts\materialdesignicons-webfont.ttf" />
+    <EmbeddedResource Include="Resources\Font\materialdesignicons-webfont.ttf" />
+    <EmbeddedResource Include="Resources\Image\000101E5-C6DD-4E1C-B821-FACF619DD99D.jpg" />
+    <EmbeddedResource Include="Resources\Image\000203E5-C6DD-4E1C-B821-FACF619DD99D.jpg" />
+    <EmbeddedResource Include="Resources\Image\000301F5-C60D-4E1C-AA21-FACF619DD91C.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Pages\AlbumConfigurationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\AlbumDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\CollageLayoutPickPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\EventConfigurationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\EventDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\ManageEventAlbumPictureContentsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -52,22 +77,18 @@
     <EmbeddedResource Update="Pages\ManageEventsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Popup\EventDetailPopupPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Pages\UserAuthenticationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\BusyView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\CollageLayoutView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Providers\" />
     <Folder Include="Providers\Facade\" />
-    <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Resources\Font\materialdesignicons-webfont.ttf" />
   </ItemGroup>
 </Project>

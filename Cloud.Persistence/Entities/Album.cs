@@ -29,16 +29,28 @@ namespace EM.Cloud.Persistence.Entities
         [Required]
         public int PhotoSessionCaptureCount { get; set; }
 
+        [System.ComponentModel.DataAnnotations.Schema.ForeignKey("DefaultPictureContentCollageLayoutId")]
         public CollageLayout DefaultPictureContentCollageLayout { get; set; }
 
+        public System.Guid DefaultPictureContentCollageLayoutId { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Schema.ForeignKey("DefaultPhotoSessionContentCollageLayoutId")]
         public CollageLayout DefaultPhotoSessionContentCollageLayout { get; set; }
 
-        public SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image FrontImage { get; set; }
+        public System.Guid DefaultPhotoSessionContentCollageLayoutId { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Schema.ForeignKey("OverlayId")]
+        public SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image Overlay { get; set; }
+
+        public System.Guid OverlayId { get; set; }
 
         [MaxLength(255)]
         public string Description { get; set; }
 
+        [System.ComponentModel.DataAnnotations.Schema.ForeignKey("EventId")]
         public Event Event { get; set; }
+
+        public System.Guid EventId { get; set; }
 
         public ICollection<Content> Contents { get; set; }
 

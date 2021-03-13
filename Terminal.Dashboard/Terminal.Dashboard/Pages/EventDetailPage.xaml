@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sscxftoolkitmvvmpages:BindingContextedContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pagemodels="clr-namespace:EM.Terminal.Dashboard.Models.Page"
+    xmlns:views="clr-namespace:EM.Terminal.Dashboard.Views"
+    xmlns:converters="clr-namespace:EM.Terminal.Dashboard.Converters"
+    xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
+    xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    xmlns:ffimageloadingforms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    mc:Ignorable="d"
+    x:Class="EM.Terminal.Dashboard.Pages.EventDetailPage"
+    x:TypeArguments="pagemodels:EventDetailPageModel"
+    Title="Detalles de Evento">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageMediaDisplayModelToImageSourceConverter x:Key="ImageMediaDisplayModelToImageSourceConverter" />
+            <converters:ImageMediaDisplayModelToThumbnailImageSourceConverter x:Key="ImageMediaDisplayModelToThumbnailImageSourceConverter" />
+            <sscxftoolkitpresentationconverters:IfNullOrEmptyToStringConverter x:Key="IfNullOrEmptyToStringConverter" StringReplacement="-" />
+            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="320" ChildAbsoluteHorizontalMargin="10" />
+            <sscxftoolkitpresentationconverters:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />
+
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="WidthRequest" Value="100" />
+                <Setter Property="TextColor" Value="Accent" />
+                <Setter Property="ContentLayout" Value="Top,0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <ScrollView Orientation="Vertical">
+                <StackLayout 
+                    Spacing="10"
+                    Margin="0,0,0,20">
+                    <Grid RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="60" />
+                            <RowDefinition Height="60" />
+                        </Grid.RowDefinitions>
+                        <ffimageloadingforms:CachedImage 
+                            Grid.RowSpan="2"
+                            BackgroundColor="Black"
+                            Source="{Binding Path=Event.Overlay, Converter={StaticResource ImageMediaDisplayModelToThumbnailImageSourceConverter}}"
+                            CacheType="Disk"
+                            CacheDuration="8760:00:00" />
+                        <Grid                            
+                            Grid.Row="1" Grid.RowSpan="2"
+                            HorizontalOptions="Center">
+                            <BoxView
+                                BackgroundColor="LightGray"
+                                CornerRadius="4" />
+                            <ffimageloadingforms:CachedImage
+                                Margin="4"
+                                BackgroundColor="White"
+                                Source="{Binding Path=Event.Logo, Converter={StaticResource ImageMediaDisplayModelToImageSourceConverter}}"
+                                CacheType="Disk"
+                                CacheDuration="8760:00:00" />
+                        </Grid>
+                    </Grid>
+                    <Label 
+                        Margin="0,30,0,0"
+                        Text="{Binding Path=Event.Name}"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource NormalTitleFontLabelStyle}" />
+                    <StackLayout 
+                        HorizontalOptions="Center"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <Button
+                            Text="Editar"
+                            Clicked="EditButton_Clicked">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="Material Design Icons" Glyph="&#xf90b;" Color="Accent" />
+                            </Button.ImageSource>
+                        </Button>
+                        <Button
+                            Text="Eliminar"
+                            Clicked="DeleteButton_Clicked">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="Material Design Icons" Glyph="&#xfa79;" Color="Accent" />
+                            </Button.ImageSource>
+                        </Button>
+                        <Button
+                            Text="Albumes"
+                            Clicked="ManageAlbumsButton_Clicked">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="Material Design Icons" Glyph="&#xf24f;" Color="Accent" />
+                            </Button.ImageSource>
+                        </Button>
+                    </StackLayout>
+                    <FlexLayout
+                        Margin="5"
+                        Wrap="Wrap"
+                        AlignContent="Start" AlignItems="Start">
+                        <StackLayout
+                            Margin="5"
+                            WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}">
+                            <Label 
+                                Style="{StaticResource FormLabel}"
+                                Text="Fecha en que Inicia" />
+                            <Label Text="{Binding Path=Event.Start, Converter={StaticResource DateTimeToStringConverter}, ConverterParameter='dddd, MMMM dd, yyyy'}" />
+                        </StackLayout>
+                        <StackLayout
+                            Margin="5"
+                            WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}">
+                            <Label 
+                                Style="{StaticResource FormLabel}"
+                                Text="Fecha en que Finaliza" />
+                            <Label Text="{Binding Path=Event.End, Converter={StaticResource DateTimeToStringConverter}, ConverterParameter='dddd, MMMM dd, yyyy'}" />
+                        </StackLayout>
+                    </FlexLayout>
+                    <StackLayout Margin="10,0">
+                        <Label 
+                            Style="{StaticResource FormLabel}"
+                            Text="Descripción" />
+                        <Label Text="{Binding Path=Event.Description, Converter={StaticResource IfNullOrEmptyToStringConverter}}" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            <views:BusyView />
+        </Grid>
+    </ContentPage.Content>
+</sscxftoolkitmvvmpages:BindingContextedContentPage>

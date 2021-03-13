@@ -6,18 +6,42 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pagemodels="clr-namespace:EM.Terminal.Dashboard.Models.Page"
     xmlns:views="clr-namespace:EM.Terminal.Dashboard.Views"
+    xmlns:converters="clr-namespace:EM.Terminal.Dashboard.Converters"
     xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
     xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    xmlns:ffimageloadingforms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     mc:Ignorable="d"
     x:Class="EM.Terminal.Dashboard.Pages.ManageEventAlbumsPage"    
     x:TypeArguments="pagemodels:ManageEventAlbumsPageModel"
     Title="Albumes">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <converters:ImageMediaDisplayModelToThumbnailImageSourceConverter x:Key="ImageMediaDisplayModelToThumbnailImageSourceConverter" />
             <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="320" ChildAbsoluteHorizontalMargin="10" />
-            <sscxftoolkitpresentationconverters:IfNullOrEmptyToStringConverter x:Key="IfNullOrEmptyToStringConverter" StringReplacement="Album sin descripción especificada" />
+            <sscxftoolkitpresentationconverters:FractionConverter x:Key="FractionConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Text="Agregar"
+            Clicked="AddToolbarItem_Clicked">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="Material Design Icons" Glyph="&#xf415;">
+                    <FontImageSource.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="UWP" Value="Black" />
+                            <On Platform="macOS" Value="Black" />
+                        </OnPlatform>
+                    </FontImageSource.Color>
+                    <FontImageSource.Size>
+                        <OnPlatform Default="16" x:TypeArguments="x:Double">
+                            <On Platform="macOS" Value="10" />
+                        </OnPlatform>
+                    </FontImageSource.Size>
+                </FontImageSource>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>
             <views:BackgroundView />
@@ -26,70 +50,42 @@
                     Margin="5"
                     Wrap="Wrap"
                     AlignContent="Start" AlignItems="Start"
-                    BindableLayout.ItemsSource="{Binding Path=Event.Albums}">
+                    BindableLayout.ItemsSource="{Binding Path=Items}">
+                    <BindableLayout.EmptyView>
+                        <Label 
+                            Margin="10"
+                            Text="Sin elementos que mostrar"
+                            HorizontalTextAlignment="Center" />
+                    </BindableLayout.EmptyView>
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Grid
                                 Margin="5"
-                                BackgroundColor="GhostWhite"
-                                WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}"
-                                HeightRequest="96">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <BoxView 
-                                    Grid.Column="0"
-                                    BackgroundColor="White"
-                                    WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type Grid}}, Path=HeightRequest}" />
-                                <Label
-                                    Grid.Column="0"
-                                    HorizontalOptions="Center" VerticalOptions="Center"
-                                    Text="&#xf24f;"
-                                    TextColor="Black"
-                                    FontFamily="Material Design Icons"
-                                    FontSize="48" />
-                                <Grid
-                                    Grid.Column="1"
-                                    Padding="8,8,0,8">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Label 
-                                        Grid.Column="0" Grid.Row="0"
-                                        Text="{Binding Path=Title}"
-                                        Style="{StaticResource NormalTitleFontLabelStyle}" />
-                                    <Label
-                                        Grid.Column="0" Grid.Row="1"
-                                        Text="{Binding Path=Description, Converter={StaticResource IfNullOrEmptyToStringConverter}}"
-                                        TextColor="{StaticResource SecundaryTextColor}" />
-                                    <Label
-                                        Grid.Column="1" Grid.RowSpan="2"
-                                        VerticalOptions="Start"
-                                        Text="&#xf1d9;"
-                                        TextColor="Accent"
-                                        FontFamily="Material Design Icons"
-                                        Style="{StaticResource NormalTitleFontLabelStyle}">
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="AlbumOptionsButton_Clicked" />
-                                        </Label.GestureRecognizers>
-                                        <Label.Padding>
-                                            <OnPlatform x:TypeArguments="Thickness" Default="6">
-                                                <On Platform="macOS" Value="0,6" />
-                                            </OnPlatform>
-                                        </Label.Padding>
-                                    </Label>
-                                </Grid>
+                                WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="AlbumOverviewGestureRecognizer_Tapped" />
+                                </Grid.GestureRecognizers>
+                                <ffimageloadingforms:CachedImage 
+                                    BackgroundColor="Black"
+                                    HeightRequest="{Binding Source={x:RelativeSource AncestorType={x:Type Grid}}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}"
+                                    Source="{Binding Path=Overlay, Converter={StaticResource ImageMediaDisplayModelToThumbnailImageSourceConverter}}"
+                                    Aspect="AspectFill"
+                                    CacheType="Disk"
+                                    CacheDuration="8760:00:00" />
+                                <Label 
+                                    VerticalOptions="End"
+                                    BackgroundColor="#AA000000"
+                                    Padding="10,6"
+                                    Text="{Binding Path=Title}"
+                                    TextColor="White"
+                                    LineBreakMode="TailTruncation"
+                                    Style="{StaticResource MiddleTextFontLabelStyle}" />
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </FlexLayout>
             </ScrollView>
+            <views:BusyView />
         </Grid>        
     </ContentPage.Content>
 </sscxftoolkitmvvmpages:BindingContextedContentPage>

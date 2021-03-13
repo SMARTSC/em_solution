@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sscxftoolkitmvvmpages:BindingContextedContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pagemodels="clr-namespace:EM.Terminal.Dashboard.Models.Page"
+    xmlns:views="clr-namespace:EM.Terminal.Dashboard.Views"
+    xmlns:converters="clr-namespace:EM.Terminal.Dashboard.Converters"
+    xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
+    xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    xmlns:ffimageloadingforms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    mc:Ignorable="d"
+    x:Class="EM.Terminal.Dashboard.Pages.AlbumDetailPage"
+    x:TypeArguments="pagemodels:AlbumDetailPageModel"
+    Title="Detalles de Album">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageMediaDisplayModelToThumbnailImageSourceConverter x:Key="ImageMediaDisplayModelToThumbnailImageSourceConverter" />
+            <sscxftoolkitpresentationconverters:IfNullOrEmptyToStringConverter x:Key="IfNullOrEmptyToStringConverter" StringReplacement="-" />
+            <sscxftoolkitpresentationconverters:BoolToStringConverter x:Key="BoolToStringConverter" TrueString="Si" FalseString="No" />
+            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="320" ChildAbsoluteHorizontalMargin="10" />
+
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="WidthRequest" Value="100" />
+                <Setter Property="TextColor" Value="Accent" />
+                <Setter Property="ContentLayout" Value="Top,0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <ScrollView Orientation="Vertical">
+                <StackLayout 
+                    Spacing="10"
+                    Margin="0,0,0,20">
+                    <ffimageloadingforms:CachedImage 
+                        Grid.RowSpan="2"
+                        BackgroundColor="Black"
+                        Source="{Binding Path=Album.Overlay, Converter={StaticResource ImageMediaDisplayModelToThumbnailImageSourceConverter}}"
+                        CacheType="Disk"
+                        CacheDuration="8760:00:00" />
+                    <Label 
+                        Margin="0,30,0,0"
+                        Text="{Binding Path=Album.Title}"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource NormalTitleFontLabelStyle}" />
+                    <StackLayout 
+                        HorizontalOptions="Center"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <Button
+                            Text="Editar"
+                            Clicked="EditButton_Clicked">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="Material Design Icons" Glyph="&#xf90b;" Color="Accent" />
+                            </Button.ImageSource>
+                        </Button>
+                        <Button
+                            Text="Eliminar"
+                            Clicked="DeleteButton_Clicked">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="Material Design Icons" Glyph="&#xfa79;" Color="Accent" />
+                            </Button.ImageSource>
+                        </Button>
+                        <Button
+                            Text="Contenidos"
+                            Clicked="ManageContentsButton_Clicked">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="Material Design Icons" Glyph="&#xf638;" Color="Accent" />
+                            </Button.ImageSource>
+                        </Button>
+                        <Button
+                            Text="Seguridad"
+                            Clicked="ManageSecurityLocksButton_Clicked">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="Material Design Icons" Glyph="&#xf565;" Color="Accent" />
+                            </Button.ImageSource>
+                        </Button>
+                        <Button
+                            Text="Impresión"
+                            Clicked="ManagePrintLayoutsButton_Clicked">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="Material Design Icons" Glyph="&#xf42a;" Color="Accent" />
+                            </Button.ImageSource>
+                        </Button>
+                    </StackLayout>
+                    <FlexLayout
+                        Margin="5"
+                        Wrap="Wrap"
+                        AlignContent="Start" AlignItems="Start">
+                        <StackLayout
+                            Margin="5"
+                            WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}">
+                            <Label 
+                                Style="{StaticResource FormLabel}"
+                                Text="Alias" />
+                            <Label Text="{Binding Path=Album.Alias}" />
+                        </StackLayout>
+                        <StackLayout
+                            Margin="5"
+                            WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}">
+                            <Label 
+                                Style="{StaticResource FormLabel}"
+                                Text="Habilitado?" />
+                            <Label Text="{Binding Path=Album.Enabled, Converter={StaticResource BoolToStringConverter}}" />
+                        </StackLayout>
+                        <StackLayout
+                            Margin="5"
+                            WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}">
+                            <Label 
+                                Style="{StaticResource FormLabel}"
+                                Text="Público?" />
+                            <Label Text="{Binding Path=Album.Public, Converter={StaticResource BoolToStringConverter}}" />
+                        </StackLayout>
+                    </FlexLayout>
+                    <StackLayout Margin="10,0">
+                        <Label 
+                            Style="{StaticResource FormLabel}"
+                            Text="Descripción" />
+                        <Label Text="{Binding Path=Album.Description, Converter={StaticResource IfNullOrEmptyToStringConverter}}" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            <views:BusyView />
+        </Grid>
+    </ContentPage.Content>
+</sscxftoolkitmvvmpages:BindingContextedContentPage>

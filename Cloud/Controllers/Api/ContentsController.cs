@@ -47,7 +47,7 @@ namespace EM.Cloud.Controllers.Api
             return NotFound();
         }
 
-        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Paginación de Contenidos", typeof(SmartSolucionesCuba.SAPRESSC.Core.Common.Models.PaginationModel<ContentDisplayModel>))]
+        [SwaggerResponse((int)System.Net.HttpStatusCode.OK, "Lista de Contenidos", typeof(ContentDisplayModel[]))]
         public override IActionResult GetFiltered([FromBody] ContentFilterModel filterModel)
         {
             return base.GetFiltered(filterModel);

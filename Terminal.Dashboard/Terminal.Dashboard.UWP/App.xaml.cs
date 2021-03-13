@@ -45,9 +45,7 @@ namespace EM.Terminal.Dashboard.UWP
 
                 Plugin.Toasts.UWP.ToastNotification.Init();
 
-                Rg.Plugins.Popup.Popup.Init();
-
-                Xamarin.Forms.Forms.Init(e, Rg.Plugins.Popup.Popup.GetExtraAssemblies());
+                Xamarin.Forms.Forms.Init(e);
 
                 Xamarin.Forms.DependencyService.Register<Plugin.Toasts.UWP.ToastNotification>(); // Register your dependency
 

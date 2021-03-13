@@ -20,5 +20,9 @@
         <Style x:Key="NormalTitleFontLabelStyle" TargetType="Label">
             <Setter Property="FontSize" Value="{x:Static helpers:ConstantProvisionHelper.NormalTitleFontSize}" />
         </Style>
+        <Style x:Key="FormLabel" TargetType="Label">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
     </Application.Resources>
 </Application>

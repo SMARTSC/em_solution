@@ -83,7 +83,7 @@ namespace EM.Cloud.Models.View
             //PrintMiddleStrechLogoId = entity.PrintMiddleStrechLogo?.Id ?? System.Guid.Empty;
             //PrintLogoSmallId = entity.PrintSmallLogo?.Id ?? System.Guid.Empty;
             //PrintSmallStrechLogoId = entity.PrintSmallStrechLogo?.Id ?? System.Guid.Empty;
-            Descrition = entity.Descrition;
+            Descrition = entity.Description;
             Start = entity.Start;
             End = entity.End;
             PlaceName = entity.PlaceName;
@@ -93,7 +93,7 @@ namespace EM.Cloud.Models.View
         public void Mergue(Persistence.Entities.Event entity)
         {
             entity.Name = Name;
-            entity.Descrition = Descrition;
+            entity.Description = Descrition;
             entity.Start = Start;
             entity.End = End;
             entity.PlaceName = PlaceName;

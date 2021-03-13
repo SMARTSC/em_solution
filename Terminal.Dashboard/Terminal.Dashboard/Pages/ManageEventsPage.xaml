@@ -11,16 +11,37 @@
     xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
     xmlns:ffimageloadingforms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     mc:Ignorable="d"
-    x:Class="EM.Terminal.Dashboard.Pages.ManageEventsPage"    
+    x:Class="EM.Terminal.Dashboard.Pages.ManageEventsPage"
     x:TypeArguments="pagemodels:ManageEventsPageModel"
     Title="Eventos">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:EventDisplayModelToLogoImageSourceConverter x:Key="EventDisplayModelToLogoImageSourceConverter" />
-            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="480" ChildAbsoluteHorizontalMargin="10" />
-            <sscxftoolkitpresentationconverters:DateTimeToStringConverter x:Key="DateDateTimeToStringConverter" />
+            <converters:ImageMediaDisplayModelToThumbnailImageSourceConverter x:Key="ImageMediaDisplayModelToThumbnailImageSourceConverter" />
+            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="320" ChildAbsoluteHorizontalMargin="10" />
+            <sscxftoolkitpresentationconverters:FractionConverter x:Key="FractionConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Text="Agregar"
+            Clicked="AddToolbarItem_Clicked">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="Material Design Icons" Glyph="&#xf415;">
+                    <FontImageSource.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="UWP" Value="Black" />
+                            <On Platform="macOS" Value="Black" />
+                        </OnPlatform>
+                    </FontImageSource.Color>
+                    <FontImageSource.Size>
+                        <OnPlatform Default="16" x:TypeArguments="x:Double">
+                            <On Platform="macOS" Value="10" />
+                        </OnPlatform>
+                    </FontImageSource.Size>
+                </FontImageSource>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>
             <views:BackgroundView />
@@ -30,90 +51,35 @@
                     Wrap="Wrap"
                     AlignContent="Start" AlignItems="Start"
                     BindableLayout.ItemsSource="{Binding Path=Items}">
+                    <BindableLayout.EmptyView>
+                        <Label 
+                            Margin="10"
+                            Text="Sin elementos que mostrar"
+                            HorizontalTextAlignment="Center" />
+                    </BindableLayout.EmptyView>
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Grid
                                 Margin="5"
-                                BackgroundColor="GhostWhite"
-                                WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}"
-                                HeightRequest="105">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
+                                WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="EventOverviewGestureRecognizer_Tapped" />
+                                </Grid.GestureRecognizers>
                                 <ffimageloadingforms:CachedImage 
-                                    Grid.Column="0"
-                                    BackgroundColor="White"
-                                    WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type Grid}}, Path=HeightRequest}" HeightRequest="{Binding Source={x:RelativeSource AncestorType={x:Type Grid}}, Path=HeightRequest}"
-                                    Source="{Binding Converter={StaticResource EventDisplayModelToLogoImageSourceConverter}}"
-                                    CacheType="None"
+                                    BackgroundColor="Black"
+                                    HeightRequest="{Binding Source={x:RelativeSource AncestorType={x:Type Grid}}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}"
+                                    Source="{Binding Path=Overlay, Converter={StaticResource ImageMediaDisplayModelToThumbnailImageSourceConverter}}"
+                                    Aspect="AspectFill"
+                                    CacheType="Disk"
                                     CacheDuration="8760:00:00" />
-                                <Grid
-                                    Grid.Column="1"
-                                    Padding="8,8,0,8">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Label 
-                                        Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
-                                        Text="{Binding Path=Name}"
-                                        LineBreakMode="TailTruncation"
-                                        Style="{StaticResource NormalTitleFontLabelStyle}" />
-                                    <Label
-                                        Grid.Column="0" Grid.Row="1"
-                                        Text="&#xf0ed;"
-                                        TextColor="{StaticResource SecundaryTextColor}"
-                                        FontFamily="Material Design Icons"
-                                        Style="{StaticResource MiddleTextFontLabelStyle}" />
-                                    <Label 
-                                        Grid.Column="1" Grid.Row="1"
-                                        Padding="0,2,0,0"
-                                        TextColor="{StaticResource SecundaryTextColor}">
-                                        <Label.Text>
-                                            <MultiBinding StringFormat="{}{0} - {1}">
-                                                <Binding Path="Start" Converter="{StaticResource DateDateTimeToStringConverter}" ConverterParameter="dd/MM/yyyy" />
-                                                <Binding Path="End" Converter="{StaticResource DateDateTimeToStringConverter}" ConverterParameter="dd/MM/yyyy" />
-                                            </MultiBinding>
-                                        </Label.Text>
-                                    </Label>
-                                    <Label
-                                        Grid.Column="0" Grid.Row="2"
-                                        Text="&#xf352;"
-                                        TextColor="{StaticResource SecundaryTextColor}"
-                                        FontFamily="Material Design Icons"
-                                        Style="{StaticResource MiddleTextFontLabelStyle}" />
-                                    <Label 
-                                        Grid.Column="1" Grid.Row="2"
-                                        Padding="0,2,0,0"
-                                        Text="{Binding Path=PlaceName}"
-                                        TextColor="{StaticResource SecundaryTextColor}"
-                                        LineBreakMode="WordWrap"
-                                        MaxLines="2" />
-                                    <Label
-                                        Grid.Column="2" Grid.RowSpan="4"
-                                        VerticalOptions="Start"
-                                        Text="&#xf1d9;"
-                                        TextColor="Accent"
-                                        FontFamily="Material Design Icons"
-                                        Style="{StaticResource NormalTitleFontLabelStyle}">
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="EventOptionsButton_Clicked" />
-                                        </Label.GestureRecognizers>
-                                        <Label.Padding>
-                                            <OnPlatform x:TypeArguments="Thickness" Default="6">
-                                                <On Platform="macOS" Value="0,6" />
-                                            </OnPlatform>
-                                        </Label.Padding>
-                                    </Label>
-                                </Grid>
+                                <Label 
+                                    VerticalOptions="End"
+                                    BackgroundColor="#AA000000"
+                                    Padding="10,6"
+                                    Text="{Binding Path=Name}"
+                                    TextColor="White"
+                                    LineBreakMode="TailTruncation"
+                                    Style="{StaticResource MiddleTextFontLabelStyle}" />
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

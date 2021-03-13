@@ -1,5 +1,4 @@
-﻿using EM.Cloud.Api.Common.Models;
-using System.Linq;
+﻿using System.Linq;
 
 namespace EM.Cloud.Backend.Api.Common.Models
 {
@@ -9,7 +8,11 @@ namespace EM.Cloud.Backend.Api.Common.Models
 
         public string Title { get; set; }
 
+        public string Alias { get; set; }
+
         public bool Enabled { get; set; }
+
+        public bool Public { get; set; }
 
         public int PhotoSessionCaptureCount { get; set; }
 
@@ -19,13 +22,17 @@ namespace EM.Cloud.Backend.Api.Common.Models
 
         public CollageLayoutDisplayModel[] ExtraCollageLayouts;
 
+        public Cloud.Api.Common.Models.ImageMediaDisplayModel Overlay { get; set; }
+
         public string Description { get; set; }
 
         public void Import(Persistence.Entities.Album entity)
         {
             Id = entity.Id;
             Title = entity.Title;
+            Alias = entity.Alias;
             Enabled = entity.Enabled;
+            Public = entity.Public;
             PhotoSessionCaptureCount = entity.PhotoSessionCaptureCount;
             Description = entity.Description;
             ExtraCollageLayouts = entity.CollageLayoutBridges.Select(bridge =>
@@ -38,6 +45,13 @@ namespace EM.Cloud.Backend.Api.Common.Models
             }).ToArray();
             DefaultPictureContentCollageLayout = new CollageLayoutDisplayModel();
             DefaultPhotoSessionContentCollageLayout = new CollageLayoutDisplayModel();
+
+            if (entity.Overlay != null)
+            {
+                Overlay = new Cloud.Api.Common.Models.ImageMediaDisplayModel();
+
+                Overlay.Import(entity.Overlay);
+            }
 
             DefaultPictureContentCollageLayout.Import(entity.DefaultPictureContentCollageLayout);
             DefaultPhotoSessionContentCollageLayout.Import(entity.DefaultPhotoSessionContentCollageLayout);

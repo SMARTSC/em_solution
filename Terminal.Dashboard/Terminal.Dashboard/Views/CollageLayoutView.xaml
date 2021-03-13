@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="clr-namespace:EM.Terminal.Dashboard.Converters"
+    xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    mc:Ignorable="d"
+    x:Class="EM.Terminal.Dashboard.Views.CollageLayoutView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:CollageLayoutDescriptorToOverviewImageSourceConverter x:Key="CollageLayoutDescriptorToOverviewImageSourceConverter" />
+            <sscxftoolkitpresentationconverters:FractionConverter x:Key="FractionConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid>
+            <Image 
+                HeightRequest="{Binding Source={x:RelativeSource AncestorType={x:Type Grid}}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}"
+                Source="{Binding Converter={StaticResource CollageLayoutDescriptorToOverviewImageSourceConverter}}" />
+            <Label 
+                VerticalOptions="End"
+                BackgroundColor="#AA000000"
+                Padding="10,6"
+                Text="{Binding Path=Name}"
+                TextColor="White"
+                MaxLines="2"
+                LineBreakMode="TailTruncation" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -22,8 +22,7 @@
         {
             Id = entity.Id;
             Name = entity.Name;
-            // TODO Rename Entity property too!
-            Description = entity.Descrition;
+            Description = entity.Description;
             Start = entity.Start;
             End = entity.End;
             PlaceName = entity.PlaceName;

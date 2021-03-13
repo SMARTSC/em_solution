@@ -4,78 +4,72 @@ namespace EM.Terminal.Dashboard.Pages
 {
     public partial class ManageEventAlbumsPage : SmartSolucionesCuba.XFToolKit.Mvvm.Pages.BindingContextedContentPage<Models.Page.ManageEventAlbumsPageModel>
     {
-        private const string ALBUM_OPTION_DETAIL = "Detalles";
-        private const string ALBUM_OPTION_EDIT_METADATA = "Modificar Metadatos";
-        private const string ALBUM_OPTION_MANAGE_PHOTO_CONTENTS = "Gestionar Contenidos (Retratos)";
-        private const string ALBUM_OPTION_MANAGE_PHOTOSESSION_CONTENTS = "Gestionar Contenidos (Sesiones de Fotos)";
-        private const string ALBUM_OPTION_MANAGE_VIDEO_CONTENTS = "Gestionar Contenidos (Videos)";
-        private const string ALBUM_OPTION_DELETE = "Eliminar";
-
-        public ManageEventAlbumsPage(Cloud.Backend.Api.Common.Models.EventDisplayModel @event) 
-            : base(new Models.Page.ManageEventAlbumsPageModel { IsBusy = true, Event = @event })
+        public ManageEventAlbumsPage(Cloud.Backend.Api.Common.Models.EventDisplayModel model)
+            : base(new Models.Page.ManageEventAlbumsPageModel { Event = model })
         {
             InitializeComponent();
+
+            IsEnabled = false;
         }
 
-        private void AlbumOptionsButton_Clicked(object sender, System.EventArgs eventArgs)
+        protected override void OnAppearing()
         {
-            DisplayActionSheet("Opciones de Album", "Cancelar", ALBUM_OPTION_DELETE, ALBUM_OPTION_DETAIL, ALBUM_OPTION_EDIT_METADATA, ALBUM_OPTION_MANAGE_PHOTO_CONTENTS, ALBUM_OPTION_MANAGE_PHOTOSESSION_CONTENTS).ContinueWith(task =>
+            base.OnAppearing();
+
+            if (IsEnabled) return;
+
+            LoadItems();
+
+            IsEnabled = true;
+        }
+
+        private void AlbumOverviewGestureRecognizer_Tapped(object sender, System.EventArgs eventArgs)
+        {
+            this.NavigationPushPageAsync(new AlbumDetailPage((sender as Xamarin.Forms.BindableObject).BindingContext as Cloud.Backend.Api.Common.Models.AlbumDisplayModel, BindingContextPageModel.Event, AlbumsChange_Callback));
+        }
+
+        private void AddToolbarItem_Clicked(object sender, System.EventArgs eventArgs)
+        {
+            if (BindingContextPageModel.IsBusy) return;
+
+            this.NavigationPushPageAsync(new AlbumConfigurationPage(BindingContextPageModel.Event, AlbumsChange_Callback));
+        }
+
+        private void AlbumsChange_Callback()
+        {
+            IsEnabled = false;
+        }
+
+        private void LoadItems(int page = 0)
+        {
+            BindingContextPageModel.IsBusy = true;
+
+            System.Threading.Tasks.Task.Run(async () =>
+            {
+                var client = new Cloud.Backend.Api.Connect.Clients.AlbumsApiClient(Managers.SessionManager.Instance);
+
+                return await client.FilterPaginateAsync(new Cloud.Backend.Api.Common.Models.Filter.AlbumFilterModel { EventId = BindingContextPageModel.Event.Id }, page);
+            }).ContinueWith(task =>
             {
                 Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
                 {
-                    switch (task.Result)
+                    BindingContextPageModel.IsBusy = false;
+
+                    if (task.Exception != null || task.IsCanceled)
                     {
-                        case ALBUM_OPTION_MANAGE_PHOTO_CONTENTS:
-                            this.NavigationPushPageAsync(new ManageEventAlbumPictureContentsPage((sender as Xamarin.Forms.BindableObject).BindingContext as Cloud.Backend.Api.Common.Models.AlbumDisplayModel));
+                        (Xamarin.Forms.Application.Current as Helpers.Facade.IExceptionHandleHelperFacade).HandleException(task.Exception);
+                    }
+                    else
+                    {
+                        if (page == 0)
+                        {
+                            BindingContextPageModel.Items.Clear();
+                        }
 
-                            break;
-
-                        case ALBUM_OPTION_MANAGE_PHOTOSESSION_CONTENTS:
-                            this.NavigationPushPageAsync(new ManageEventAlbumPhotoSessionContentsPage((sender as Xamarin.Forms.BindableObject).BindingContext as Cloud.Backend.Api.Common.Models.AlbumDisplayModel));
-
-                            break;
-
-                        case ALBUM_OPTION_DELETE:
-                            //DisplayAlert("Confirmar", "Está seguro que desea eliminar este album?", "Aceptar", "Cancelar").ContinueWith(async subTask =>
-                            //{
-                            //    if (!subTask.Result) return;
-
-                            //    Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
-                            //    {
-                            //        BindingContextPageModel.IsBusy = true;
-                            //    });
-
-                            //    var client = new Cloud.Backend.Api.Connect.Clients.EventsApiClient(Managers.SessionManager.Instance);
-
-                            //    System.Exception failException = null;
-
-                            //    try
-                            //    {
-                            //        await client.Delete(((sender as Xamarin.Forms.BindableObject).BindingContext as Cloud.Backend.Api.Common.Models.EventDisplayModel).Id);
-                            //    }
-                            //    catch (System.Exception ex)
-                            //    {
-                            //        failException = ex;
-                            //    }
-
-                            //    Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
-                            //    {
-                            //        BindingContextPageModel.IsBusy = false;
-
-                            //        if (failException == null)
-                            //        {
-                            //            Presenters.NotificationPresenter.Instance.PresentNotification("Información", "Evento eliminado con éxito.");
-
-                            //            LoadItems();
-                            //        }
-                            //        else
-                            //        {
-                            //            (Xamarin.Forms.Application.Current as Helpers.Facade.IExceptionHandleHelperFacade).HandleException(failException);
-                            //        }
-                            //    });
-                            //});
-
-                            break;
+                        foreach (var item in task.Result.List)
+                        {
+                            BindingContextPageModel.Items.Add(item);
+                        }
                     }
                 });
             });

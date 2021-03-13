@@ -22,16 +22,10 @@ namespace EM.Cloud.Persistence.Entities
 
         public SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image Logo { get; set; }
 
-        //public SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image PrintMiddleLogo { get; set; }
-
-        //public SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image PrintMiddleStrechLogo { get; set; }
-
-        //public SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image PrintSmallLogo { get; set; }
-
-        //public SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image PrintSmallStrechLogo { get; set; }
+        public SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image Overlay { get; set; }
 
         [MaxLength(255)]
-        public string Descrition { get; set; }
+        public string Description { get; set; }
 
         public System.DateTime Start { get; set; }
 

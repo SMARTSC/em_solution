@@ -9,7 +9,7 @@ namespace EM.Terminal.Dashboard.Pages
         {
             InitializeComponent();
 
-            (Resources["ImageMediaDisplayModelToThumbnailImageSourceConverter"] as Converters.ImageMediaDisplayModelToThumbnailImageSourceConverter).AlbumId = album.Id;
+            (Resources["ImageMediaDisplayModelToThumbnailImageSourceConverter"] as Converters.PictureContentDisplayModelToThumbnailImageSourceConverter).AlbumId = album.Id;
 
             IsEnabled = false;
         }

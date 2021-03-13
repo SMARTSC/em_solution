@@ -10,7 +10,9 @@ namespace EM.Cloud.Backend.Api.Common.Models
 
         public Cloud.Api.Common.Models.ImageMediaDisplayModel Logo { get; set; }
 
-        public string Descrition { get; set; }
+        public Cloud.Api.Common.Models.ImageMediaDisplayModel Overlay { get; set; }
+
+        public string Description { get; set; }
 
         public System.DateTime Start { get; set; }
 
@@ -26,7 +28,7 @@ namespace EM.Cloud.Backend.Api.Common.Models
         {
             Id = entity.Id;
             Name = entity.Name;
-            Descrition = entity.Descrition;
+            Description = entity.Description;
             Start = entity.Start;
             End = entity.End;
             PlaceName = entity.PlaceName;
@@ -44,6 +46,13 @@ namespace EM.Cloud.Backend.Api.Common.Models
             Logo = new Cloud.Api.Common.Models.ImageMediaDisplayModel();
 
             Logo.Import(entity.Logo);
+
+            if (entity.Overlay != null)
+            {
+                Overlay = new Cloud.Api.Common.Models.ImageMediaDisplayModel();
+
+                Overlay.Import(entity.Overlay);
+            }
         }
 
         public override string ToString()

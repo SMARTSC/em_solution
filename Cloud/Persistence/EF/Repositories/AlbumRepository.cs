@@ -12,6 +12,7 @@ namespace EM.Cloud.Persistence.EF.Repositories
         {
             return base.GetQueryableDbSet()
                 .Include(entity => entity.Event).ThenInclude(entity => entity.Logo)
+                .Include(entity => entity.Overlay).ThenInclude(entity => entity.Thumbnail)
                 .Include(entity => entity.LockBridges)
                 .Include(entity => entity.CollageLayoutBridges).ThenInclude(bridge => bridge.CollageLayout)
                 .Include(entity => entity.DefaultPhotoSessionContentCollageLayout)
