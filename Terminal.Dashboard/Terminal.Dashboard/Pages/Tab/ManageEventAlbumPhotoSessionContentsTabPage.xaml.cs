@@ -1,11 +1,11 @@
 ﻿using Xamarin.Essentials;
 
-namespace EM.Terminal.Dashboard.Pages
+namespace EM.Terminal.Dashboard.Pages.Tab
 {
-    public partial class ManageEventAlbumPhotoSessionContentsPage : SmartSolucionesCuba.XFToolKit.Mvvm.Pages.BindingContextedContentPage<Models.Page.ManageEventAlbumPhotoSessionContentsPageModel>
+    public partial class ManageEventAlbumPhotoSessionContentsTabPage : SmartSolucionesCuba.XFToolKit.Mvvm.Pages.BindingContextedContentPage<Models.Page.Tab.ManageEventAlbumPhotoSessionContentsTabPageModel>
     {
-        public ManageEventAlbumPhotoSessionContentsPage(Cloud.Backend.Api.Common.Models.AlbumDisplayModel album)
-            : base(new Models.Page.ManageEventAlbumPhotoSessionContentsPageModel { IsBusy = true, Album = album })
+        public ManageEventAlbumPhotoSessionContentsTabPage(Cloud.Backend.Api.Common.Models.AlbumDisplayModel album)
+            : base(new Models.Page.Tab.ManageEventAlbumPhotoSessionContentsTabPageModel { IsBusy = true, Album = album })
         {
             InitializeComponent();
 

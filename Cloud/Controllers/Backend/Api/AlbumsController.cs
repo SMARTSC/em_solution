@@ -8,6 +8,7 @@ using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Repositories;
 using SmartSolucionesCuba.SAPRESSC.Core.Web.Security.Filters;
 using SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities;
 using SmartSolucionesCuba.SAPRESSC.Middleware.Media.Web.Common.Managers.Facade;
+using System.Linq;
 
 namespace EM.Cloud.Controllers.Backend.Api
 {
@@ -238,6 +239,117 @@ namespace EM.Cloud.Controllers.Backend.Api
             imageRepository.Delete(entity.Overlay, User.Identity.Name);
 
             imageFileManager.DeleteImageFile(entity.Overlay);
+        }
+
+        [RequiresRoleBasePermission(Roles.AlbumViewer)]
+        [HttpGet("{albumId}/locks")]
+        public ActionResult<AlbumLockDisplayModel[]> GetLocks(System.Guid albumId)
+        {
+            try
+            {
+                var album = Repository.Get(albumId);
+
+                return album.LockBridges.Select(bridge => new AlbumLockDisplayModel
+                {
+                    LockId = bridge.LockId,
+                    SerializedContext = bridge.SerializedContext
+                }).ToArray();
+            }
+            catch (System.Exception e)
+            {
+                logger.LogError(e.InnerException, e.Message);
+            }
+
+            return NoContent();
+        }
+
+        [RequiresRoleBasePermission(Roles.AlbumEditor)]
+        [HttpPost("lock")]
+        public IActionResult AddAlbumLock([FromBody] AlbumLockInputModel modelInput)
+        {
+            try
+            {
+                var album = Repository.Get(modelInput.AlbumId);
+
+                if (ModelState.IsValid)
+                {
+                    album.LockBridges.Add(new AlbumLockBridge
+                    {
+                        AlbumId = album.Id,
+                        LockId = modelInput.LockId,
+                        SerializedContext = modelInput.SerializedContext
+                    });
+
+                    Repository.Update(album, User.Identity.Name);
+
+                    return Ok();
+                }
+
+                return BadRequest();
+            }
+            catch (System.Exception e)
+            {
+                logger.LogError(e.InnerException, e.Message);
+            }
+
+            return NoContent();
+        }
+
+        [RequiresRoleBasePermission(Roles.AlbumEditor)]
+        [HttpPut("lock")]
+        public IActionResult EditAlbumLock([FromBody] AlbumLockInputModel modelInput)
+        {
+            try
+            {
+                var album = Repository.Get(modelInput.AlbumId);
+
+                if (ModelState.IsValid)
+                {
+                    var target = album.LockBridges.First(bridge => bridge.AlbumId == album.Id && bridge.LockId == modelInput.LockId);
+
+                    target.SerializedContext = modelInput.SerializedContext;
+
+                    Repository.Update(album, User.Identity.Name);
+
+                    return Ok();
+                }
+
+                return BadRequest();
+            }
+            catch (System.Exception e)
+            {
+                logger.LogError(e.InnerException, e.Message);
+            }
+
+            return NoContent();
+        }
+
+        [RequiresRoleBasePermission(Roles.AlbumRemover)]
+        [HttpDelete("{albumId}/locks/{lockId}")]
+        public IActionResult DeleteAlbumLock(System.Guid albumId, System.Guid lockId)
+        {
+            var album = Repository.Get(albumId);
+
+            try
+            {
+                var target = album.LockBridges.First(bridge => bridge.AlbumId == album.Id && bridge.LockId == lockId);
+
+                album.LockBridges.Remove(target);
+
+                Repository.Update(album, User.Identity.Name);
+
+                return Ok();
+            }
+            catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
+            {
+                logger.LogError(e.InnerException, e.Message);
+            }
+            catch (System.Exception e)
+            {
+                logger.LogError(e.InnerException, e.Message);
+            }
+
+            return NoContent();
         }
     }
 }

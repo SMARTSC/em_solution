@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="SAPRESSC.Core.Security.Persistence" Version="2.2.0-alpha1" />
     <PackageReference Include="SAPRESSC.Middleware.Identity.Persistence" Version="2.3.4-alpha" />
   </ItemGroup>

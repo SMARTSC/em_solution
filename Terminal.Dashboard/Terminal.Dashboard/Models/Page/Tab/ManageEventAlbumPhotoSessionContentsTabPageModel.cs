@@ -1,8 +1,8 @@
-﻿namespace EM.Terminal.Dashboard.Models.Page
+﻿namespace EM.Terminal.Dashboard.Models.Page.Tab
 {
-    public class ManageEventAlbumPhotoSessionContentsPageModel : SmartSolucionesCuba.XFToolKit.Mvvm.Models.Page.BasePageModel
+    public class ManageEventAlbumPhotoSessionContentsTabPageModel : SmartSolucionesCuba.XFToolKit.Mvvm.Models.Page.BasePageModel
     {
-        public ManageEventAlbumPhotoSessionContentsPageModel()
+        public ManageEventAlbumPhotoSessionContentsTabPageModel()
         {
             Items = new System.Collections.ObjectModel.ObservableCollection<Cloud.Api.Common.Models.PhotoSessionContentDisplayModel>();
         }

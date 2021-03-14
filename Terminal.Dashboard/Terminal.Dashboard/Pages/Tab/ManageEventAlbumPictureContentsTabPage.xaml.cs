@@ -1,15 +1,15 @@
 ﻿using Xamarin.Essentials;
 
-namespace EM.Terminal.Dashboard.Pages
+namespace EM.Terminal.Dashboard.Pages.Tab
 {
-    public partial class ManageEventAlbumPictureContentsPage : SmartSolucionesCuba.XFToolKit.Mvvm.Pages.BindingContextedContentPage<Models.Page.ManageEventAlbumPictureContentsPageModel>
+    public partial class ManageEventAlbumPictureContentsTabPage : SmartSolucionesCuba.XFToolKit.Mvvm.Pages.BindingContextedContentPage<Models.Page.Tab.ManageEventAlbumPictureContentsTabPageModel>
     {
-        public ManageEventAlbumPictureContentsPage(Cloud.Backend.Api.Common.Models.AlbumDisplayModel album)
-            : base(new Models.Page.ManageEventAlbumPictureContentsPageModel { IsBusy = true, Album = album })
+        public ManageEventAlbumPictureContentsTabPage(Cloud.Backend.Api.Common.Models.AlbumDisplayModel album)
+            : base(new Models.Page.Tab.ManageEventAlbumPictureContentsTabPageModel { IsBusy = true, Album = album })
         {
             InitializeComponent();
 
-            (Resources["ImageMediaDisplayModelToThumbnailImageSourceConverter"] as Converters.PictureContentDisplayModelToThumbnailImageSourceConverter).AlbumId = album.Id;
+            (Resources["PictureContentDisplayModelToThumbnailImageSourceConverter"] as Converters.PictureContentDisplayModelToThumbnailImageSourceConverter).AlbumId = album.Id;
 
             IsEnabled = false;
         }

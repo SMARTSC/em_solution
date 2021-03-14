@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sscxftoolkitmvvmpages:BindingContextedContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pagemodels="clr-namespace:EM.Terminal.Dashboard.Models.Page"
+    xmlns:views="clr-namespace:EM.Terminal.Dashboard.Views"
+    xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
+    xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    mc:Ignorable="d"
+    x:Class="EM.Terminal.Dashboard.Pages.ManageEventAlbumLocksPage"
+    x:TypeArguments="pagemodels:ManageEventAlbumLocksPageModel"
+    Title="Seguridad del Album">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <sscxftoolkitpresentationconverters:NotNullToBooleanConverter x:Key="NotNullToBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <views:BackgroundView />
+            <ScrollView Orientation="Vertical">
+                <StackLayout Margin="5">
+                    <StackLayout 
+                        Margin="5" Padding="16,8,16,10"
+                        BackgroundColor="White">
+                        <Label 
+                            Text="{Binding Path=PasswordLockDescriptor.Name, Mode=OneTime}" 
+                            Style="{StaticResource NormalTitleFontLabelStyle}" />
+                        <Label Text="{Binding Path=PasswordLockDescriptor.Description, Mode=OneTime}" />
+                        <Switch
+                            x:Name="UsePasswordLockSwitch"
+                            IsToggled="{Binding Path=PasswordLockConfiguration, Converter={StaticResource NotNullToBooleanConverter}, Mode=OneWay}"
+                            Toggled="UsePasswordLockSwitch_Toggled" />
+                        <Button
+                            HorizontalOptions="Start"
+                            IsEnabled="{Binding Path=PasswordLockConfiguration, Converter={StaticResource NotNullToBooleanConverter}, Mode=OneWay}"
+                            Text="Configurar"
+                            Clicked="UsePasswordLockConfigButton_Clicked" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            <views:BusyView />
+        </Grid>
+    </ContentPage.Content>
+</sscxftoolkitmvvmpages:BindingContextedContentPage>

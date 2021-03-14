@@ -4,19 +4,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:pagemodels="clr-namespace:EM.Terminal.Dashboard.Models.Page"
+    xmlns:tabpagemodels="clr-namespace:EM.Terminal.Dashboard.Models.Page.Tab"
     xmlns:views="clr-namespace:EM.Terminal.Dashboard.Views"
     xmlns:converters="clr-namespace:EM.Terminal.Dashboard.Converters"
     xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
     xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
     xmlns:ffimageloadingforms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     mc:Ignorable="d"
-    x:Class="EM.Terminal.Dashboard.Pages.ManageEventAlbumPictureContentsPage"    
-    x:TypeArguments="pagemodels:ManageEventAlbumPictureContentsPageModel"
-    Title="Contenidos (Retratos)">
+    x:Class="EM.Terminal.Dashboard.Pages.Tab.ManageEventAlbumPhotoSessionContentsTabPage"    
+    x:TypeArguments="tabpagemodels:ManageEventAlbumPhotoSessionContentsTabPageModel"
+    Title="Sesiones de Fotos">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:PictureContentDisplayModelToThumbnailImageSourceConverter x:Key="PictureContentDisplayModelToThumbnailImageSourceConverter" />
+            <converters:PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter x:Key="PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter" />
 
             <sscxftoolkitpresentationconverters:FractionConverter x:Key="FractionConverter" />
             <sscxftoolkitpresentationconverters:NotNullOrEmptyStringToBooleanConverter x:Key="NotNullOrEmptyStringToBooleanConverter" />
@@ -66,16 +66,41 @@
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Grid
+                                ColumnSpacing="0" RowSpacing="0"
                                 Margin="5"
+                                BackgroundColor="White"
                                 WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}"
-                                RowSpacing="0">
+                                HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
                                 <ffimageloadingforms:CachedImage
-                                    BackgroundColor="Black"
-                                    HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}"
-                                    Source="{Binding Converter={StaticResource PictureContentDisplayModelToThumbnailImageSourceConverter}, ConverterParameter={Binding Path=Album.Id}}"
+                                    Grid.Column="0" Grid.Row="0"
+                                    Source="{Binding Converter={StaticResource PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter}, ConverterParameter=0}"
                                     CacheType="Disk"
                                     CacheDuration="8760:00:00" />
-                                <StackLayout 
+                                <ffimageloadingforms:CachedImage
+                                    Grid.Column="1" Grid.Row="0"
+                                    Source="{Binding Converter={StaticResource PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter}, ConverterParameter=1}"
+                                    CacheType="Disk"
+                                    CacheDuration="8760:00:00" />
+                                <ffimageloadingforms:CachedImage
+                                    Grid.Column="0" Grid.Row="1"
+                                    Source="{Binding Converter={StaticResource PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter}, ConverterParameter=2}"
+                                    CacheType="Disk"
+                                    CacheDuration="8760:00:00" />
+                                <ffimageloadingforms:CachedImage
+                                    Grid.Column="1" Grid.Row="1"
+                                    Source="{Binding Converter={StaticResource PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter}, ConverterParameter=3}"
+                                    CacheType="Disk"
+                                    CacheDuration="8760:00:00" />
+                                <StackLayout
+                                    Grid.ColumnSpan="2" Grid.RowSpan="2"
                                     VerticalOptions="End" 
                                     Padding="8"
                                     BackgroundColor="#99000000">
@@ -85,6 +110,7 @@
                                         LineBreakMode="TailTruncation" />
                                 </StackLayout>
                                 <ImageButton
+                                    Grid.ColumnSpan="2" Grid.RowSpan="2"
                                     VerticalOptions="Start" HorizontalOptions="End"
                                     Margin="4"
                                     WidthRequest="24"

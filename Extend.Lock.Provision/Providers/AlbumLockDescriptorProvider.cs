@@ -19,15 +19,15 @@
 
         private AlbumLockDescriptorProvider() { }
 
-        public Descriptors.Facade.IAlbumLockDescriptorFacade[] GetAllDescriptors()
+        public Descriptors.IAlbumLockDescriptor[] GetAllDescriptors()
         {
-            return new Descriptors.Facade.IAlbumLockDescriptorFacade[]
+            return new Descriptors.IAlbumLockDescriptor[]
             {
                 new Pioneer.Descriptors.PasswordAlbumLockDescriptor()
             };
         }
 
-        public Descriptors.Facade.IAlbumLockDescriptorFacade GetDescriptorById(System.Guid id)
+        public Descriptors.IAlbumLockDescriptor GetDescriptorById(System.Guid id)
         {
             if (Pioneer.Descriptors.PasswordAlbumLockDescriptor.ID == id)
             {

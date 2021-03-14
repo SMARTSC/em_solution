@@ -1,6 +1,6 @@
 ﻿namespace EM.Extend.Lock.Pioneer.Descriptors
 {
-    public class PasswordAlbumLockDescriptor : Lock.Descriptors.Facade.IAlbumLockDescriptorFacade
+    public class PasswordAlbumLockDescriptor : Lock.Descriptors.IAlbumLockDescriptor
     {
         public static System.Guid ID = System.Guid.Parse("000301F5-C60D-3F1B-AA21-FACF619DD91C");
 

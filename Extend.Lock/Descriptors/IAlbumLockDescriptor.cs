@@ -1,6 +1,6 @@
-﻿namespace EM.Extend.Lock.Descriptors.Facade
+﻿namespace EM.Extend.Lock.Descriptors
 {
-    public interface IAlbumLockDescriptorFacade
+    public interface IAlbumLockDescriptor
     {
         System.Guid Id { get; }
 

@@ -63,12 +63,12 @@ namespace EM.Terminal.Dashboard.Pages
 
         private void ManageContentsButton_Clicked(object sender, System.EventArgs eventArgs)
         {
-
+            this.NavigationPushPageAsync(new ManageEventAlbumContentsPage(BindingContextPageModel.Album));
         }
 
         private void ManageSecurityLocksButton_Clicked(object sender, System.EventArgs eventArgs)
         {
-
+            this.NavigationPushPageAsync(new ManageEventAlbumLocksPage(BindingContextPageModel.Album));
         }
 
         private void ManagePrintLayoutsButton_Clicked(object sender, System.EventArgs eventArgs)

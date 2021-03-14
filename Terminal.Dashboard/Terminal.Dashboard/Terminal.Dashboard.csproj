@@ -38,8 +38,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Pages\ManageEventAlbumPictureContentsPage.xaml.cs">
-      <DependentUpon>ManageEventAlbumPictureContentsPage.xaml</DependentUpon>
+    <Compile Update="Pages\Tab\ManageEventAlbumPhotoSessionContentsTabPage.xaml.cs">
+      <DependentUpon>ManageEventAlbumPhotoSessionContentsTabPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Tab\ManageEventAlbumPictureContentsTabPage.xaml.cs">
+      <DependentUpon>ManageEventAlbumPictureContentsTabPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -56,6 +59,9 @@
     <EmbeddedResource Update="Pages\AlbumDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Pages\AlbumPasswordLockConfigurationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\CollageLayoutPickPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -65,10 +71,16 @@
     <EmbeddedResource Update="Pages\EventDetailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\ManageEventAlbumPictureContentsPage.xaml">
+    <EmbeddedResource Update="Pages\ManageEventAlbumContentsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\ManageEventAlbumPhotoSessionContentsPage.xaml">
+    <EmbeddedResource Update="Pages\ManageEventAlbumLocksPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Tab\ManageEventAlbumPictureContentsTabPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Tab\ManageEventAlbumPhotoSessionContentsTabPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\ManageEventAlbumsPage.xaml">
