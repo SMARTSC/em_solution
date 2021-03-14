@@ -12,6 +12,8 @@
 
         public string Description { get; set; }
 
+        public ImageMediaDisplayModel Overlay { get; set; }
+
         public EventModel Event { get; set; }
 
         public void Import(Persistence.Entities.Album entity)
@@ -25,6 +27,13 @@
             Event = new EventModel();
 
             Event.Import(entity.Event);
+
+            if (entity.Overlay != null)
+            {
+                Overlay = new ImageMediaDisplayModel();
+
+                Overlay.Import(entity.Overlay);
+            }
         }
 
         public override string ToString()

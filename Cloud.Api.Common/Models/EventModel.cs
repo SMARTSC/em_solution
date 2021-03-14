@@ -8,6 +8,8 @@
 
         public ImageMediaDisplayModel Logo { get; set; }
 
+        public ImageMediaDisplayModel Overlay { get; set; }
+
         public string Description { get; set; }
 
         public System.DateTime Start { get; set; }
@@ -31,6 +33,13 @@
             Logo = new ImageMediaDisplayModel();
 
             Logo.Import(entity.Logo);
+
+            if (entity.Overlay != null)
+            {
+                Overlay = new ImageMediaDisplayModel();
+
+                Overlay.Import(entity.Overlay);
+            }
         }
     }
 }
