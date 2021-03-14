@@ -225,6 +225,15 @@ namespace EM.Cloud.Controllers.Backend.Api
         {
             base.PostDelete(entity);
 
+            Providers.ImagesBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Id);
+            Providers.ThumbnailsBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Id);
+
+            var albumContentImagesBlobContainerClient = Providers.ImagesBlobContainerClientProvider.Instance.GetBlobContainerClient();
+            var albumContentThumbnailsBlobContainerClient = Providers.ThumbnailsBlobContainerClientProvider.Instance.GetBlobContainerClient();
+
+            albumContentImagesBlobContainerClient.Delete();
+            albumContentThumbnailsBlobContainerClient.Delete();
+
             Providers.ImagesBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
             Providers.ThumbnailsBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
 
@@ -239,7 +248,11 @@ namespace EM.Cloud.Controllers.Backend.Api
             imageRepository.Delete(entity.Overlay, User.Identity.Name);
 
             imageFileManager.DeleteImageFile(entity.Overlay);
+
+            // TODO Verify & Fix if apply: Album contents are not removed in cascade!!
         }
+
+        #region Locks management enpoints
 
         [RequiresRoleBasePermission(Roles.AlbumViewer)]
         [HttpGet("{albumId}/locks")]
@@ -351,5 +364,7 @@ namespace EM.Cloud.Controllers.Backend.Api
 
             return NoContent();
         }
+
+        #endregion
     }
 }
