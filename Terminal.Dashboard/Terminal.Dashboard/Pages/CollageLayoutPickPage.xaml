@@ -20,7 +20,7 @@
             <views:BackgroundView />
             <ScrollView Orientation="Vertical">
                 <FlexLayout
-                    Margin="5"
+                    Padding="5"
                     Wrap="Wrap"
                     AlignContent="Start" AlignItems="Start"
                     BindableLayout.ItemsSource="{Binding Path=.}">

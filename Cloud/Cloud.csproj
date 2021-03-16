@@ -34,6 +34,30 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'WWW (Production)' ">
+    <StartAction>Project</StartAction>
+    <ApplicationURL>http://localhost:5000</ApplicationURL>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'WWW (Development)' ">
+    <StartAction>Project</StartAction>
+    <ApplicationURL>http://localhost:5000</ApplicationURL>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Cloud' ">
+    <StartAction>Project</StartAction>
+    <ApplicationURL>http://localhost:5000</ApplicationURL>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Console (Development)' ">
+    <StartAction>Project</StartAction>
+    <ApplicationURL>http://localhost:5000</ApplicationURL>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Console (Staging)' ">
+    <StartAction>Project</StartAction>
+    <ApplicationURL>http://localhost:5000</ApplicationURL>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Console (Production)' ">
+    <StartAction>Project</StartAction>
+    <ApplicationURL>http://localhost:5000</ApplicationURL>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Remove="dpkeys\**" />
     <Compile Remove="logs\**" />
@@ -43,6 +67,7 @@
     <EmbeddedResource Remove="logs\**" />
     <None Remove="dpkeys\**" />
     <None Remove="logs\**" />
+    <Content Remove="Properties\launchSettings.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -74,4 +99,11 @@
     <ProjectReference Include="..\Extend.Lock.Provision\Extend.Lock.Provision.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Properties\launchSettings.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

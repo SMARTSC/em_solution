@@ -50,7 +50,7 @@
             <views:BackgroundView />
             <ScrollView Orientation="Vertical">
                 <FlexLayout
-                    Margin="5"
+                    Padding="5"
                     Wrap="Wrap"
                     AlignItems="Start" AlignContent="Start"
                     BindableLayout.ItemsSource="{Binding Path=Items}">
@@ -109,28 +109,21 @@
                                         TextColor="White"
                                         LineBreakMode="TailTruncation" />
                                 </StackLayout>
-                                <ImageButton
+                                <Grid
+                                    BackgroundColor="IndianRed"
                                     Grid.ColumnSpan="2" Grid.RowSpan="2"
                                     VerticalOptions="Start" HorizontalOptions="End"
-                                    Margin="4"
-                                    WidthRequest="24"
-                                    HeightRequest="24"
-                                    BackgroundColor="#99000000"
-                                    BorderWidth="0"
-                                    CornerRadius="12"
-                                    Clicked="DeleteItemButton_Clicked">
-                                    <ImageButton.Padding>
-                                        <OnPlatform x:TypeArguments="Thickness">
-                                            <On Platform="UWP" Value="1,0,0,0" />
-                                        </OnPlatform>
-                                    </ImageButton.Padding>
-                                    <ImageButton.Source>
-                                        <FontImageSource 
-                                            Color="White"
-                                            FontFamily="Material Design Icons"
-                                            Glyph="&#xF156;" />
-                                    </ImageButton.Source>
-                                </ImageButton>
+                                    WidthRequest="28" HeightRequest="28">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="DeleteItemButton_Clicked" />
+                                    </Grid.GestureRecognizers>
+                                    <Label
+                                        HorizontalOptions="Center" VerticalOptions="Center"
+                                        Text="&#xF156;"
+                                        TextColor="White"
+                                        FontFamily="Material Design Icons"
+                                        FontSize="18" />
+                                </Grid>
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

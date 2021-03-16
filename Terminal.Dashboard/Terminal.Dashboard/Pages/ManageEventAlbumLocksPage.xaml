@@ -21,7 +21,7 @@
         <Grid>
             <views:BackgroundView />
             <ScrollView Orientation="Vertical">
-                <StackLayout Margin="5">
+                <StackLayout Padding="5">
                     <StackLayout 
                         Margin="5" Padding="16,8,16,10"
                         BackgroundColor="White">
