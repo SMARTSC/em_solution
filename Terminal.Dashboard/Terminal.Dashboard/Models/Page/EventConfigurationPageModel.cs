@@ -12,6 +12,12 @@
         private System.TimeSpan endAtTime;
         private string placeName;
 
+        public EventConfigurationPageModel()
+        {
+            startAtDate = System.DateTime.Now;
+            endAtDate = System.DateTime.Now;
+        }
+
         public System.Guid? Id { get; set; }
 
         public string Name { get => name; set => SetProperty(ref name, value); }

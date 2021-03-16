@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>Espejo Molón Dashboard</string>
+	<string>Espejo Molón Cloud Dashboard</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.espejomolon.Terminal.Dashboard</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.1.0-alpha</string>
+	<string>0.2.0-alpha</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSMinimumSystemVersion</key>

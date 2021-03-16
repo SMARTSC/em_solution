@@ -7,7 +7,7 @@ namespace EM.Terminal.Dashboard.macOS.Helpers
 {
     public class ToastNotificationHelper : IToastNotificator
     {
-        private Managers.UNNotificationManager notificationManager;
+        private readonly Managers.UNNotificationManager notificationManager;
 
         private static bool toastNotificationAvailable = false;
 

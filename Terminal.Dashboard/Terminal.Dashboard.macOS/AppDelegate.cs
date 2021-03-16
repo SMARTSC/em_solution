@@ -16,7 +16,7 @@ namespace EM.Terminal.Dashboard.macOS
 
             window = new NSWindow(rect, style, NSBackingStore.Buffered, false)
             {
-                Title = "Xamarin.Forms on Mac!", // choose your own Title here
+                Title = "Espejo Molón Cloud Dashboard", // choose your own Title here
                 TitleVisibility = NSWindowTitleVisibility.Hidden
             };
         }
