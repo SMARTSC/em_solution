@@ -84,6 +84,9 @@ namespace EM.Cloud
             services.AddSingleton<SmartSolucionesCuba.SAPRESSC.Core.Persistence.EF.Providers.Facade.IDbSchemaConfigurationProviderFacade, Persistence.EF.Providers.BusinessDbSchemaConfigurationProvider>();
 
             services.AddSingleton<SmartSolucionesCuba.SAPRESSC.Core.Persistence.EF.Helpers.Facade.IDataInitializationHelper, Helpers.BusinessDataInitializationHelper>();
+            services.AddScoped<Helpers.PictureContentDeletedCascadeHelper>();
+            services.AddScoped<Helpers.PhotoSessionContentDeletedCascadeHelper>();
+            services.AddScoped<Helpers.AlbumDeletedCascadeHelper>();
 
             services.AddSingleton<Managers.PrintOrderStackStateManager>();
 

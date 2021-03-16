@@ -22,8 +22,9 @@ namespace EM.Cloud.Controllers.Backend.Api
         private readonly IThumbnailFileManagerFacade thumbnailFileManager;
         private readonly Microsoft.Extensions.Options.IOptions<Options.MediaThumbnailResizeOptions> mediaThumbnailResizeOptions;
         private readonly Microsoft.Extensions.Configuration.IConfiguration configuration;
+        private readonly Helpers.AlbumDeletedCascadeHelper albumDeletedCascadeHelper;
 
-        public EventsController(Microsoft.Extensions.Configuration.IConfiguration configuration, Microsoft.Extensions.Options.IOptions<Options.MediaThumbnailResizeOptions> mediaThumbnailResizeOptions, IThumbnailFileManagerFacade thumbnailFileManager, IImageFileManagerFacade imageFileManager, IEntityRepository<Thumbnail, System.Guid> thumbnailRepository, IEntityRepository<Image, System.Guid> imageRepository, IEntityRepository<Event, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<EventsController> localizer, ILogger<EventsController> logger) : base(repository, localizer, logger)
+        public EventsController(Helpers.AlbumDeletedCascadeHelper albumDeletedCascadeHelper, Microsoft.Extensions.Configuration.IConfiguration configuration, Microsoft.Extensions.Options.IOptions<Options.MediaThumbnailResizeOptions> mediaThumbnailResizeOptions, IThumbnailFileManagerFacade thumbnailFileManager, IImageFileManagerFacade imageFileManager, IEntityRepository<Thumbnail, System.Guid> thumbnailRepository, IEntityRepository<Image, System.Guid> imageRepository, IEntityRepository<Event, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<EventsController> localizer, ILogger<EventsController> logger) : base(repository, localizer, logger)
         {
             this.mediaThumbnailResizeOptions = mediaThumbnailResizeOptions;
             this.thumbnailFileManager = thumbnailFileManager;
@@ -31,6 +32,7 @@ namespace EM.Cloud.Controllers.Backend.Api
             this.thumbnailRepository = thumbnailRepository;
             this.imageRepository = imageRepository;
             this.configuration = configuration;
+            this.albumDeletedCascadeHelper = albumDeletedCascadeHelper;
         }
 
         [RequiresRoleBasePermission(Roles.EventCreator)]
@@ -241,13 +243,28 @@ namespace EM.Cloud.Controllers.Backend.Api
 
                 var oldThumbnail = oldImage.Thumbnail;
 
-                thumbnailRepository.Delete(oldThumbnail, User.Identity.Name);
+                thumbnailRepository.Delete(oldThumbnail, User.Identity.Name, false);
 
                 thumbnailFileManager.DeleteThumbnailFile(oldThumbnail);
 
                 imageRepository.Delete(oldImage, User.Identity.Name);
 
                 imageFileManager.DeleteImageFile(oldImage);
+            }
+        }
+
+        protected override void PreDelete(Event entity)
+        {
+            base.PreDelete(entity);
+
+            //var index = 0;
+            //var endIndex = entity.Albums.Count - 1;
+
+            foreach (var item in entity.Albums)
+            {
+                albumDeletedCascadeHelper.Cascade(item, User.Identity, false, true, false);
+
+                //index++;
             }
         }
 
@@ -258,15 +275,13 @@ namespace EM.Cloud.Controllers.Backend.Api
             Providers.ImagesBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
             Providers.ThumbnailsBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
 
-            imageRepository.Delete(entity.Logo, User.Identity.Name);
+            imageRepository.Delete(entity.Logo, User.Identity.Name, false);
 
             imageFileManager.DeleteImageFile(entity.Logo);
 
-            if (entity.Overlay == null) return;
-
             var overlayThumbnail = entity.Overlay.Thumbnail;
 
-            thumbnailRepository.Delete(overlayThumbnail, User.Identity.Name);
+            thumbnailRepository.Delete(overlayThumbnail, User.Identity.Name, false);
 
             thumbnailFileManager.DeleteThumbnailFile(overlayThumbnail);
 

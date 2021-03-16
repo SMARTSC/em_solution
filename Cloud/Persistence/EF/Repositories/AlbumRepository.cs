@@ -14,6 +14,7 @@ namespace EM.Cloud.Persistence.EF.Repositories
                 .Include(entity => entity.Event).ThenInclude(entity => entity.Logo)
                 .Include(entity => entity.Event).ThenInclude(entity => entity.Overlay).ThenInclude(entity => entity.Thumbnail)
                 .Include(entity => entity.Overlay).ThenInclude(entity => entity.Thumbnail)
+                .Include(entity => entity.Contents)
                 .Include(entity => entity.LockBridges)
                 .Include(entity => entity.CollageLayoutBridges).ThenInclude(bridge => bridge.CollageLayout)
                 .Include(entity => entity.DefaultPhotoSessionContentCollageLayout)

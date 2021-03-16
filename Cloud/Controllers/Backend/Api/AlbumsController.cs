@@ -25,8 +25,9 @@ namespace EM.Cloud.Controllers.Backend.Api
         private readonly IThumbnailFileManagerFacade thumbnailFileManager;
         private readonly Microsoft.Extensions.Options.IOptions<Options.MediaThumbnailResizeOptions> mediaThumbnailResizeOptions;
         private readonly Microsoft.Extensions.Configuration.IConfiguration configuration;
+        private readonly Helpers.AlbumDeletedCascadeHelper albumDeletedCascadeHelper;
 
-        public AlbumsController(Microsoft.Extensions.Configuration.IConfiguration configuration, Microsoft.Extensions.Options.IOptions<Options.MediaThumbnailResizeOptions> mediaThumbnailResizeOptions, IThumbnailFileManagerFacade thumbnailFileManager, IImageFileManagerFacade imageFileManager, IEntityRepository<Event, System.Guid> eventRepository, IEntityRepository<CollageLayout, System.Guid> printLayoutRepository, IEntityRepository<Thumbnail, System.Guid> thumbnailRepository, IEntityRepository<Image, System.Guid> imageRepository, IEntityRepository<Album, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<AlbumsController> localizer, ILogger<AlbumsController> logger) : base(repository, localizer, logger)
+        public AlbumsController(Helpers.AlbumDeletedCascadeHelper albumDeletedCascadeHelper, Microsoft.Extensions.Configuration.IConfiguration configuration, Microsoft.Extensions.Options.IOptions<Options.MediaThumbnailResizeOptions> mediaThumbnailResizeOptions, IThumbnailFileManagerFacade thumbnailFileManager, IImageFileManagerFacade imageFileManager, IEntityRepository<Event, System.Guid> eventRepository, IEntityRepository<CollageLayout, System.Guid> printLayoutRepository, IEntityRepository<Thumbnail, System.Guid> thumbnailRepository, IEntityRepository<Image, System.Guid> imageRepository, IEntityRepository<Album, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<AlbumsController> localizer, ILogger<AlbumsController> logger) : base(repository, localizer, logger)
         {
             this.mediaThumbnailResizeOptions = mediaThumbnailResizeOptions;
             this.thumbnailFileManager = thumbnailFileManager;
@@ -36,6 +37,7 @@ namespace EM.Cloud.Controllers.Backend.Api
             this.printLayoutRepository = printLayoutRepository;
             this.eventRepository = eventRepository;
             this.configuration = configuration;
+            this.albumDeletedCascadeHelper = albumDeletedCascadeHelper;
         }
 
         [RequiresRoleBasePermission(Roles.AlbumCreator)]
@@ -225,31 +227,7 @@ namespace EM.Cloud.Controllers.Backend.Api
         {
             base.PostDelete(entity);
 
-            Providers.ImagesBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Id);
-            Providers.ThumbnailsBlobContainerClientProvider.Instance.TargetAlbumBlobContainer(configuration, entity.Id);
-
-            var albumContentImagesBlobContainerClient = Providers.ImagesBlobContainerClientProvider.Instance.GetBlobContainerClient();
-            var albumContentThumbnailsBlobContainerClient = Providers.ThumbnailsBlobContainerClientProvider.Instance.GetBlobContainerClient();
-
-            albumContentImagesBlobContainerClient.Delete();
-            albumContentThumbnailsBlobContainerClient.Delete();
-
-            Providers.ImagesBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
-            Providers.ThumbnailsBlobContainerClientProvider.Instance.TargetDefaultBlobContainer(configuration);
-
-            if (entity.Overlay == null) return;
-
-            var overlayThumbnail = entity.Overlay.Thumbnail;
-
-            thumbnailRepository.Delete(overlayThumbnail, User.Identity.Name);
-
-            thumbnailFileManager.DeleteThumbnailFile(overlayThumbnail);
-
-            imageRepository.Delete(entity.Overlay, User.Identity.Name);
-
-            imageFileManager.DeleteImageFile(entity.Overlay);
-
-            // TODO Verify & Fix if apply: Album contents are not removed in cascade!!
+            albumDeletedCascadeHelper.Cascade(entity, User.Identity, true, false, true);
         }
 
         #region Locks management enpoints
