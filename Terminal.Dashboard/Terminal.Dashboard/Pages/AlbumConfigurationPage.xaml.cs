@@ -16,7 +16,7 @@ namespace EM.Terminal.Dashboard.Pages
         }
 
         public AlbumConfigurationPage(Cloud.Backend.Api.Common.Models.AlbumDisplayModel model, Cloud.Backend.Api.Common.Models.EventDisplayModel @event, System.Action successfulCompleteCallbackAction)
-            : base(Factories.Model.Page.AlbumConfigurationModelPageFactory.Build(model))
+            : base(Factories.Model.Page.AlbumConfigurationPageModelFactory.Build(model))
         {
             this.@event = @event;
             this.successfulCompleteCallbackAction = successfulCompleteCallbackAction;

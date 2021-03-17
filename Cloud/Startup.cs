@@ -36,24 +36,6 @@ namespace EM.Cloud
             services.Configure<Options.MediaThumbnailResizeOptions>(configuration.GetSection("MediaThumbnailResize"));
             services.Configure<Options.JwtOptions>(configuration.GetSection("JWT"));
 
-            //var databaseServerEngine = configuration["DatabaseServer:Engine"];
-
-            //switch (databaseServerEngine)
-            //{
-            //    case "MSSQL":
-            //        services.AddDbContext<Persistence.EF.Context.ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("MSSQLServerDatabaseConnection")));
-
-            //        break;
-            //    case "MySQL":
-            //    default:
-            //        services.AddDbContext<Persistence.EF.Context.ApplicationDbContext>(options => options.UseMySql(configuration.GetConnectionString("LocalMySQLDatabaseConnection"), mySqlOptions =>
-            //        {
-            //            mySqlOptions.ServerVersion(new System.Version(configuration["DatabaseServer:Version"]), Pomelo.EntityFrameworkCore.MySql.Infrastructure.ServerType.MySql);
-            //        }));
-
-            //        break;
-            //}
-
             services.AddDbContext<Persistence.EF.Context.ApplicationDbContext>(options => options.UseMySql(configuration.GetConnectionString("LocalMySQLDatabaseConnection"), mySqlOptions =>
             {
                 mySqlOptions.ServerVersion(new System.Version(configuration["DatabaseServer:Version"]), Pomelo.EntityFrameworkCore.MySql.Infrastructure.ServerType.MySql);
@@ -68,6 +50,7 @@ namespace EM.Cloud
             services.AddScoped<IEntityRepository<Persistence.Entities.PersonClient, System.Guid>, Persistence.EF.Repositories.PersonClientRespository>();
             services.AddScoped<IEntityRepository<Persistence.Entities.OrganizationClient, System.Guid>, Persistence.EF.Repositories.OrganizationClientRepository>();
             services.AddScoped<IEntityRepository<Persistence.Entities.Client, System.Guid>, Persistence.EF.Repositories.ClientRepository>();
+            services.AddScoped<IEntityRepository<Persistence.Entities.EventKind, System.Guid>, Persistence.EF.Repositories.EventKindRepository>();
             services.AddScoped<IEntityRepository<Persistence.Entities.Event, System.Guid>, Persistence.EF.Repositories.EventRepository>();
             services.AddScoped<IEntityRepository<Persistence.Entities.Album, System.Guid>, Persistence.EF.Repositories.AlbumRepository>();
             services.AddScoped<IEntityRepository<Persistence.Entities.Content, System.Guid>, Persistence.EF.Repositories.ContentRepository>();

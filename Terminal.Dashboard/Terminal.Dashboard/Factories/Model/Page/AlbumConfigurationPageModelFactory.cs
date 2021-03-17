@@ -1,6 +1,6 @@
 ﻿namespace EM.Terminal.Dashboard.Factories.Model.Page
 {
-    public class AlbumConfigurationModelPageFactory
+    public static class AlbumConfigurationPageModelFactory
     {
         public static Models.Page.AlbumConfigurationPageModel Build(Cloud.Backend.Api.Common.Models.AlbumDisplayModel model)
         {

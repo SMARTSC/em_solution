@@ -8,13 +8,9 @@
 
         public System.Guid LogoId { get; set; }
 
-        //public System.Guid PrintLogoMiddleId { get; set; }
+        public System.Guid OverlayId { get; set; }
 
-        //public System.Guid PrintMiddleStrechLogoId { get; set; }
-
-        //public System.Guid PrintLogoSmallId { get; set; }
-
-        //public System.Guid PrintSmallStrechLogoId { get; set; }
+        public string KindName { get; set; }
 
         public string Descrition { get; set; }
 
@@ -31,10 +27,8 @@
             Id = entity.Id;
             Name = entity.Name;
             LogoId = entity.Logo?.Id ?? System.Guid.Empty;
-            //PrintLogoMiddleId = entity.PrintMiddleLogo?.Id ?? System.Guid.Empty;
-            //PrintMiddleStrechLogoId = entity.PrintMiddleStrechLogo?.Id ?? System.Guid.Empty;
-            //PrintLogoSmallId = entity.PrintSmallLogo?.Id ?? System.Guid.Empty;
-            //PrintSmallStrechLogoId = entity.PrintSmallStrechLogo?.Id ?? System.Guid.Empty;
+            OverlayId = entity.Overlay?.Id ?? System.Guid.Empty;
+            KindName = entity.Kind.Name;
             Descrition = entity.Description;
             Start = entity.Start;
             End = entity.End;

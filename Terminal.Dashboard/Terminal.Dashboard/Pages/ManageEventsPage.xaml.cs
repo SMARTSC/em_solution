@@ -4,7 +4,7 @@ namespace EM.Terminal.Dashboard.Pages
 {
     public partial class ManageEventsPage : SmartSolucionesCuba.XFToolKit.Mvvm.Pages.BindingContextedContentPage<Models.Page.ManageEventsPageModel>
     {
-        public ManageEventsPage() : base(new Models.Page.ManageEventsPageModel { IsBusy = true })
+        public ManageEventsPage() : base(new Models.Page.ManageEventsPageModel())
         {
             InitializeComponent();
 
@@ -29,7 +29,33 @@ namespace EM.Terminal.Dashboard.Pages
 
         private void AddToolbarItem_Clicked(object sender, System.EventArgs eventArgs)
         {
-            this.NavigationPushPageAsync(new EventConfigurationPage(EventsChange_Callback));
+            BindingContextPageModel.IsBusy = true;
+
+            var client = new Cloud.Backend.Api.Connect.Clients.EventKindsApiClient(Managers.SessionManager.Instance);
+
+            client.GetAsync().ContinueWith(task =>
+            {
+                Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                {
+                    BindingContextPageModel.IsBusy = false;
+
+                    if (task.Exception != null || task.IsCanceled)
+                    {
+                        (Xamarin.Forms.Application.Current as Helpers.Facade.IExceptionHandleHelperFacade).HandleException(task.Exception);
+                    }
+                    else
+                    {
+                        if (task.Result.Length == 0)
+                        {
+                            DisplayAlert("Aviso", string.Format("EL sistema no tiene Tipos de Evento definidos.{0}{0}Es necesario que se defina al menos uno de estos elementos antes de poder continuar.", System.Environment.NewLine), "Aceptar");
+
+                            return;
+                        }
+
+                        this.NavigationPushPageAsync(new EventConfigurationPage(task.Result, EventsChange_Callback));
+                    }
+                });
+            });            
         }
 
         private void EventsChange_Callback()
@@ -39,7 +65,7 @@ namespace EM.Terminal.Dashboard.Pages
 
         private void LoadItems(int page = 0)
         {
-            BindingContextPageModel.IsBusy = true;
+            BindingContextPageModel.IsLoading = true;
 
             System.Threading.Tasks.Task.Run(async () =>
             {
@@ -50,7 +76,7 @@ namespace EM.Terminal.Dashboard.Pages
             {
                 Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
                 {
-                    BindingContextPageModel.IsBusy = false;
+                    BindingContextPageModel.IsLoading = false;
 
                     if (task.Exception != null || task.IsCanceled)
                     {

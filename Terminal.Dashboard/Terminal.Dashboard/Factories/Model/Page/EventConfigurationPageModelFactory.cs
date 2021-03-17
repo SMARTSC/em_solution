@@ -1,15 +1,19 @@
 ﻿namespace EM.Terminal.Dashboard.Factories.Model.Page
 {
-    public static class EventConfigurationModelPageFactory 
+    public static class EventConfigurationPageModelFactory 
     {
-        public static Models.Page.EventConfigurationPageModel Build(Cloud.Backend.Api.Common.Models.EventDisplayModel model)
+        public static Models.Page.EventConfigurationPageModel Build(Cloud.Backend.Api.Common.Models.EventDisplayModel model, Cloud.Backend.Api.Common.Models.EventKindDisplayModel[] availableEventKinds)
         {
-            var result = new Models.Page.EventConfigurationPageModel();
+            var result = new Models.Page.EventConfigurationPageModel
+            {
+                AvailableEventKinds = availableEventKinds
+            };
 
             if (model != null)
-            {
+            {                
                 result.Id = model.Id;
                 result.Name = model.Name;
+                result.Kind = model.Kind;
                 result.StartAtDate = model.Start;
                 result.EndAtDate = model.End;
                 result.PlaceName = model.PlaceName;

@@ -38,6 +38,28 @@ namespace EM.Cloud.Helpers
             }
             #endregion
 
+            #region Event Kind Roles definition!!
+            if (!roleDbSet.Any(role => role.Code.Equals(Roles.EventKindViewer)))
+            {
+                roleDbSet.Add(Roles.EventViewer.ToRoleEntity());
+            }
+
+            if (!roleDbSet.Any(role => role.Code.Equals(Roles.EventKindCreator)))
+            {
+                roleDbSet.Add(Roles.EventKindCreator.ToRoleEntity());
+            }
+
+            if (!roleDbSet.Any(role => role.Code.Equals(Roles.EventKindEditor)))
+            {
+                roleDbSet.Add(Roles.EventKindEditor.ToRoleEntity());
+            }
+
+            if (!roleDbSet.Any(role => role.Code.Equals(Roles.EventKindRemover)))
+            {
+                roleDbSet.Add(Roles.EventKindRemover.ToRoleEntity());
+            }
+            #endregion
+
             #region Event Roles definition!!
             var eventViewerRole = Roles.EventViewer.ToRoleEntity();
 

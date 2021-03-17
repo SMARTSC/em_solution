@@ -23,7 +23,26 @@ namespace EM.Terminal.Dashboard.Pages
 
         private void EditButton_Clicked(object sender, System.EventArgs eventArgs)
         {
-            this.NavigationPushPageAsync(new EventConfigurationPage(BindingContextPageModel.Event, EventChange_Callback));
+            BindingContextPageModel.IsBusy = true;
+
+            var client = new Cloud.Backend.Api.Connect.Clients.EventKindsApiClient(Managers.SessionManager.Instance);
+
+            client.GetAsync().ContinueWith(task =>
+            {
+                Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                {
+                    BindingContextPageModel.IsBusy = false;
+
+                    if (task.Exception != null || task.IsCanceled)
+                    {
+                        (Xamarin.Forms.Application.Current as Helpers.Facade.IExceptionHandleHelperFacade).HandleException(task.Exception);
+                    }
+                    else
+                    {
+                        this.NavigationPushPageAsync(new EventConfigurationPage(BindingContextPageModel.Event, task.Result, EventChange_Callback));
+                    }
+                });
+            });
         }
 
         private void DeleteButton_Clicked(object sender, System.EventArgs eventArgs)

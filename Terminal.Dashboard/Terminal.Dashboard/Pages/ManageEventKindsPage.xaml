@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sscxftoolkitmvvmpages:BindingContextedContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pagemodels="clr-namespace:EM.Terminal.Dashboard.Models.Page"
+    xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
+    mc:Ignorable="d"
+    x:Class="EM.Terminal.Dashboard.Pages.ManageEventKindsPage"
+    x:TypeArguments="pagemodels:ManageEventKindsPageModel"
+    Title="Tipos de Evento">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Text="Agregar"
+            Clicked="AddToolbarItem_Clicked">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="Material Design Icons" Glyph="&#xf415;">
+                    <FontImageSource.Color>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="UWP" Value="Black" />
+                            <On Platform="macOS" Value="Black" />
+                        </OnPlatform>
+                    </FontImageSource.Color>
+                    <FontImageSource.Size>
+                        <OnPlatform Default="16" x:TypeArguments="x:Double">
+                            <On Platform="macOS" Value="10" />
+                        </OnPlatform>
+                    </FontImageSource.Size>
+                </FontImageSource>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ListView
+            IsRefreshing="{Binding Path=IsBusy}"
+            ItemsSource="{Binding Path=Items}"
+            ItemTapped="ListView_ItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Path=Name}">
+                        <TextCell.ContextActions>
+                            <MenuItem 
+                                Text="Modificar"
+                                Clicked="EditMenuItem_Clicked"/>
+                            <MenuItem 
+                                Text="Eliminar" 
+                                IsDestructive="True"
+                                Clicked="DeleteMenuItem_Clicked" />
+                        </TextCell.ContextActions>
+                    </TextCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</sscxftoolkitmvvmpages:BindingContextedContentPage>

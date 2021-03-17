@@ -29,6 +29,7 @@ namespace EM.Cloud.Persistence.EF.Context
         public DbSet<CollageLayout> CollageLayouts { get; set; }
         public DbSet<AlbumLockBridge> AlbumLockBridges { get; set; }
         public DbSet<Event> Events { get; set; }
+        public DbSet<EventKind> EventKinds { get; set; }
         public DbSet<AlbumCollageLayoutBridge> AlbumCollageLayoutBridges { get; set; }
         public DbSet<PrintOrder> PrintOrders { get; set; }
         public DbSet<Client> Clients { get; set; }

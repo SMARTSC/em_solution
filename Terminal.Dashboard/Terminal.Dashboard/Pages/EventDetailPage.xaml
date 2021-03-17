@@ -64,6 +64,10 @@
                     </Grid>
                     <Label 
                         Margin="0,30,0,0"
+                        Text="{Binding Path=Event.Kind.Name}"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource MiddleTextFontLabelStyle}" />
+                    <Label
                         Text="{Binding Path=Event.Name}"
                         HorizontalTextAlignment="Center"
                         Style="{StaticResource NormalTitleFontLabelStyle}" />

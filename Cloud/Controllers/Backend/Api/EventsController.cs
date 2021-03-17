@@ -14,7 +14,7 @@ namespace EM.Cloud.Controllers.Backend.Api
     [Microsoft.AspNetCore.Authorization.Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/backend/[controller]")]
     [ApiController]
-    public class EventsController : SmartSolucionesCuba.SAPRESSC.Core.Web.Api.Controllers.AbstractEntityApiManagementFilteredController<Event, System.Guid, EventInputModel, EventDisplayModel, Models.Filter.EventFilterModel>
+    public class EventsController : SmartSolucionesCuba.SAPRESSC.Core.Web.Api.Controllers.AbstractEntityApiManagementFilteredController<Event, System.Guid, EventInputModel, EventDisplayModel, Cloud.Backend.Api.Common.Models.Filter.EventFilterModel>
     {
         private readonly IEntityRepository<Image, System.Guid> imageRepository;
         private readonly IEntityRepository<Thumbnail, System.Guid> thumbnailRepository;
@@ -72,7 +72,7 @@ namespace EM.Cloud.Controllers.Backend.Api
         }
 
         [RequiresRoleBasePermission(Roles.EventViewer)]
-        public override IActionResult GetFiltered([FromBody] Models.Filter.EventFilterModel filterModel)
+        public override IActionResult GetFiltered([FromBody] Cloud.Backend.Api.Common.Models.Filter.EventFilterModel filterModel)
         {
             return base.GetFiltered(filterModel);
         }

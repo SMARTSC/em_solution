@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pagemodels="clr-namespace:EM.Terminal.Dashboard.Models.Page"
     xmlns:views="clr-namespace:EM.Terminal.Dashboard.Views"
+    xmlns:converters="clr-namespace:EM.Terminal.Dashboard.Converters"
     xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
     xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
     xmlns:ffimageloadingforms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
@@ -16,10 +17,13 @@
         <ResourceDictionary>
             <sscxftoolkitpresentationconverters:FractionConverter x:Key="FractionConverter" />
 
+            <converters:CollageLayoutDescriptorToOverviewImageSourceConverter x:Key="CollageLayoutDescriptorToOverviewImageSourceConverter" />
+
             <Style TargetType="Frame">
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="HasShadow" Value="False" />
                 <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="Padding" Value="10" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -82,6 +86,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Frame Grid.ColumnSpan="3" Grid.Row="0">
                         <StackLayout>
@@ -109,52 +114,122 @@
                         </StackLayout>
                     </Frame>
                     <Frame 
-                        Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="3"
+                        Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="4"
+                        Padding="0"
                         VerticalOptions="Start">
                         <StackLayout VerticalOptions="FillAndExpand">
-                            <Label 
+                            <Label
+                                Padding="10,10,10,0"
                                 Text="Carátula" 
                                 Style="{StaticResource FormLabel}" />
-                            <ffimageloadingforms:CachedImage 
-                                x:Name="OverlayImage"
-                                Grid.ColumnSpan="2" Grid.Row="1"
-                                BackgroundColor="Black"
-                                Source="{Binding Path=OverlayImageSource}"
-                                Aspect="AspectFill"
-                                HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}"
-                                CacheType="Disk"
-                                CacheDuration="8760:00:00">
-                                <ffimageloadingforms:CachedImage.GestureRecognizers>
+                            <Grid HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}">
+                                <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="OverlayImageGestureRecognizer_Tapped" />
-                                </ffimageloadingforms:CachedImage.GestureRecognizers>
-                            </ffimageloadingforms:CachedImage>
+                                </Grid.GestureRecognizers>
+                                <ffimageloadingforms:CachedImage 
+                                    x:Name="OverlayImage"
+                                    BackgroundColor="DimGray"
+                                    Source="{Binding Path=OverlayImageSource}"
+                                    Aspect="AspectFill"
+                                    CacheType="Disk"
+                                    CacheDuration="8760:00:00" />
+                                <StackLayout 
+                                    HorizontalOptions="Center" VerticalOptions="End"
+                                    Padding="4"
+                                    BackgroundColor="#99000000"
+                                    Orientation="Horizontal">
+                                    <Label
+                                        Text="&#xf740;"
+                                        TextColor="White"
+                                        FontFamily="Material Design Icons"
+                                        Style="{StaticResource MiddleTextFontLabelStyle}" />
+                                    <Label
+                                        VerticalOptions="Center"
+                                        Margin="0,0,4,0"
+                                        Text="para modificar"
+                                        TextColor="White"
+                                        LineBreakMode="TailTruncation" />
+                                </StackLayout>
+                            </Grid>
                         </StackLayout>
                     </Frame>
                     <Frame 
-                        Grid.ColumnSpan="2" Grid.Row="4"
+                        Grid.ColumnSpan="2" Grid.Row="5"
+                        Padding="0"
                         VerticalOptions="Start">
-                        <StackLayout>
-                            <Label Text="Platilla de Impresión para Retratos" Style="{StaticResource FormLabel}" />
-                            <views:CollageLayoutView BindingContext="{Binding Path=DefaultPictureContentCollageLayout}">
-                                <ContentView.GestureRecognizers>
+                        <StackLayout Spacing="0">
+                            <Label
+                                Padding="10,10,10,6"
+                                Text="Platilla de Impresión para Retratos" 
+                                Style="{StaticResource FormLabel}" />
+                            <BoxView BackgroundColor="DimGray" HeightRequest="1" />
+                            <Grid HeightRequest="{Binding Source={x:Reference PhotoSessionPrintLayout}, Path=HeightRequest}">
+                                <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="PicturePrintLayoutViewGestureRecognizer_Tapped" />
-                                </ContentView.GestureRecognizers>
-                            </views:CollageLayoutView>
+                                </Grid.GestureRecognizers>
+                                <Image 
+                                    BackgroundColor="DimGray"
+                                    Aspect="AspectFill"
+                                    Source="{Binding Path=DefaultPictureContentCollageLayout, Converter={StaticResource CollageLayoutDescriptorToOverviewImageSourceConverter}}" />
+                                <StackLayout 
+                                    HorizontalOptions="Center" VerticalOptions="End"
+                                    Padding="4"
+                                    BackgroundColor="#99000000"
+                                    Orientation="Horizontal">
+                                    <Label
+                                        Text="&#xf740;"
+                                        TextColor="White"
+                                        FontFamily="Material Design Icons"
+                                        Style="{StaticResource MiddleTextFontLabelStyle}" />
+                                    <Label
+                                        VerticalOptions="Center"
+                                        Margin="0,0,4,0"
+                                        Text="para modificar"
+                                        TextColor="White"
+                                        LineBreakMode="TailTruncation" />
+                                </StackLayout>
+                            </Grid>
                         </StackLayout>
                     </Frame>
                     <Frame 
-                        Grid.Column="2" Grid.Row="4"
-                        VerticalOptions="Start">
-                        <StackLayout>
-                            <Label Text="Platilla de Impresión para Sesiones de Fotos" Style="{StaticResource FormLabel}" />
-                            <views:CollageLayoutView BindingContext="{Binding Path=DefaultPhotoSessionContentCollageLayout}">
-                                <ContentView.GestureRecognizers>
+                        Grid.Column="2" Grid.Row="5"
+                        Padding="0">
+                        <StackLayout Spacing="0">
+                            <Label
+                                Padding="10,10,10,6" 
+                                Text="Platilla de Impresión para Sesiones de Fotos" 
+                                Style="{StaticResource FormLabel}" />
+                            <BoxView BackgroundColor="DimGray" HeightRequest="1" />
+                            <Grid 
+                                x:Name="PhotoSessionPrintLayout"
+                                HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}">
+                                <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="PhotoSessionPrintLayoutViewGestureRecognizer_Tapped" />
-                                </ContentView.GestureRecognizers>
-                            </views:CollageLayoutView>
+                                </Grid.GestureRecognizers>
+                                <Image 
+                                    BackgroundColor="DimGray"
+                                    Source="{Binding Path=DefaultPhotoSessionContentCollageLayout, Converter={StaticResource CollageLayoutDescriptorToOverviewImageSourceConverter}}" />
+                                <StackLayout 
+                                    HorizontalOptions="Center" VerticalOptions="End"
+                                    Padding="4"
+                                    BackgroundColor="#99000000"
+                                    Orientation="Horizontal">
+                                    <Label
+                                        Text="&#xf740;"
+                                        TextColor="White"
+                                        FontFamily="Material Design Icons"
+                                        Style="{StaticResource MiddleTextFontLabelStyle}" />
+                                    <Label
+                                        VerticalOptions="Center"
+                                        Margin="0,0,4,0"
+                                        Text="para modificar"
+                                        TextColor="White"
+                                        LineBreakMode="TailTruncation" />
+                                </StackLayout>
+                            </Grid>
                         </StackLayout>
                     </Frame>
-                    <Frame Grid.ColumnSpan="3" Grid.Row="5">
+                    <Frame Grid.ColumnSpan="3" Grid.Row="6">
                         <StackLayout>
                             <Label Text="Descripción" Style="{StaticResource FormLabel}" />
                             <Editor HeightRequest="180" Text="{Binding Path=Description}" />

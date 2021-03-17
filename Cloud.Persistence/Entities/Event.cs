@@ -20,6 +20,10 @@ namespace EM.Cloud.Persistence.Entities
         [Required]
         public string Name { get; set; }
 
+        public EventKind Kind { get; set; }
+
+        public System.Guid KindId { get; set; }
+
         public SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image Logo { get; set; }
 
         public SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image Overlay { get; set; }

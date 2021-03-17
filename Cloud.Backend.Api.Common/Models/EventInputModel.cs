@@ -13,6 +13,9 @@ namespace EM.Cloud.Backend.Api.Common.Models
 
         public ImageMediaInputModel Overlay { get; set; }
 
+        [Required]
+        public System.Guid? KindId { get; set; }
+
         [MaxLength(255)]
         public string Description { get; set; }
 
@@ -20,6 +23,7 @@ namespace EM.Cloud.Backend.Api.Common.Models
 
         public System.DateTime End { get; set; }
 
+        [Required]
         public string PlaceName { get; set; }
 
         public Persistence.Entities.Event Export()
@@ -39,6 +43,7 @@ namespace EM.Cloud.Backend.Api.Common.Models
         public void Mergue(Persistence.Entities.Event entity)
         {
             entity.Name = Name;
+            entity.KindId = KindId.Value;
             entity.Description = Description;
             entity.Start = Start;
             entity.End = End;

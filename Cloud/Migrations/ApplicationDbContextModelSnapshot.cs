@@ -236,6 +236,9 @@ namespace EM.Cloud.Migrations
                     b.Property<DateTime>("End")
                         .HasColumnName("end");
 
+                    b.Property<Guid>("KindId")
+                        .HasColumnName("kindid");
+
                     b.Property<Guid?>("LogoId")
                         .HasColumnName("logoid");
 
@@ -255,6 +258,9 @@ namespace EM.Cloud.Migrations
                     b.HasKey("Id")
                         .HasName("pk_events");
 
+                    b.HasIndex("KindId")
+                        .HasName("ix_events_kindid");
+
                     b.HasIndex("LogoId")
                         .HasName("ix_events_logoid");
 
@@ -262,6 +268,22 @@ namespace EM.Cloud.Migrations
                         .HasName("ix_events_overlayid");
 
                     b.ToTable("events");
+                });
+
+            modelBuilder.Entity("EM.Cloud.Persistence.Entities.EventKind", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_eventkinds");
+
+                    b.ToTable("eventkinds");
                 });
 
             modelBuilder.Entity("EM.Cloud.Persistence.Entities.Invokation", b =>
@@ -1426,6 +1448,12 @@ namespace EM.Cloud.Migrations
 
             modelBuilder.Entity("EM.Cloud.Persistence.Entities.Event", b =>
                 {
+                    b.HasOne("EM.Cloud.Persistence.Entities.EventKind", "Kind")
+                        .WithMany()
+                        .HasForeignKey("KindId")
+                        .HasConstraintName("fk_events_eventkinds_kindid")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("SmartSolucionesCuba.SAPRESSC.Middleware.Media.Persistence.Entities.Image", "Logo")
                         .WithMany()
                         .HasForeignKey("LogoId")

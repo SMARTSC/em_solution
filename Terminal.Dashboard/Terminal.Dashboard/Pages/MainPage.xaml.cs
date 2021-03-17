@@ -71,6 +71,11 @@ namespace EM.Terminal.Dashboard.Pages
 
             switch (action.Kind)
             {
+                case Enumerations.ActionKind.ManageEventKinds:
+                    this.NavigationPushPageAsync(new ManageEventKindsPage());
+
+                    break;
+
                 case Enumerations.ActionKind.ManageEvents:
                     this.NavigationPushPageAsync(new ManageEventsPage());
 
@@ -107,6 +112,13 @@ namespace EM.Terminal.Dashboard.Pages
 
             BindingContextPageModel.ActionGroups.Add(new Models.View.ActionGroupViewModel("Negocio", new System.Collections.Generic.List<Models.View.ActionViewModel>
             {
+                new Models.View.ActionViewModel
+                {
+                    Kind = Enumerations.ActionKind.ManageEventKinds,
+                    Caption = "Tipos de Evento",
+                    IconGlyph = "\uf0c0",
+                    IsEnabled = true
+                },
                 new Models.View.ActionViewModel
                 {
                     Kind = Enumerations.ActionKind.ManageEvents,

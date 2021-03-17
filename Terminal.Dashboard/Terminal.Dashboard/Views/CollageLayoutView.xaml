@@ -16,9 +16,7 @@
     </ContentView.Resources>
     <ContentView.Content>
         <Grid>
-            <Image 
-                HeightRequest="{Binding Source={x:RelativeSource AncestorType={x:Type Grid}}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}"
-                Source="{Binding Converter={StaticResource CollageLayoutDescriptorToOverviewImageSourceConverter}}" />
+            <Image Source="{Binding Converter={StaticResource CollageLayoutDescriptorToOverviewImageSourceConverter}}" />
             <Label 
                 VerticalOptions="End"
                 BackgroundColor="#AA000000"

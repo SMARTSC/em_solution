@@ -4,6 +4,7 @@
     {
         ManageUsers,
         ManageUserGroups,
+        ManageEventKinds,
         ManageEvents
     }
 }

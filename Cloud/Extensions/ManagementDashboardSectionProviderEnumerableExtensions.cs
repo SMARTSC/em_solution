@@ -34,14 +34,6 @@ namespace EM.Cloud.Extensions
             });
             businessSections.Add(new ManagementDashboardSectionViewModel
             {
-                Title = "events",
-                Controller = "events",
-                Action = "index",
-                Area = "business",
-                Role = Roles.EventViewer
-            });
-            businessSections.Add(new ManagementDashboardSectionViewModel
-            {
                 Title = "terminals",
                 Controller = "terminals",
                 Action = "index",

@@ -9,13 +9,13 @@ namespace EM.Terminal.Dashboard.Pages
 
         private System.Action successfulCompleteCallbackAction;
 
-        public EventConfigurationPage(System.Action successfulCompleteCallbackAction)
-            : this(null, successfulCompleteCallbackAction)
+        public EventConfigurationPage(Cloud.Backend.Api.Common.Models.EventKindDisplayModel[] availableEventKinds, System.Action successfulCompleteCallbackAction)
+            : this(null, availableEventKinds, successfulCompleteCallbackAction)
         {
         }
 
-        public EventConfigurationPage(Cloud.Backend.Api.Common.Models.EventDisplayModel model, System.Action successfulCompleteCallbackAction)
-            : base(Factories.Model.Page.EventConfigurationModelPageFactory.Build(model))
+        public EventConfigurationPage(Cloud.Backend.Api.Common.Models.EventDisplayModel model, Cloud.Backend.Api.Common.Models.EventKindDisplayModel[] availableEventKinds, System.Action successfulCompleteCallbackAction)
+            : base(Factories.Model.Page.EventConfigurationPageModelFactory.Build(model, availableEventKinds))
         {
             InitializeComponent();
 
@@ -56,13 +56,6 @@ namespace EM.Terminal.Dashboard.Pages
 
         private void ApplyToolbarItem_Clicked(object sender, System.EventArgs eventArgs)
         {
-            if (!pageModelHasChanges)
-            {
-                this.NavigationPopPageAsync();
-
-                return;
-            }
-
             BindingContextPageModel.IsBusy = true;
 
             System.Threading.Tasks.Task.Run(async () =>
@@ -72,6 +65,7 @@ namespace EM.Terminal.Dashboard.Pages
                 var model = new Cloud.Backend.Api.Common.Models.EventInputModel
                 {
                     Name = BindingContextPageModel.Name,
+                    KindId = BindingContextPageModel.Kind?.Id,
                     PlaceName = BindingContextPageModel.PlaceName,
                     Start = BindingContextPageModel.StartAtDate.Date + BindingContextPageModel.StartAtTime,
                     End = BindingContextPageModel.EndAtDate.Date + BindingContextPageModel.EndAtTime,

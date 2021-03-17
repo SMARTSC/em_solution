@@ -3,6 +3,7 @@
     public class EventConfigurationPageModel : SmartSolucionesCuba.XFToolKit.Mvvm.Models.Page.BasePageModel
     {
         private string name;
+        private Cloud.Backend.Api.Common.Models.EventKindDisplayModel kind;
         private Xamarin.Forms.ImageSource logoImageSource;
         private Xamarin.Forms.ImageSource overlayImageSource;
         private string description;
@@ -21,6 +22,8 @@
         public System.Guid? Id { get; set; }
 
         public string Name { get => name; set => SetProperty(ref name, value); }
+
+        public Cloud.Backend.Api.Common.Models.EventKindDisplayModel Kind { get => kind; set => SetProperty(ref kind, value); }
 
         public Xamarin.Forms.ImageSource LogoImageSource { get => logoImageSource; set => SetProperty(ref logoImageSource, value); }
 
@@ -41,6 +44,8 @@
         public System.TimeSpan EndAtTime { get => endAtTime; set => SetProperty(ref endAtTime, value); }
 
         public string PlaceName { get => placeName; set => SetProperty(ref placeName, value); }
+
+        public Cloud.Backend.Api.Common.Models.EventKindDisplayModel[] AvailableEventKinds { get; set; }
 
         protected override void DisposeUnmanagementResources()
         {

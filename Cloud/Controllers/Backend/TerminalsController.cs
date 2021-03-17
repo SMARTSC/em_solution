@@ -5,12 +5,12 @@ using Microsoft.Extensions.Logging;
 using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Repositories;
 using SmartSolucionesCuba.SAPRESSC.Core.Web.Security.Filters;
 
-namespace SmartSolucionesCuba.PBSP.Cloud.Controllers.Backend
+namespace EM.Cloud.Controllers.Backend
 {
     [Microsoft.AspNetCore.Authorization.Authorize]
-    [RequiresRoleBasePermission(SAPRESSC.Core.Web.Security.SecurityRoleCodes.ShellManager)]
+    [RequiresRoleBasePermission(SmartSolucionesCuba.SAPRESSC.Core.Web.Security.SecurityRoleCodes.ShellManager)]
     [Area("business")]
-    public class TerminalsController : SAPRESSC.Core.Web.Backend.Controllers.AbstractHabilitableEntityManagementController<Terminal, string, TerminalInputViewModel, TerminalDisplayViewModel>
+    public class TerminalsController : SmartSolucionesCuba.SAPRESSC.Core.Web.Backend.Controllers.AbstractHabilitableEntityManagementController<Terminal, string, TerminalInputViewModel, TerminalDisplayViewModel>
     {
         private readonly IEntityRepository<Album, System.Guid> albumRepository;
 
@@ -19,7 +19,7 @@ namespace SmartSolucionesCuba.PBSP.Cloud.Controllers.Backend
             this.albumRepository = albumRepository;
         }
 
-        [RequiresRoleBasePermission(EM.Cloud.Security.Authorization.Roles.TerminalViewer)]
+        [RequiresRoleBasePermission(Security.Authorization.Roles.TerminalViewer)]
         public override IActionResult Index(int sheet = 1, int limit = 25)
         {
             return base.Index(sheet, limit);
@@ -45,13 +45,13 @@ namespace SmartSolucionesCuba.PBSP.Cloud.Controllers.Backend
             return NotFound();
         }
 
-        [RequiresRoleBasePermission(EM.Cloud.Security.Authorization.Roles.TerminalEditor)]
+        [RequiresRoleBasePermission(Security.Authorization.Roles.TerminalEditor)]
         public override IActionResult Enable(string key)
         {
             return base.Enable(key);
         }
 
-        [RequiresRoleBasePermission(EM.Cloud.Security.Authorization.Roles.TerminalEditor)]
+        [RequiresRoleBasePermission(Security.Authorization.Roles.TerminalEditor)]
         public override IActionResult Disable(string key)
         {
             return base.Disable(key);

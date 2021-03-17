@@ -12,6 +12,8 @@ namespace EM.Cloud.Backend.Api.Common.Models
 
         public Cloud.Api.Common.Models.ImageMediaDisplayModel Overlay { get; set; }
 
+        public EventKindDisplayModel Kind { get; set; }
+
         public string Description { get; set; }
 
         public System.DateTime Start { get; set; }
@@ -43,6 +45,10 @@ namespace EM.Cloud.Backend.Api.Common.Models
                 return result;
             }).ToArray();
 
+            Kind = new EventKindDisplayModel();
+
+            Kind.Import(entity.Kind);
+
             Logo = new Cloud.Api.Common.Models.ImageMediaDisplayModel();
 
             Logo.Import(entity.Logo);
@@ -57,7 +63,7 @@ namespace EM.Cloud.Backend.Api.Common.Models
 
         public override string ToString()
         {
-            return Name;
+            return string.Format("{1} {0}", Name, Kind.Name);
         }
     }
 }

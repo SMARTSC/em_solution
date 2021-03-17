@@ -8,8 +8,6 @@
 
             if (self.Controller == "groups") return new Microsoft.AspNetCore.Html.HtmlString("<span class=\"fas fa-users\"></span>");
 
-            if (self.Controller == "events") return new Microsoft.AspNetCore.Html.HtmlString("<span class=\"fas fa-person-booth\"></span>");
-
             if (self.Controller == "traces") return new Microsoft.AspNetCore.Html.HtmlString("<span class=\"fas fa-shoe-prints\"></span>");
 
             if (self.Controller.EndsWith("clients")) return new Microsoft.AspNetCore.Html.HtmlString("<span class=\"fas fa-user-tie\"></span>");

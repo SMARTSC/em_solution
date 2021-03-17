@@ -7,6 +7,11 @@
         public const string ClientEditor = "business-client-editor";
         public const string ClientRemover = "business-client-remover";
 
+        public const string EventKindViewer = "business-event-kind-viewer";
+        public const string EventKindCreator = "business-event-kind-creator";
+        public const string EventKindEditor = "business-event-kind-editor";
+        public const string EventKindRemover = "business-event-kind-remover";
+
         public const string EventViewer = "business-event-viewer";
         public const string EventCreator = "business-event-creator";
         public const string EventEditor = "business-event-editor";
