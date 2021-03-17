@@ -156,7 +156,7 @@
                         VerticalOptions="Start">
                         <StackLayout VerticalOptions="FillAndExpand">
                             <Label 
-                                Padding="10,10,10,0"
+                                Margin="10,10,10,0"
                                 Text="Logo" 
                                 Style="{StaticResource FormLabel}" />
                             <Grid>
@@ -168,6 +168,7 @@
                                     BackgroundColor="DimGray"
                                     HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width}"
                                     Source="{Binding Path=LogoImageSource}"
+                                    Aspect="AspectFill"
                                     CacheType="Disk"
                                     CacheDuration="8760:00:00" />
                                 <StackLayout 
@@ -196,7 +197,7 @@
                         VerticalOptions="Start">
                         <StackLayout VerticalOptions="FillAndExpand">
                             <Label 
-                                Padding="10,10,10,0"
+                                Margin="10,10,10,0"
                                 Text="Carátula" 
                                 Style="{StaticResource FormLabel}" />
                             <Grid>

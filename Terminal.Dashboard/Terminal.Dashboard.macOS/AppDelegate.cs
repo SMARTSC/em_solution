@@ -12,12 +12,13 @@ namespace EM.Terminal.Dashboard.macOS
         {
             var style = NSWindowStyle.Closable | NSWindowStyle.Resizable | NSWindowStyle.Titled;
 
-            var rect = new CoreGraphics.CGRect(200, 1000, 1024, 768);
+            var rect = new CoreGraphics.CGRect(200, 1000, 1024, 600);
 
             window = new NSWindow(rect, style, NSBackingStore.Buffered, false)
             {
                 Title = "Espejo Molón Cloud Dashboard", // choose your own Title here
-                TitleVisibility = NSWindowTitleVisibility.Hidden
+                TitleVisibility = NSWindowTitleVisibility.Hidden,
+                MinSize = new CoreGraphics.CGSize(1024, 600)
             };
         }
 
@@ -42,6 +43,11 @@ namespace EM.Terminal.Dashboard.macOS
         public override void WillTerminate(NSNotification notification)
         {
             // Insert code here to tear down your application
+        }
+
+        public override bool ApplicationShouldTerminateAfterLastWindowClosed(NSApplication sender)
+        {
+            return true;
         }
     }
 }
