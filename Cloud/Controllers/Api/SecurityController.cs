@@ -61,6 +61,12 @@ namespace EM.Cloud.Controllers.Api
                         Version = inputModel.Version
                     }, "system");
                 }
+                else
+                {
+                    terminal.DeviceOSVersion = inputModel.DeviceOSVersion;
+
+                    terminalRepository.Update(terminal, "system");
+                }
 
                 if (terminal.Enabled)
                 {

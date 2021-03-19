@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="EM-Dashboard"
+    Name="EM-Cloud-Dashboard"
     Publisher="CN=SMART SOLUCIONES CUBA"
-    Version="0.1.0.0" />
+    Version="0.2.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Espejo Molón Dashboard</DisplayName>
-    <PublisherDisplayName>EM Development Team</PublisherDisplayName>
+    <DisplayName>Espejo Molón Cloud Dashboard</DisplayName>
+    <PublisherDisplayName>Espejo Molón Development Team</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -32,7 +32,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="EM.Terminal.Dashboard.UWP.App">
       <uap:VisualElements
-        DisplayName="Espejo Molón Dashboard"
+        DisplayName="Espejo Molón Cloud Dashboard"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="Consola de Administración del servicio Espejo Molón"

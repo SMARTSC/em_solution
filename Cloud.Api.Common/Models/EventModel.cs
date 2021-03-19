@@ -6,6 +6,8 @@
 
         public string Name { get; set; }
 
+        public string KindName { get; set; }
+
         public ImageMediaDisplayModel Logo { get; set; }
 
         public ImageMediaDisplayModel Overlay { get; set; }
@@ -24,6 +26,7 @@
         {
             Id = entity.Id;
             Name = entity.Name;
+            KindName = entity.Kind.Name;
             Description = entity.Description;
             Start = entity.Start;
             End = entity.End;
