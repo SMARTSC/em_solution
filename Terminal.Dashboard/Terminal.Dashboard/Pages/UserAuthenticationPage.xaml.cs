@@ -31,8 +31,20 @@ namespace EM.Terminal.Dashboard.Pages
 
             Managers.SessionManager.Instance.SignInAsync(BindingContextPageModel.Server, BindingContextPageModel.Login, BindingContextPageModel.Password).ContinueWith(task =>
             {
-                if (task.Exception != null)
+                if (task.Exception != null || task.IsCanceled)
                 {
+                    if (task.Exception == null)
+                    {
+                        Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                        {
+                            BindingContextPageModel.IsBusy = false;
+
+                            (Xamarin.Forms.Application.Current as Helpers.Facade.IExceptionHandleHelperFacade).HandleException(task.Exception);
+                        });
+
+                        return;
+                    }
+
                     System.Exception targetException = task.Exception;
 
                     while (targetException is System.AggregateException)
