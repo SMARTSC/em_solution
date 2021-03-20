@@ -2,10 +2,8 @@
 {
     public class AlbumBlobSharedAccessSignatureModel
     {
-        public System.Uri ImagesBlobContainerUri { get; set; }
+        public System.Uri OverlayImageBlobUri { get; set; }
 
-        public System.Uri ThumbnailsBlobContainerUri { get; set; }
-
-        public System.DateTimeOffset ExpiresOn { get; set; }
+        public System.Uri OverlayThumbnailBlobUri { get; set; }
     }
 }

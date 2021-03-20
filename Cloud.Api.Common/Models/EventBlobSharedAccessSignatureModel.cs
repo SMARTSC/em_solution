@@ -3,5 +3,9 @@
     public class EventBlobSharedAccessSignatureModel
     {
         public System.Uri LogoImageBlobUri { get; set; }
+
+        public System.Uri OverlayImageBlobUri { get; set; }
+
+        public System.Uri OverlayThumbnailBlobUri { get; set; }
     }
 }
