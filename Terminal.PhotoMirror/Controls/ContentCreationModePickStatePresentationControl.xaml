@@ -1,0 +1,39 @@
+﻿<UserControl 
+    x:Class="EM.Terminal.PhotoMirror.Controls.ContentCreationModePickStatePresentationControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d" 
+    d:DesignHeight="1920" d:DesignWidth="1080">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2.26*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="1.54*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.2*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition />
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="1.2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <MediaElement 
+            Grid.ColumnSpan="5" Grid.RowSpan="3"
+            LoadedBehavior="Play" UnloadedBehavior="Close"
+            Source="Resources/Video/ContentCreationModePick.mp4" />
+        <Rectangle
+            Grid.Column="1" Grid.Row="1"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+            Fill="Transparent"
+            TouchUp="PhotoSessionOptionRectangle_TouchUp"
+            MouseUp="PhotoSessionOptionRectanle_MouseUp" />
+        <Rectangle
+            Grid.Column="3" Grid.Row="1"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+            Fill="Transparent"
+            TouchUp="PictureOptionRectangle_TouchUp"
+            MouseUp="PictureOptionRectangle_MouseUp" />
+    </Grid>
+</UserControl>

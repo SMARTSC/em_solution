@@ -1,0 +1,17 @@
+﻿<UserControl 
+    x:Class="EM.Terminal.PhotoMirror.Controls.SetupWorkflowStatePresentationControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d" 
+    d:DesignHeight="1920" d:DesignWidth="1080"
+    Loaded="UserControl_Loaded">
+    <Grid>
+        <TextBlock 
+            VerticalAlignment="Center" HorizontalAlignment="Center"
+            Foreground="WhiteSmoke"
+            Text="..."
+            FontSize="30" />
+    </Grid>
+</UserControl>

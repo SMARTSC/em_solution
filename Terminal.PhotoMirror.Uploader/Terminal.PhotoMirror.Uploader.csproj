@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{286CF922-F62C-4FB6-99F5-AF0B3D598089}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>EM.Terminal.PhotoMirror.Uploader</RootNamespace>
+    <AssemblyName>PhotoMirrorUploader</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CaptureContentUploadService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CaptureContentUploadService.Designer.cs">
+      <DependentUpon>CaptureContentUploadService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Installer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Installer.Designer.cs">
+      <DependentUpon>Installer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cloud.Api.Common\Cloud.Api.Common.csproj">
+      <Project>{ca18aba4-f565-4b00-b789-0b1996bf7796}</Project>
+      <Name>Cloud.Api.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cloud.Backend.Api.Common\Cloud.Backend.Api.Common.csproj">
+      <Project>{5b4bcd86-d59d-4c69-8820-3dc7300cdd0d}</Project>
+      <Name>Cloud.Backend.Api.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cloud.Backend.Api.Connect\Cloud.Backend.Api.Connect.csproj">
+      <Project>{507bc039-b5c5-437b-9ef6-fe5e1cac00f0}</Project>
+      <Name>Cloud.Backend.Api.Connect</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cloud.Persistence\Cloud.Persistence.csproj">
+      <Project>{C32DC075-9DF1-4EEB-9968-548F265EB3F3}</Project>
+      <Name>Cloud.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Terminal.PhotoMirror.Common\Terminal.PhotoMirror.Common.csproj">
+      <Project>{824ecfb6-2fe0-4e1a-b586-a570c6946d29}</Project>
+      <Name>Terminal.PhotoMirror.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CaptureContentUploadService.resx">
+      <DependentUpon>CaptureContentUploadService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Installer.resx">
+      <DependentUpon>Installer.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SAPRESSC.Core.Api.Connect">
+      <Version>2.1.0-apha</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

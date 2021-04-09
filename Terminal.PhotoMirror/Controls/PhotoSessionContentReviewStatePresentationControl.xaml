@@ -1,0 +1,164 @@
+﻿<UserControl 
+    x:Class="EM.Terminal.PhotoMirror.Controls.PhotoSessionContentReviewStatePresentationControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialdesignthemes ="http://materialdesigninxaml.net/winfx/xaml/themes"
+    mc:Ignorable="d" 
+    d:DesignHeight="1920" d:DesignWidth="1080">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Teal.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Pink.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid 
+            Grid.ColumnSpan="5" Grid.Row="1"
+            HorizontalAlignment="Center" VerticalAlignment="Stretch">
+            <Border
+                Name="MainCaptureImageViewMask"
+                CornerRadius="20"
+                Background="Black" />
+            <Image
+                Name="TargetCaptureImageView">
+                <Image.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=MainCaptureImageViewMask}" />
+                </Image.OpacityMask>
+            </Image>
+        </Grid>
+        <Button
+            Name="PreviousButton"
+            Grid.Column="0" Grid.Row="1"
+            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+            HorizontalAlignment="Left"
+            Margin="26,0,0,0"
+            Width="70" Height="70"
+            Click="PreviousButton_Click">
+            <materialdesignthemes:PackIcon
+                Kind="ChevronLeft"
+                Width="60" Height="60" />
+        </Button>
+        <Button
+            Name="NextButton"
+            Grid.Column="4" Grid.Row="1"
+            Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+            HorizontalAlignment="Right"
+            Margin="0,0,26,0"
+            Width="70" Height="70"
+            Click="NextButton_Click">
+            <materialdesignthemes:PackIcon
+                Kind="ChevronRight"
+                Width="60" Height="60" />
+        </Button>
+        <Grid
+            Grid.ColumnSpan="5" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Border
+                Name="FirstCaptureImageThumbnailViewMask"
+                Grid.Column="1"
+                CornerRadius="10"
+                Background="Black" />
+            <Image
+                Name="FirstCaptureImageThumbnailView"
+                Grid.Column="1">
+                <Image.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=FirstCaptureImageThumbnailViewMask}" />
+                </Image.OpacityMask>
+            </Image>
+            <Border
+                Name="SecoundCaptureImageThumbnailViewMask"
+                Grid.Column="3"
+                CornerRadius="10"
+                Background="Black" />
+            <Image
+                Name="SecoundCaptureImageThumbnailView"
+                Grid.Column="3">
+                <Image.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=SecoundCaptureImageThumbnailViewMask}" />
+                </Image.OpacityMask>
+            </Image>
+            <Border
+                Name="ThirthCaptureImageThumbnailViewMask"
+                Grid.Column="5"
+                CornerRadius="10"
+                Background="Black" />
+            <Image
+                Name="ThirthCaptureImageThumbnailView"
+                Grid.Column="5">
+                <Image.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=ThirthCaptureImageThumbnailViewMask}" />
+                </Image.OpacityMask>
+            </Image>
+        </Grid>
+        <StackPanel
+            Grid.Column="1" Grid.Row="5"
+            VerticalAlignment="Center"
+            TouchUp="RepeatOptionStackPanel_TouchUp"
+            MouseUp="RepeatOptionStackPanel_MouseUp">
+            <Button
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                Width="130" Height="130"
+                Click="RepeatButton_Click">
+                <materialdesignthemes:PackIcon
+                    Kind="UndoVariant"
+                    Width="80" Height="80" />
+            </Button>
+            <TextBlock
+                HorizontalAlignment="Center"
+                Margin="10"
+                Foreground="Teal"
+                Text="Repetir"
+                FontSize="30" />
+        </StackPanel>
+        <StackPanel
+            Grid.Column="3" Grid.Row="5"
+            VerticalAlignment="Center"
+            TouchUp="CompleteOptionStackPanel_TouchUp"
+            MouseUp="CompleteOptionStackPanel_MouseUp">
+            <Button
+                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                Width="130" Height="130"
+                Click="CompleteButton_Click">
+                <materialdesignthemes:PackIcon
+                    Kind="Check"
+                    Width="80" Height="80" />
+            </Button>
+            <TextBlock
+                HorizontalAlignment="Center"
+                Margin="10"
+                Foreground="DeepPink"
+                Text="Finalizar"
+                FontSize="30">
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</UserControl>

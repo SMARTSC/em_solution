@@ -1,0 +1,39 @@
+﻿<UserControl 
+    x:Class="EM.Terminal.PhotoMirror.Controls.HelloWorkflowStatePresentationControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialdesignthemes ="http://materialdesigninxaml.net/winfx/xaml/themes"
+    mc:Ignorable="d" 
+    d:DesignHeight="1920" d:DesignWidth="1080"
+    Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <MediaElement 
+            Grid.ColumnSpan="2" Grid.RowSpan="2"
+            Name="AnimationMediaElement"
+            LoadedBehavior="Manual" UnloadedBehavior="Manual"
+            Source="Resources/Video/Welcome.mp4"
+            MediaEnded="AnimationMediaElement_MediaEnded"
+            MouseUp="AnimationMediaElement_MouseUp"
+            TouchUp="AnimationMediaElement_TouchUp" />
+        <materialdesignthemes:PackIcon
+            Grid.Column="1" Grid.Row="1"
+            Margin="4"
+            Height="96" Width="96"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Opacity="0.05"
+            Kind="Settings"
+            Foreground="DimGray"
+            MouseUp="ConfigurationPackIcon_MouseUp"
+            TouchUp="ConfigurationPackIcon_TouchUp" />
+    </Grid>
+</UserControl>
