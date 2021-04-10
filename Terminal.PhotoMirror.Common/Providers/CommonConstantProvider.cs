@@ -12,8 +12,8 @@
         public const string CLOUD_CONNECTION_SCHEMA = "http";
         public const string CLOUD_SERVER_HOST = "localhost";
 #else
-        private const string CLOUD_CONNECTION_SCHEMA = "https";
-        private const string CLOUD_SERVER_HOST => "cloud.elespejomolon.com";
+        public const string CLOUD_CONNECTION_SCHEMA = "https";
+        public const string CLOUD_SERVER_HOST = "cloud.elespejomolon.com";
 #endif
     }
 }

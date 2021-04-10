@@ -361,13 +361,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Video\PhotoSessionContentContinueCapture-3.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\Video\PhotoSessionContentContinueCapture-1.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Video\PhotoSessionContentContinueCapture-2.mp4">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Video\PhotoSessionContentContinueCapture-3.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
