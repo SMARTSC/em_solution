@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sscxftoolkitmvvmpages:BindingContextedContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:childpagemodels="clr-namespace:EM.Terminal.PrintCenter.Models.Page.Child"
+    xmlns:views="clr-namespace:EM.Terminal.PrintCenter.Views"
+    xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
+    xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    x:Class="EM.Terminal.PrintCenter.Pages.Child.UserAuthenticationChildPage"
+    x:TypeArguments="childpagemodels:UserAuthenticationChildPageModel"
+    IsEnabled="{Binding Path=IsBusy, Converter={StaticResource BoolToBoolNegationConverter}}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <sscxftoolkitpresentationconverters:BoolToBoolNegationConverter x:Key="BoolToBoolNegationConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout
+                WidthRequest="240"
+                HorizontalOptions="Center" VerticalOptions="Center">
+                <Entry
+                    Text="{Binding Path=Login}"
+                    Placeholder="usuario" />
+                <Entry
+                    Text="{Binding Path=Password}"
+                    Placeholder="contraseña"
+                    IsPassword="true" />
+                <Button
+                    Margin="0,10,0,0"
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="Accent"
+                    HeightRequest="36"
+                    Text="Iniciar"
+                    TextColor="White"
+                    Clicked="SignButton_Clicked" />
+            </StackLayout>
+            <views:BusyView />
+        </Grid>
+    </ContentPage.Content>
+</sscxftoolkitmvvmpages:BindingContextedContentPage>

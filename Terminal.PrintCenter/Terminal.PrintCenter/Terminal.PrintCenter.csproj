@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <AssemblyName>EM.Terminal.PrintCenter</AssemblyName>
+    <RootNamespace>EM.Terminal.PrintCenter</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -11,7 +13,41 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MagicGradients" Version="1.2.0" />
+    <PackageReference Include="SSCXFToolKit.Mvvm" Version="0.4.10-alpha" />
+    <PackageReference Include="SSCXFToolKit.Presentation" Version="0.4.10-alpha" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cloud.Api.Connect\Cloud.Api.Connect.csproj" />
+    <ProjectReference Include="..\..\Cloud.Backend.Api.Connect\Cloud.Backend.Api.Connect.csproj" />
+    <ProjectReference Include="..\..\Terminal.Common\Terminal.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Pages\Child\UserAuthenticationChildPage.xaml.cs">
+      <DependentUpon>UserAuthenticationChildPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Pages\SessionConfigurationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\StartUpPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Child\UserAuthenticationChildPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\BackgroundView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\BusyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

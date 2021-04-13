@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="f8f60a83-2543-4817-a1a8-3a604028356f"
+    Name="EspejoMolonPrintCenter"
     Publisher="CN=cf44ebcf-652d-49cb-8481-80194dac77dc"
-    Version="1.0.0.0" />
+    Version="0.1.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Terminal.PrintCenter.UWP</DisplayName>
-    <PublisherDisplayName>cf44ebcf-652d-49cb-8481-80194dac77dc</PublisherDisplayName>
+    <DisplayName>Espejo Molón PrintCenter for UWP</DisplayName>
+    <PublisherDisplayName>Espejo Molón Inc.</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -30,9 +30,9 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="Terminal.PrintCenter.UWP.App">
+      EntryPoint="EM.Terminal.PrintCenter.UWP.App">
       <uap:VisualElements
-        DisplayName="Terminal.PrintCenter.UWP"
+        DisplayName="Espejo Molón PrintCenter"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="Terminal.PrintCenter.UWP"

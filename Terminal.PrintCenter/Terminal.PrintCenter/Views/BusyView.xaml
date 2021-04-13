@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    x:Class="EM.Terminal.PrintCenter.Views.BusyView"
+    IsVisible="{Binding IsBusy}"
+    BackgroundColor="#EEFFFFFF">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <sscxftoolkitpresentationconverters:NotNullOrEmptyStringToBooleanConverter x:Key="NotNullOrEmptyStringToBooleanConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <StackLayout VerticalOptions="Center">
+            <ActivityIndicator IsRunning="{Binding Path=IsBusy}" />
+            <Label 
+                HorizontalTextAlignment="Center"
+                Text="{Binding Path=BusyProgressMessage}"
+                TextColor="Accent"
+                IsVisible="{Binding Path=BusyProgressMessage, Converter={StaticResource NotNullOrEmptyStringToBooleanConverter}}" />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

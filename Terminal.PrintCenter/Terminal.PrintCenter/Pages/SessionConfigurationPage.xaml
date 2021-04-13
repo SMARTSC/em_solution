@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sscxftoolkitmvvmpages:CarouselPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:EM.Terminal.PrintCenter.Views"
+    xmlns:childpages="clr-namespace:EM.Terminal.PrintCenter.Pages.Child"
+    xmlns:commonconverters="clr-namespace:EM.Terminal.Common.Converters;assembly=EM.Terminal.Common"
+    xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
+    xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    xmlns:ffimageloadingforms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    x:Class="EM.Terminal.PrintCenter.Pages.SessionConfigurationPage"
+    CurrentPageChanged="CarouselPage_CurrentPageChanged">
+    <CarouselPage.Resources>
+        <ResourceDictionary>
+            <commonconverters:ImageMediaDisplayModelToThumbnailImageSourceConverter x:Key="ImageMediaDisplayModelToThumbnailImageSourceConverter" />
+            <sscxftoolkitpresentationconverters:BindingLayoutWidthToResponsiveChildWidthConverter x:Key="BindingLayoutWidthToResponsiveChildWidthConverter" ChildMinWidth="320" ChildAbsoluteHorizontalMargin="10" />
+            <sscxftoolkitpresentationconverters:FractionConverter x:Key="FractionConverter" />
+        </ResourceDictionary>
+    </CarouselPage.Resources>
+    <childpages:UserAuthenticationChildPage Authenticated="UserAuthenticationChildPage_Authenticated" />
+    <sscxftoolkitmvvmpages:ContentPage>
+        <ContentPage.Content>
+            <Grid>
+                <views:BackgroundView />
+                <ScrollView Orientation="Vertical">
+                    <FlexLayout
+                        Padding="5"
+                        Wrap="Wrap"
+                        AlignContent="Start" AlignItems="Start"
+                        BindableLayout.ItemsSource="{Binding Path=AvailableEvents}">
+                        <BindableLayout.EmptyView>
+                            <Label 
+                                Margin="10"
+                                Text="Sin elementos que mostrar"
+                                HorizontalTextAlignment="Center" />
+                        </BindableLayout.EmptyView>
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Margin="5"
+                                    WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="EventOverviewGestureRecognizer_Tapped" />
+                                    </Grid.GestureRecognizers>
+                                    <ffimageloadingforms:CachedImage 
+                                        BackgroundColor="Black"
+                                        HeightRequest="{Binding Source={x:RelativeSource AncestorType={x:Type Grid}}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}"
+                                        Source="{Binding Path=Overlay, Converter={StaticResource ImageMediaDisplayModelToThumbnailImageSourceConverter}}"
+                                        Aspect="AspectFill"
+                                        CacheType="Disk"
+                                        CacheDuration="8760:00:00" />
+                                    <Label 
+                                        VerticalOptions="End"
+                                        BackgroundColor="#AA000000"
+                                        Padding="10,6"
+                                        Text="{Binding .}"
+                                        TextColor="White"
+                                        LineBreakMode="TailTruncation"
+                                        Style="{StaticResource MiddleTextFontLabelStyle}" />
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </ScrollView>
+                <views:BusyView />
+            </Grid>
+        </ContentPage.Content>
+    </sscxftoolkitmvvmpages:ContentPage>
+    <sscxftoolkitmvvmpages:ContentPage>
+        <ContentPage.Content>
+            <Grid>
+                <views:BackgroundView />
+                <ScrollView Orientation="Vertical">
+                    <FlexLayout
+                        Padding="5"
+                        Wrap="Wrap"
+                        AlignContent="Start" AlignItems="Start"
+                        BindableLayout.ItemsSource="{Binding Path=TargetEvent.Albums}">
+                        <BindableLayout.EmptyView>
+                            <Label 
+                                Margin="10"
+                                Text="Sin elementos que mostrar"
+                                HorizontalTextAlignment="Center" />
+                        </BindableLayout.EmptyView>
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Margin="5"
+                                    WidthRequest="{Binding Source={x:RelativeSource AncestorType={x:Type FlexLayout}}, Path=Width, Converter={StaticResource BindingLayoutWidthToResponsiveChildWidthConverter}}">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="AlbumOverviewGestureRecognizer_Tapped" />
+                                    </Grid.GestureRecognizers>
+                                    <ffimageloadingforms:CachedImage 
+                                        BackgroundColor="Black"
+                                        HeightRequest="{Binding Source={x:RelativeSource AncestorType={x:Type Grid}}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}"
+                                        Source="{Binding Path=Overlay, Converter={StaticResource ImageMediaDisplayModelToThumbnailImageSourceConverter}}"
+                                        Aspect="AspectFill"
+                                        CacheType="Disk"
+                                        CacheDuration="8760:00:00" />
+                                    <Label 
+                                        VerticalOptions="End"
+                                        BackgroundColor="#AA000000"
+                                        Padding="10,6"
+                                        Text="{Binding Path=Title}"
+                                        TextColor="White"
+                                        LineBreakMode="TailTruncation"
+                                        Style="{StaticResource MiddleTextFontLabelStyle}" />
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </ScrollView>
+                <views:BusyView />
+            </Grid>
+        </ContentPage.Content>
+    </sscxftoolkitmvvmpages:ContentPage>
+</sscxftoolkitmvvmpages:CarouselPage>

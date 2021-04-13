@@ -13,4 +13,8 @@
   <ItemGroup>
     <Compile Remove="AssemblyInfo.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cloud.Api.Common\Cloud.Api.Common.csproj" />
+  </ItemGroup>
 </Project>
