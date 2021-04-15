@@ -71,9 +71,7 @@
             {
                 var contentCaptureDirectoryPath = Providers.ConstantProvider.ContentCaptureDirectoryPath;
 
-                var pictureContentImageHostPath = System.IO.Path.Combine(contentCaptureDirectoryPath, string.Format("{0}_{1}_{2}.JPG", Managers.SessionManager.Instance.TargetAlbum.Id, System.Guid.Empty, captureImageId));
-
-                System.IO.File.Move(System.IO.Path.Combine(contentCaptureDirectoryPath, string.Format("{0}.JPG", captureImageId)), pictureContentImageHostPath);
+                var targetFilePath = System.IO.Path.Combine(contentCaptureDirectoryPath, string.Format("{0}.JPG", captureImageId));
 
                 try
                 {
@@ -88,9 +86,13 @@
 
                     var captureImageBackUpPath = System.IO.Path.Combine(capturedImageBackUpDirectoryPath, string.Format("{0}-{1}-{2}_{3}-{4}-{5}.JPG", now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second));
 
-                    System.IO.File.Copy(pictureContentImageHostPath, captureImageBackUpPath);
+                    System.IO.File.Copy(targetFilePath, captureImageBackUpPath);
                 }
                 catch { }
+
+                var pictureContentImageHostPath = System.IO.Path.Combine(contentCaptureDirectoryPath, string.Format("{0}_{1}_{2}.JPG", Managers.SessionManager.Instance.TargetAlbum.Id, System.Guid.Empty, captureImageId));
+
+                System.IO.File.Move(targetFilePath, pictureContentImageHostPath);
             }).ContinueWith(task =>
             {
                 if (task.Exception != null || task.IsCanceled)
