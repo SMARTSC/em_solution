@@ -1,6 +1,6 @@
-﻿namespace EM.Extend.Layout.Descriptors.Facade
+﻿namespace EM.Extend.Layout.Descriptors
 {
-    public interface ICollageLayoutDescriptorFacade
+    public interface IPrintLayoutDescriptor
     {
         System.Guid Id { get; }
 

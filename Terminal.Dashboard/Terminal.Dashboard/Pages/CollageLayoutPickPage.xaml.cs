@@ -4,15 +4,15 @@ namespace EM.Terminal.Dashboard.Pages
 {
     public partial class CollageLayoutPickPage : SmartSolucionesCuba.XFToolKit.Mvvm.Pages.ContentPage
     {
-        private System.Action<Extend.Layout.Descriptors.Facade.ICollageLayoutDescriptorFacade> pickedCallbackAction;
+        private System.Action<Extend.Layout.Descriptors.IPrintLayoutDescriptor> pickedCallbackAction;
 
-        public CollageLayoutPickPage(System.Action<Extend.Layout.Descriptors.Facade.ICollageLayoutDescriptorFacade> pickedCallbackAction)
+        public CollageLayoutPickPage(System.Action<Extend.Layout.Descriptors.IPrintLayoutDescriptor> pickedCallbackAction)
         {
             this.pickedCallbackAction = pickedCallbackAction;
 
             InitializeComponent();
 
-            BindingContext = Extend.Layout.Provision.Providers.CollageLayoutDescriptorProvider.Instance.GetCollageLayoutDescriptors();
+            BindingContext = Extend.Layout.Provision.Providers.PrintLayoutDescriptorProvider.Instance.GetPrintLayoutDescriptors();
         }
 
         private void PrintLayoutGestureRecognizer_Tapped(object sender, System.EventArgs eventArgs)
@@ -25,7 +25,7 @@ namespace EM.Terminal.Dashboard.Pages
                 {
                     this.NavigationPopPageAsync();
 
-                    pickedCallbackAction?.Invoke((sender as Xamarin.Forms.BindableObject).BindingContext as Extend.Layout.Descriptors.Facade.ICollageLayoutDescriptorFacade);
+                    pickedCallbackAction?.Invoke((sender as Xamarin.Forms.BindableObject).BindingContext as Extend.Layout.Descriptors.IPrintLayoutDescriptor);
                 });
             });
         }

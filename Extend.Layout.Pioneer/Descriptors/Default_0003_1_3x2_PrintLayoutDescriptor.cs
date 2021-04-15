@@ -1,6 +1,6 @@
 ﻿namespace EM.Extend.Layout.Pioneer.Descriptors
 {
-    public sealed class Default_0003_1_3x2_CollageLayoutDescriptor : Layout.Descriptors.Facade.ICollageLayoutDescriptorFacade
+    public sealed class Default_0003_1_3x2_PrintLayoutDescriptor : Layout.Descriptors.IPrintLayoutDescriptor
     {
         public static System.Guid ID = System.Guid.Parse("000301F5-C60D-4E1C-AA21-FACF619DD91C");
 

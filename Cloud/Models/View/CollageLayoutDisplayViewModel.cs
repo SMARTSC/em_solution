@@ -17,7 +17,7 @@
             Id = entity.Id;
             Enabled = entity.Enabled;
 
-            var descriptor = Extend.Layout.Provision.Providers.CollageLayoutDescriptorProvider.Instance.GetCollageLayoutDescriptorById(entity.Id);
+            var descriptor = Extend.Layout.Provision.Providers.PrintLayoutDescriptorProvider.Instance.GetPrintLayoutDescriptorById(entity.Id);
 
             Name = descriptor.Name;
             PictureCount = descriptor.PictureCount;

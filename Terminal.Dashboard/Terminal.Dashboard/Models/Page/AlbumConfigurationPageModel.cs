@@ -6,8 +6,8 @@
         private string alias;
         private bool isEnabled;
         private bool isPublic;
-        private Extend.Layout.Descriptors.Facade.ICollageLayoutDescriptorFacade defaultPictureContentCollageLayoutDescriptor;
-        private Extend.Layout.Descriptors.Facade.ICollageLayoutDescriptorFacade defaultPhotoSessionContentCollageLayoutDescriptor;
+        private Extend.Layout.Descriptors.IPrintLayoutDescriptor defaultPictureContentCollageLayoutDescriptor;
+        private Extend.Layout.Descriptors.IPrintLayoutDescriptor defaultPhotoSessionContentCollageLayoutDescriptor;
         private Xamarin.Forms.ImageSource overlayImageSource;
         private string description;
 
@@ -23,9 +23,9 @@
 
         public int PhotoSessionCaptureCount { get; set; }
 
-        public Extend.Layout.Descriptors.Facade.ICollageLayoutDescriptorFacade DefaultPictureContentCollageLayout { get => defaultPictureContentCollageLayoutDescriptor; set => SetProperty(ref defaultPictureContentCollageLayoutDescriptor, value); }
+        public Extend.Layout.Descriptors.IPrintLayoutDescriptor DefaultPictureContentCollageLayout { get => defaultPictureContentCollageLayoutDescriptor; set => SetProperty(ref defaultPictureContentCollageLayoutDescriptor, value); }
 
-        public Extend.Layout.Descriptors.Facade.ICollageLayoutDescriptorFacade DefaultPhotoSessionContentCollageLayout { get => defaultPhotoSessionContentCollageLayoutDescriptor; set => SetProperty(ref defaultPhotoSessionContentCollageLayoutDescriptor, value); }
+        public Extend.Layout.Descriptors.IPrintLayoutDescriptor DefaultPhotoSessionContentCollageLayout { get => defaultPhotoSessionContentCollageLayoutDescriptor; set => SetProperty(ref defaultPhotoSessionContentCollageLayoutDescriptor, value); }
 
         public Xamarin.Forms.ImageSource OverlayImageSource { get => overlayImageSource; set => SetProperty(ref overlayImageSource, value); }
 

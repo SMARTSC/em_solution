@@ -1,12 +1,92 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
+<sscxftoolkitmvvmpages:BindingContextedContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="EM.Terminal.PrintCenter.Pages.MainPage">
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
-</ContentPage>
+    xmlns:pagemodels="clr-namespace:EM.Terminal.PrintCenter.Models.Page"
+    xmlns:views="clr-namespace:EM.Terminal.PrintCenter.Views"
+    xmlns:helpers="clr-namespace:EM.Terminal.PrintCenter.Helpers"
+    xmlns:converters="clr-namespace:EM.Terminal.PrintCenter.Converters"
+    xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
+    xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    x:Class="EM.Terminal.PrintCenter.Pages.MainPage"
+    x:TypeArguments="pagemodels:MainPageModel"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ContentOverviewsCollectionViewHeightToContentOverviewWidthConverter x:Key="ContentOverviewsCollectionViewHeightToContentOverviewWidthConverter" />
+            <converters:ContentDisplayModelToContentConcreteFillViewConverter x:Key="ContentDisplayModelToContentConcreteFillViewConverter" />
+            <sscxftoolkitpresentationconverters:FractionConverter x:Key="FractionConverter" />
+
+            <Style x:Key="NavigationButtonsStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#22000000" />
+                <Setter Property="Margin" Value="0,8,0,24" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryBrandColor}" />
+                <Setter Property="FontFamily" Value="{StaticResource IconFontFamily}" />
+                <Setter Property="FontSize" Value="Header" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid ColumnSpacing="8" RowSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="4*" />
+            </Grid.RowDefinitions>
+            <views:BackgroundView 
+                Grid.ColumnSpan="3" Grid.RowSpan="3" />
+            <Grid
+                Grid.ColumnSpan="3" Grid.Row="0"
+                BackgroundColor="#DD000000">
+                
+            </Grid>
+            <CollectionView
+                x:Name="ContentOverviewsCollectionView"
+                Grid.Column="1" Grid.Row="2"
+                BackgroundColor="Transparent"
+                HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never"
+                WidthRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Height, Converter={StaticResource ContentOverviewsCollectionViewHeightToContentOverviewWidthConverter}}"
+                ItemsSource="{Binding Path=Items}"
+                SelectionMode="Single"
+                ChildAdded="ContentOverviewsCollectionView_ChildAdded">
+                <CollectionView.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Left" Swiped="ContentOverviewCollectionViewSwipeGestureRecognizer_LeftSwiped" />
+                    <SwipeGestureRecognizer Direction="Right" Swiped="ContentOverviewCollectionViewSwipeGestureRecognizer_RightSwiped" />
+                </CollectionView.GestureRecognizers>
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        Orientation="Vertical"
+                        Span="{Static helpers:ResponsivePresentationHelper.ContentOverviewCollectionViewSnap}"
+                        HorizontalItemSpacing="0" VerticalItemSpacing="0"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="8">
+                            <Grid HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}">
+                                <ContentView Content="{Binding Converter={StaticResource ContentDisplayModelToContentConcreteFillViewConverter}}" />
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button
+                Grid.Column="0" Grid.Row="2"
+                Style="{StaticResource NavigationButtonsStyle}"
+                IsEnabled="{Binding Path=HasPrevious}"
+                Text="&#xE973;"
+                Clicked="PreviousButton_Clicked" />
+            <Button x:Name="NextPaginationButton" 
+                Grid.Column="2" Grid.Row="2"
+                Text="&#xE974;"
+                Style="{StaticResource NavigationButtonsStyle}"
+                IsEnabled="{Binding Path=HasNext}"
+                Clicked="NextButton_Clicked" />
+            <views:BusyView Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" />
+        </Grid>
+    </ContentPage.Content>
+</sscxftoolkitmvvmpages:BindingContextedContentPage>

@@ -25,7 +25,7 @@
 
         public void PerformNextWorkflowStep()
         {
-            var defaultPhotoSessionContentPrintLayout = Extend.Layout.Provision.Providers.CollageLayoutDescriptorProvider.Instance.GetCollageLayoutDescriptorById(SessionManager.Instance.TargetAlbum.DefaultPhotoSessionContentCollageLayout.Id);
+            var defaultPhotoSessionContentPrintLayout = Extend.Layout.Provision.Providers.PrintLayoutDescriptorProvider.Instance.GetPrintLayoutDescriptorById(SessionManager.Instance.TargetAlbum.DefaultPhotoSessionContentCollageLayout.Id);
 
             if (captureImageIdList.Count < defaultPhotoSessionContentPrintLayout.PictureCount)
             {

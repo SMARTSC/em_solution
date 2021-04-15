@@ -2,12 +2,19 @@
 {
     public sealed class SessionManager
     {
+        public SessionManager()
+        {
+            TouchInteractionMode = Enumerations.TouchInteractionMode.Resistive;
+        }
+
         public string AuthenticationType { get; private set; }
         public string AuthorizationToken { get; private set; }
         public string UserLogin { get; private set; }
 
         public Cloud.Backend.Api.Common.Models.EventDisplayModel TargetEvent { get; set; }
         public Cloud.Backend.Api.Common.Models.AlbumDisplayModel TargetAlbum { get; set; }
+
+        public Enumerations.TouchInteractionMode TouchInteractionMode { get; set; }
 
         public bool HasAuthenticatedSession => UserLogin != null;
 

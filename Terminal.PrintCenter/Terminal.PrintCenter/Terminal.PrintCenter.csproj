@@ -13,10 +13,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Font\materialdesignicons-webfont.ttf" />
+    <None Remove="Assets\Vector\brand_icon.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Font\materialdesignicons-webfont.ttf" />
+    <EmbeddedResource Include="Assets\Vector\brand_icon.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MagicGradients" Version="1.2.0" />
     <PackageReference Include="SSCXFToolKit.Mvvm" Version="0.4.10-alpha" />
     <PackageReference Include="SSCXFToolKit.Presentation" Version="0.4.10-alpha" />
+    <PackageReference Include="SSCXFToolKit.Presentation.Transform" Version="0.2.0-alpha" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
@@ -24,6 +36,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Cloud.Api.Connect\Cloud.Api.Connect.csproj" />
     <ProjectReference Include="..\..\Cloud.Backend.Api.Connect\Cloud.Backend.Api.Connect.csproj" />
+    <ProjectReference Include="..\..\Extend.Layout.Provision\Extend.Layout.Provision.csproj" />
     <ProjectReference Include="..\..\Terminal.Common\Terminal.Common.csproj" />
   </ItemGroup>
 
@@ -48,6 +61,12 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Views\BusyView.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\PhotoSessionContentOverlayFillView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\PictureContentOverlayFillView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

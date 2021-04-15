@@ -2,25 +2,79 @@
 
 namespace EM.Terminal.PrintCenter.Pages
 {
-    public partial class StartUpPage : SmartSolucionesCuba.XFToolKit.Mvvm.Pages.ContentPage
+    public partial class StartUpPage : SmartSolucionesCuba.XFToolKit.Mvvm.Pages.BindingContextedContentPage<Models.Page.StartUpPageModel>
     {
-        public StartUpPage()
+        private SmartSolucionesCuba.XFToolKit.Presentation.Transform.Animations.HeartAnimation screenInteractionSuggestLabelAnimation;
+
+        public StartUpPage() : base(new Models.Page.StartUpPageModel { IsBusy = true })
         {
             InitializeComponent();
+
+            IsEnabled = false;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            if (!Xamarin.Forms.DependencyService.Get<Managers.SessionManager>().HasAuthenticatedSession)
+            if (IsEnabled) return;
+
+            var sessionManager = Xamarin.Forms.DependencyService.Get<Managers.SessionManager>();
+
+            if (!sessionManager.HasAuthenticatedSession)
             {
                 this.NavigationPushModalPageAsync(new SessionConfigurationPage());
 
                 return;
             }
 
-            // TODO Present Session info in passive mode until interaction!
+            BindingContextPageModel.TargetEvent = sessionManager.TargetEvent;
+            BindingContextPageModel.TargetAlbum = sessionManager.TargetAlbum;
+            BindingContextPageModel.IsBusy = false;
+
+            IsEnabled = true;
+
+            PerformAppearingAnimation();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            if (!IsEnabled) return;
+
+            PerformDisappearingAnimation();
+        }
+
+        private void InteractiveLayerBoxViewTapGestureRecognizer_Tapped(object sender, System.EventArgs eventArgs)
+        {
+            this.NavigationPushModalPageAsync(new Xamarin.Forms.NavigationPage(new MainPage()));
+        }
+
+        private void ScreenInteractionSuggestLabelAnimation_Completed(object sender, System.EventArgs eventArgs)
+        {
+            System.Threading.Tasks.Task.Delay(System.TimeSpan.FromSeconds(3)).ContinueWith(_ =>
+            {
+                screenInteractionSuggestLabelAnimation?.Begin();
+            });
+        }
+
+        private void PerformAppearingAnimation()
+        {
+            screenInteractionSuggestLabelAnimation = new SmartSolucionesCuba.XFToolKit.Presentation.Transform.Animations.HeartAnimation
+            {
+                Target = ScreenInteractionSuggestLabel
+            };
+
+            screenInteractionSuggestLabelAnimation.Completed += ScreenInteractionSuggestLabelAnimation_Completed;
+
+            screenInteractionSuggestLabelAnimation.Begin();
+        }
+
+        private void PerformDisappearingAnimation()
+        {
+            screenInteractionSuggestLabelAnimation.Completed -= ScreenInteractionSuggestLabelAnimation_Completed;
+            screenInteractionSuggestLabelAnimation = null;
         }
     }
 }

@@ -39,7 +39,7 @@
                 Source = "Espejo Molón PhotoMirror"
             })
             {
-                eventLog.WriteEntry(string.Format("Excepción no esperada: {0}", exception?.Message ?? "Tiempo de espera en tarea asincrónica superado."), System.Diagnostics.EventLogEntryType.Error);
+                eventLog.WriteEntry(string.Format("Excepción no esperada: {0}", exception?.StackTrace ?? "Tiempo de espera en tarea asincrónica superado."), System.Diagnostics.EventLogEntryType.Error);
             }
 
             System.Windows.MessageBox.Show(string.Format("Se ha producido un error no esperado.{0}{0}Por favor notifique al personal responsable de esta situación.{0}{0}Disculpe las molestas causadas.", System.Environment.NewLine), "Aviso", System.Windows.MessageBoxButton.OK);
@@ -83,11 +83,13 @@
 
         internal void PresentCameraOuturatorSimulationWorkflowState(Managers.Capture.Facade.IContentCaptureManagerFacade contentCaptureManager)
         {
-            CleanWrapContainer();
+            //CleanWrapContainer();
 
-            presentedControl = new Controls.CameraOuturatorSimulationStatePresentationControl(contentCaptureManager);
+            //presentedControl = new Controls.CameraOuturatorSimulationStatePresentationControl(contentCaptureManager);
 
-            wrapContainer.Children.Add(presentedControl);
+            //wrapContainer.Children.Add(presentedControl);
+
+            PresentTransitionWorkflowState(new System.Uri(string.Format("Resources/Video/CameraCaptureComplete-{0}.mp4", new System.Random().Next(1, 3)), System.UriKind.Relative), contentCaptureManager.PerformNextWorkflowStep);
         }
 
         internal void PresentPictureContentReviewWorkflowState(System.Guid captureImageId)

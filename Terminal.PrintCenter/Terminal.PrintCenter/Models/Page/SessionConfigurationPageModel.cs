@@ -2,15 +2,20 @@
 {
     public class SessionConfigurationPageModel : SmartSolucionesCuba.XFToolKit.Mvvm.Models.Page.BasePageModel
     {
-        private Cloud.Backend.Api.Common.Models.EventDisplayModel @event;
+        private Cloud.Backend.Api.Common.Models.EventDisplayModel targetEvent;
+        private System.Collections.ObjectModel.ObservableCollection<Cloud.Backend.Api.Common.Models.EventDisplayModel> activeEvents;
 
-        public SessionConfigurationPageModel()
+        public Cloud.Backend.Api.Common.Models.EventDisplayModel TargetEvent { get => targetEvent; set => SetProperty(ref targetEvent, value); }
+
+        public System.Collections.ObjectModel.ObservableCollection<Cloud.Backend.Api.Common.Models.EventDisplayModel> ActiveEvents { get => activeEvents; set => SetProperty(ref activeEvents, value); }
+
+        protected override void DisposeUnmanagementResources()
         {
-            AvailableEvents = new System.Collections.ObjectModel.ObservableCollection<Cloud.Backend.Api.Common.Models.EventDisplayModel>();
+            base.DisposeUnmanagementResources();
+
+            ActiveEvents.Clear();
+            ActiveEvents = null;
+            TargetEvent = null;
         }
-
-        public Cloud.Backend.Api.Common.Models.EventDisplayModel Event { get => @event; set => SetProperty(ref @event, value); }
-
-        public System.Collections.ObjectModel.ObservableCollection<Cloud.Backend.Api.Common.Models.EventDisplayModel> AvailableEvents { get; set; }
     }
 }

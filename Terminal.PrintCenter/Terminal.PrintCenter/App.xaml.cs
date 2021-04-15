@@ -10,6 +10,7 @@
 
             Xamarin.Forms.DependencyService.RegisterSingleton(new Managers.SessionManager());
             Xamarin.Forms.DependencyService.RegisterSingleton(new Providers.HttpClientHelperProvider());
+            Xamarin.Forms.DependencyService.RegisterSingleton(new Providers.ContentPaginationProvider());
             Xamarin.Forms.DependencyService.RegisterSingleton<Common.Helpers.Facade.IExceptionHandleHelperFacade>(this);
 
             FFImageLoading.ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration

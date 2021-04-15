@@ -2,7 +2,7 @@
 {
     public static class CollageLayoutDescriptorExtensions
     {
-        public static Persistence.Entities.CollageLayout ToEntity(this Extend.Layout.Descriptors.Facade.ICollageLayoutDescriptorFacade target)
+        public static Persistence.Entities.CollageLayout ToEntity(this Extend.Layout.Descriptors.IPrintLayoutDescriptor target)
         {
             return new Persistence.Entities.CollageLayout
             {

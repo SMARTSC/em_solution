@@ -5,7 +5,8 @@
     Title="MainWindow" Height="1920" Width="1080"
     WindowStyle="None"
     ResizeMode="NoResize"
-    WindowStartupLocation="CenterScreen" 
+    WindowStartupLocation="Manual"
+    WindowState="Maximized"
     Background="Black"
     Loaded="Window_Loaded">
     <Grid>

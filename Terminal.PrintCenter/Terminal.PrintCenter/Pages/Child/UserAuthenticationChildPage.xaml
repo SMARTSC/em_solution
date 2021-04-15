@@ -16,6 +16,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
+            <views:BackgroundView />
             <StackLayout
                 WidthRequest="240"
                 HorizontalOptions="Center" VerticalOptions="Center">

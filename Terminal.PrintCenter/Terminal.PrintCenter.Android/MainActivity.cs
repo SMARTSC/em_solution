@@ -16,6 +16,10 @@ namespace EM.Terminal.PrintCenter.Droid
 
             base.OnCreate(savedInstanceState);
 
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(false);
+
+            _ = typeof(FFImageLoading.Svg.Forms.SvgCachedImage);
+
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 
             Xamarin.Forms.Forms.Init(this, savedInstanceState);

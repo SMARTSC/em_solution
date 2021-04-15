@@ -232,7 +232,7 @@ namespace EM.Cloud.Helpers
             #region Collage Layouts definitios
             var collageLayoutDbSet = dbContext.Set<Persistence.Entities.CollageLayout>();
 
-            var descriptors = Extend.Layout.Provision.Providers.CollageLayoutDescriptorProvider.Instance.GetCollageLayoutDescriptors();
+            var descriptors = Extend.Layout.Provision.Providers.PrintLayoutDescriptorProvider.Instance.GetPrintLayoutDescriptors();
 
             foreach (var descriptor in descriptors)
             {

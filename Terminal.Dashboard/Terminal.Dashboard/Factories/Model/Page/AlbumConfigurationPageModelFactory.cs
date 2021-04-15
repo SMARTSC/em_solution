@@ -14,8 +14,8 @@
                 result.IsEnabled = model.Enabled;
                 result.IsPublic = model.Public;
                 result.PhotoSessionCaptureCount = model.PhotoSessionCaptureCount;
-                result.DefaultPictureContentCollageLayout = Extend.Layout.Provision.Providers.CollageLayoutDescriptorProvider.Instance.GetCollageLayoutDescriptorById(model.DefaultPictureContentCollageLayout.Id);
-                result.DefaultPhotoSessionContentCollageLayout = Extend.Layout.Provision.Providers.CollageLayoutDescriptorProvider.Instance.GetCollageLayoutDescriptorById(model.DefaultPhotoSessionContentCollageLayout.Id);
+                result.DefaultPictureContentCollageLayout = Extend.Layout.Provision.Providers.PrintLayoutDescriptorProvider.Instance.GetPrintLayoutDescriptorById(model.DefaultPictureContentCollageLayout.Id);
+                result.DefaultPhotoSessionContentCollageLayout = Extend.Layout.Provision.Providers.PrintLayoutDescriptorProvider.Instance.GetPrintLayoutDescriptorById(model.DefaultPhotoSessionContentCollageLayout.Id);
                 result.Description = model.Description;
 
                 if (model.Overlay != null)

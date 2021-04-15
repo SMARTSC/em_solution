@@ -1,7 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<sscxftoolkitmvvmpages:ContentPage 
+<sscxftoolkitmvvmpages:BindingContextedContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pagemodels="clr-namespace:EM.Terminal.PrintCenter.Models.Page"
+    xmlns:views="clr-namespace:EM.Terminal.PrintCenter.Views"
+    xmlns:commonconverters="clr-namespace:EM.Terminal.Common.Converters;assembly=EM.Terminal.Common"
     xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
-    x:Class="EM.Terminal.PrintCenter.Pages.StartUpPage">
-</sscxftoolkitmvvmpages:ContentPage>
+    xmlns:ffimageloadingformsviews="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffimageloadingformssvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    x:Class="EM.Terminal.PrintCenter.Pages.StartUpPage"
+    x:TypeArguments="pagemodels:StartUpPageModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <commonconverters:ImageMediaDisplayModelToImageSourceConverter x:Key="ImageMediaDisplayModelToImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <ffimageloadingformsviews:CachedImage 
+                Grid.RowSpan="3"
+                Source="{Binding Path=TargetEvent.Overlay, Converter={StaticResource ImageMediaDisplayModelToImageSourceConverter}}"
+                Aspect="AspectFill"
+                CacheType="Disk"
+                CacheDuration="8760:00:00" />
+            <BoxView
+                Grid.RowSpan="3"
+                Color="{StaticResource PrimaryBrandColor}"
+                Opacity="0.8" />
+            <StackLayout
+                Grid.Row="0"
+                HorizontalOptions="Center" VerticalOptions="Center">
+                <ffimageloadingformssvg:SvgCachedImage
+                    HorizontalOptions="Center"
+                    WidthRequest="120" HeightRequest="120"
+                    Source="resource://EM.Terminal.PrintCenter.Assets.Vector.brand_icon.svg" />
+                <Label 
+                    Text="Centro de Impresión"
+                    FontSize="Large" />
+            </StackLayout>
+            <StackLayout
+                Grid.Row="1"
+                HorizontalOptions="Center" VerticalOptions="Center">
+                <Label 
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding Path=TargetEvent.Kind.Name}"
+                    TextColor="{StaticResource PrimaryContrastBrandColor}"
+                    FontSize="Header" />
+                <Label
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding Path=TargetEvent.Name}"
+                    TextColor="{StaticResource PrimaryContrastBrandColor}"
+                    FontSize="Large" />
+            </StackLayout>
+            <StackLayout
+                Grid.Row="2"
+                HorizontalOptions="Center" VerticalOptions="Center">
+                <Label 
+                    x:Name="ScreenInteractionSuggestLabel"
+                    HorizontalTextAlignment="Center"
+                    Text="toca la pantalla para comenzar"
+                    TextColor="#f3f1bc"
+                    FontAttributes="Italic"
+                    FontSize="Large" />
+            </StackLayout>
+            <BoxView
+                Grid.RowSpan="3"
+                Color="Transparent">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="InteractiveLayerBoxViewTapGestureRecognizer_Tapped" />
+                </BoxView.GestureRecognizers>
+            </BoxView>
+            <views:BusyView Grid.RowSpan="3" />
+        </Grid>
+    </ContentPage.Content>
+</sscxftoolkitmvvmpages:BindingContextedContentPage>

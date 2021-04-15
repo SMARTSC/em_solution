@@ -201,12 +201,12 @@ namespace EM.Terminal.Dashboard.Pages
             this.NavigationPushPageAsync(new CollageLayoutPickPage(PhotoSessionPrintLayoutPicked_Callback));
         }
 
-        private void PicturePrintLayoutPicked_Callback(Extend.Layout.Descriptors.Facade.ICollageLayoutDescriptorFacade printLayout)
+        private void PicturePrintLayoutPicked_Callback(Extend.Layout.Descriptors.IPrintLayoutDescriptor printLayout)
         {
             BindingContextPageModel.DefaultPictureContentCollageLayout = printLayout;
         }
 
-        private void PhotoSessionPrintLayoutPicked_Callback(Extend.Layout.Descriptors.Facade.ICollageLayoutDescriptorFacade printLayout)
+        private void PhotoSessionPrintLayoutPicked_Callback(Extend.Layout.Descriptors.IPrintLayoutDescriptor printLayout)
         {
             BindingContextPageModel.DefaultPhotoSessionContentCollageLayout = printLayout;
         }

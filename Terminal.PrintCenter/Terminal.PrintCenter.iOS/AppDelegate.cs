@@ -19,6 +19,10 @@ namespace EM.Terminal.PrintCenter.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+
+            _ = typeof(FFImageLoading.Svg.Forms.SvgCachedImage);
+
             Xamarin.Forms.Forms.Init();
 
             LoadApplication(new App());

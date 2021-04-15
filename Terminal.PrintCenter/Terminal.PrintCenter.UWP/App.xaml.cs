@@ -12,14 +12,20 @@ namespace EM.Terminal.PrintCenter.UWP
     /// </summary>
     sealed partial class App : Application
     {
+        private Windows.System.Display.DisplayRequest displayRequest;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            
+            InitializeComponent();
+
+            displayRequest = new Windows.System.Display.DisplayRequest();
+
+            Windows.UI.ViewManagement.ApplicationView.PreferredLaunchWindowingMode = Windows.UI.ViewManagement.ApplicationViewWindowingMode.FullScreen;
+
             Suspending += OnSuspending;
         }
 
@@ -41,6 +47,10 @@ namespace EM.Terminal.PrintCenter.UWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
+                FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+
+                _ = typeof(FFImageLoading.Svg.Forms.SvgCachedImage);
+                
                 Xamarin.Forms.Forms.Init(e);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
@@ -61,6 +71,8 @@ namespace EM.Terminal.PrintCenter.UWP
             }
             // Ensure the current window is active
             Window.Current.Activate();
+
+            displayRequest.RequestActive();
         }
 
         /// <summary>
@@ -85,6 +97,12 @@ namespace EM.Terminal.PrintCenter.UWP
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+
+            try
+            {
+                displayRequest.RequestRelease();
+            }
+            catch { }
         }
     }
 }

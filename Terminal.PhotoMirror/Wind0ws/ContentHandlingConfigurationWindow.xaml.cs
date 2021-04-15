@@ -67,6 +67,7 @@ namespace EM.Terminal.PhotoMirror.Wind0ws
 
                 var result = new Models.ContentHandlingConfigurationContextModel
                 {
+                    // TODO Get only active events!
                     Events = await eventsApiConnectClient.GetAsync(),
                     CaptureDevices = new System.Collections.Generic.List<Devices.Facade.ICaptureDeviceFacade>()
                 };
@@ -74,6 +75,8 @@ namespace EM.Terminal.PhotoMirror.Wind0ws
                 var directShowDeviceIndex = 0;
 
                 result.CaptureDevices.AddRange(DirectShowLib.DsDevice.GetDevicesOfCat(DirectShowLib.FilterCategory.VideoInputDevice).Select(item => new Devices.DirectShowEmguCVCaptureDevice(item, directShowDeviceIndex++)));
+
+                result.CaptureDevices.AddRange(new Devices.Driver.Canon.CanonAPI().GetCameraList().Select(item => new Devices.CanonEDCaptureDevice(item)));
 
                 return result;
             }).ContinueWith(task =>

@@ -6,7 +6,7 @@
         {
             if (value == null) return null;
 
-            var descriptor = value as Extend.Layout.Descriptors.Facade.ICollageLayoutDescriptorFacade;
+            var descriptor = value as Extend.Layout.Descriptors.IPrintLayoutDescriptor;
 
             return Xamarin.Forms.ImageSource.FromResource(string.Format("EM.Terminal.Dashboard.Resources.Image.{0}.jpg", descriptor.Id.ToString().ToUpper()), GetType().Assembly);
         }

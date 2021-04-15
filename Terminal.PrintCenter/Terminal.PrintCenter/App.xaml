@@ -4,6 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="EM.Terminal.PrintCenter.App">
     <Application.Resources>
+        <Color x:Key="PrimaryBrandColor">Teal</Color>
+        <Color x:Key="PrimaryContrastBrandColor">#DAFFFF</Color>
+        <Color x:Key="SecoundaryBrandColor">DeepPink</Color>
 
+        <OnPlatform x:Key="IconFontFamily" x:TypeArguments="x:String">
+            <On Platform="UWP" Value="Segoe MDL2 Assets" />
+        </OnPlatform>
     </Application.Resources>
 </Application>
