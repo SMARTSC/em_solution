@@ -48,7 +48,7 @@ namespace EM.Terminal.PrintCenter.Pages
 
         private void InteractiveLayerBoxViewTapGestureRecognizer_Tapped(object sender, System.EventArgs eventArgs)
         {
-            this.NavigationPushModalPageAsync(new Xamarin.Forms.NavigationPage(new MainPage()));
+            this.NavigationPushModalPageAsync(new MainPage());
         }
 
         private void ScreenInteractionSuggestLabelAnimation_Completed(object sender, System.EventArgs eventArgs)

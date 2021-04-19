@@ -101,6 +101,21 @@ namespace EM.Cloud.Controllers.Api
 
             throw new System.InvalidOperationException();
         }
+
+        protected override System.Linq.Expressions.Expression<System.Func<Content, bool>> GetGlobalSelector()
+        {
+            return entity => ValidateContent(entity);
+        }
+
+        private bool ValidateContent(Content entity)
+        {
+            if (entity is PhotoSessionContent)
+            {
+                return (entity as PhotoSessionContent).ImageBridges.Count > 0;
+            }
+
+            return true;
+        }
     }
 #pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
 }

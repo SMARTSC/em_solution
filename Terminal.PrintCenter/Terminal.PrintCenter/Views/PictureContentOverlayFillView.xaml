@@ -4,8 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:EM.Terminal.PrintCenter.Converters"
     xmlns:ffimageloadingformsviews="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    x:Class="EM.Terminal.PrintCenter.Views.PictureContentOverlayFillView"
-    BackgroundColor="CadetBlue">
+    x:Class="EM.Terminal.PrintCenter.Views.PictureContentOverlayFillView">
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:PictureContentDisplayModelToThumbnailImageSourceConverter x:Key="PictureContentDisplayModelToThumbnailImageSourceConverter" />

@@ -9,8 +9,7 @@
     xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
     xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
     x:Class="EM.Terminal.PrintCenter.Pages.MainPage"
-    x:TypeArguments="pagemodels:MainPageModel"
-    NavigationPage.HasNavigationBar="False">
+    x:TypeArguments="pagemodels:MainPageModel">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ContentOverviewsCollectionViewHeightToContentOverviewWidthConverter x:Key="ContentOverviewsCollectionViewHeightToContentOverviewWidthConverter" />
@@ -38,11 +37,10 @@
                 <RowDefinition Height="10" />
                 <RowDefinition Height="4*" />
             </Grid.RowDefinitions>
-            <views:BackgroundView 
-                Grid.ColumnSpan="3" Grid.RowSpan="3" />
+            <views:BackgroundView Grid.ColumnSpan="3" Grid.RowSpan="3" />
             <Grid
                 Grid.ColumnSpan="3" Grid.Row="0"
-                BackgroundColor="#DD000000">
+                BackgroundColor="{StaticResource ContrastAreaColor}">
                 
             </Grid>
             <CollectionView
@@ -53,7 +51,8 @@
                 WidthRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Height, Converter={StaticResource ContentOverviewsCollectionViewHeightToContentOverviewWidthConverter}}"
                 ItemsSource="{Binding Path=Items}"
                 SelectionMode="Single"
-                ChildAdded="ContentOverviewsCollectionView_ChildAdded">
+                ChildAdded="ContentOverviewsCollectionView_ChildAdded"
+                SelectionChanged="ContentOverviewsCollectionView_SelectionChanged">
                 <CollectionView.GestureRecognizers>
                     <SwipeGestureRecognizer Direction="Left" Swiped="ContentOverviewCollectionViewSwipeGestureRecognizer_LeftSwiped" />
                     <SwipeGestureRecognizer Direction="Right" Swiped="ContentOverviewCollectionViewSwipeGestureRecognizer_RightSwiped" />
@@ -78,11 +77,11 @@
                 Grid.Column="0" Grid.Row="2"
                 Style="{StaticResource NavigationButtonsStyle}"
                 IsEnabled="{Binding Path=HasPrevious}"
-                Text="&#xE973;"
+                Text="&#xf141;"
                 Clicked="PreviousButton_Clicked" />
             <Button x:Name="NextPaginationButton" 
                 Grid.Column="2" Grid.Row="2"
-                Text="&#xE974;"
+                Text="&#xf142;"
                 Style="{StaticResource NavigationButtonsStyle}"
                 IsEnabled="{Binding Path=HasNext}"
                 Clicked="NextButton_Clicked" />

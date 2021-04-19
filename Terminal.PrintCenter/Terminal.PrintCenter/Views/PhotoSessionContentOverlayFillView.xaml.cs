@@ -6,6 +6,8 @@
         {
             InitializeComponent();
 
+            (Resources["PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter"] as Common.Converters.PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter).AlbumId = Xamarin.Forms.DependencyService.Get<Managers.SessionManager>().TargetAlbum.Id;
+
             BindingContext = model;
         }
     }

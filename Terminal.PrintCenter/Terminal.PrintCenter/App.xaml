@@ -7,9 +7,8 @@
         <Color x:Key="PrimaryBrandColor">Teal</Color>
         <Color x:Key="PrimaryContrastBrandColor">#DAFFFF</Color>
         <Color x:Key="SecoundaryBrandColor">DeepPink</Color>
+        <Color x:Key="ContrastAreaColor">#DD000000</Color>
 
-        <OnPlatform x:Key="IconFontFamily" x:TypeArguments="x:String">
-            <On Platform="UWP" Value="Segoe MDL2 Assets" />
-        </OnPlatform>
+        <x:String x:Key="IconFontFamily">Material Design Icons</x:String>
     </Application.Resources>
 </Application>

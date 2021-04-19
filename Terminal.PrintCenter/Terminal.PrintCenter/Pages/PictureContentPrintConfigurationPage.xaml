@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sscxftoolkitmvvmpages:BindingContextedContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pagemodels="clr-namespace:EM.Terminal.PrintCenter.Models.Page"
+    xmlns:views="clr-namespace:EM.Terminal.PrintCenter.Views"
+    xmlns:converters="clr-namespace:EM.Terminal.PrintCenter.Converters"
+    xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
+    xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    x:Class="EM.Terminal.PrintCenter.Pages.PictureContentPrintConfigurationPage"
+    x:TypeArguments="pagemodels:PictureContentPrintConfigurationPageModel"
+    x:Name="Page">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:PrintLayoutDescriptorToPictureContentPrintableViewConverter x:Key="PrintLayoutDescriptorToPictureContentPrintableViewConverter" Presenter="{x:Reference Page}" />
+            <sscxftoolkitpresentationconverters:FractionConverter x:Key="FractionConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid ColumnSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <views:BackgroundView />
+            <ContentView
+                Grid.Column="0"
+                VerticalOptions="Center"
+                Margin="30"
+                HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width, Converter={StaticResource FractionConverter}, ConverterParameter=1.5}"
+                Content="{Binding Path=PrintLayoutDescriptor, Converter={StaticResource PrintLayoutDescriptorToPictureContentPrintableViewConverter}}" />
+            <Grid
+                Grid.Column="1"
+                BackgroundColor="{StaticResource ContrastAreaColor}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Button 
+                    Grid.Column="1" Grid.Row="0"
+                    HorizontalOptions="End"
+                    HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width}"
+                    Padding="15"
+                    Text="&#xf5ad;"
+                    TextColor="White"
+                    FontFamily="{StaticResource IconFontFamily}"
+                    FontSize="Medium"
+                    Clicked="CloseButton_Clicked" />
+                <Label 
+                    Grid.ColumnSpan="2" Grid.Row="1" 
+                    HorizontalTextAlignment="Center"
+                    Text="Opciones"
+                    TextColor="White"
+                    FontSize="Large" />
+                <Label 
+                    Grid.ColumnSpan="2" Grid.Row="2"
+                    Margin="20,40,20,12"
+                    VerticalTextAlignment="End"
+                    TextColor="White"
+                    Text="Número de copias"
+                    FontSize="Medium" />
+                <Grid
+                    Grid.ColumnSpan="2" Grid.Row="3"
+                    Margin="20,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button 
+                        Grid.Column="0"
+                        HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width}"
+                        Text="&#xf374;"
+                        TextColor="White"
+                        FontFamily="{StaticResource IconFontFamily}"
+                        FontSize="Large"
+                        Clicked="LessPrintCopyCountButton_Clicked" />
+                    <Label 
+                        Grid.Column="1"
+                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                        Text="{Binding Path=PrintCopyCount}"
+                        TextColor="White"
+                        FontSize="Large" />
+                    <Button 
+                        Grid.Column="2"
+                        HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width}"
+                        Text="&#xf415;"
+                        TextColor="White"
+                        FontFamily="{StaticResource IconFontFamily}"
+                        FontSize="Large"
+                        Clicked="MorePrintCopyCountButton_Clicked" />
+                </Grid>
+                <Button 
+                    Grid.ColumnSpan="2" Grid.Row="4"
+                    VerticalOptions="End"
+                    Margin="20"
+                    HeightRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Width}"
+                    Text="Imprimir"
+                    TextColor="White"
+                    FontSize="Title"
+                    ContentLayout="Top,10"
+                    Clicked="RequestPrintButton_Clicked">
+                    <Button.ImageSource>
+                        <FontImageSource
+                            FontFamily="{StaticResource IconFontFamily}"
+                            Color="White"
+                            Glyph="&#xf42a;"
+                            Size="80" />
+                    </Button.ImageSource>
+                </Button>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</sscxftoolkitmvvmpages:BindingContextedContentPage>

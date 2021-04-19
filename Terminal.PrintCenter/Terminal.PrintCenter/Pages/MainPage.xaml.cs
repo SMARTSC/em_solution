@@ -1,4 +1,5 @@
 ﻿using SmartSolucionesCuba.XFToolKit.Mvvm.Extensions;
+using System.Linq;
 
 namespace EM.Terminal.PrintCenter.Pages
 {
@@ -37,8 +38,6 @@ namespace EM.Terminal.PrintCenter.Pages
 
             currentContentsPagination = null;
         }
-
-
 
         private void FinalizeButton_Clicked(object sender, System.EventArgs e)
         {
@@ -97,6 +96,22 @@ namespace EM.Terminal.PrintCenter.Pages
             }.Begin();
         }
 
+        private void ContentOverviewsCollectionView_SelectionChanged(object sender, Xamarin.Forms.SelectionChangedEventArgs eventArgs)
+        {
+            var target = eventArgs.CurrentSelection.FirstOrDefault();
+
+            if (target == null) return;
+
+            if (target is Cloud.Api.Common.Models.PictureContentDisplayModel pictureContentModel)
+            {
+                this.NavigationPushModalPageAsync(new PictureContentPrintConfigurationPage(pictureContentModel));
+            }
+            else if (target is Cloud.Api.Common.Models.PhotoSessionContentDisplayModel photoSessionContentModel)
+            {
+                this.NavigationPushModalPageAsync(new PhotoSessionContentPrintConfigurationPage(photoSessionContentModel));
+            }
+        }
+
         private void LoadFirstContentsPage()
         {
             currentContentsPagination = null;
@@ -136,6 +151,8 @@ namespace EM.Terminal.PrintCenter.Pages
 
             BindingContextPageModel.Items.Clear();
 
+            IsEnabled = false;
+
             System.Threading.Tasks.Task.Delay(clearMotionDelay).ContinueWith(_ =>
             {
                 BindingContextPageModel.IsBusy = false;
@@ -149,6 +166,8 @@ namespace EM.Terminal.PrintCenter.Pages
 
                     System.Threading.Thread.Sleep(System.TimeSpan.FromMilliseconds(125));
                 }
+
+                Xamarin.Forms.Device.BeginInvokeOnMainThread(() => { IsEnabled = true; });
             });
         }
     }

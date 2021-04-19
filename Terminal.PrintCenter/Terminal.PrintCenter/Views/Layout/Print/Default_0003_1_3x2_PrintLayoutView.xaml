@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<printlayoutviews:BasePictureContentPrintLayoutView 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:printlayoutviews="clr-namespace:EM.Terminal.PrintCenter.Views.Layout.Print"
+    xmlns:ffimageloadingformsviews="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    x:Class="EM.Terminal.PrintCenter.Views.Layout.Print.Default_0003_1_3x2_PrintLayoutView"
+    BackgroundColor="White">
+    <ContentView.Content>
+        <Grid
+            Padding="20"
+            RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <ffimageloadingformsviews:CachedImage
+                x:Name="PictureContentImage"
+                Grid.RowSpan="5"
+                CacheType="Disk"
+                CacheDuration="8760:00:00"
+                Success="CachedImage_Success"
+                Error="CachedImage_Error" />
+            <ffimageloadingformsviews:CachedImage 
+                x:Name="EventLogoImage" 
+                Grid.Row="5"
+                HorizontalOptions="Center"
+                WidthRequest="{Binding Source={x:Reference EventLogoImage}, Path=Height}"
+                DownsampleToViewSize="True"
+                CacheType="Disk"
+                CacheDuration="8760:00:00" />
+        </Grid>
+    </ContentView.Content>
+</printlayoutviews:BasePictureContentPrintLayoutView>

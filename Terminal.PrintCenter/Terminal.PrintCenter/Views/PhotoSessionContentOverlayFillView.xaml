@@ -2,14 +2,43 @@
 <ContentView 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    x:Class="EM.Terminal.PrintCenter.Views.PhotoSessionContentOverlayFillView"
-    BackgroundColor="White">
+    xmlns:commonconverters="clr-namespace:EM.Terminal.Common.Converters;assembly=EM.Terminal.Common"
+    xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    xmlns:ffimageloadingformsviews="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    x:Class="EM.Terminal.PrintCenter.Views.PhotoSessionContentOverlayFillView">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <commonconverters:PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter x:Key="PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter" />
+            <sscxftoolkitpresentationconverters:FactorConverter x:Key="FactorConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
     <ContentView.Content>
-        <StackLayout>
-            <Label Text="Hello Xamarin.Forms!" />
-        </StackLayout>
+        <Grid
+            IsClippedToBounds="True">
+            <ffimageloadingformsviews:CachedImage
+                Source="{Binding Converter={StaticResource PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter}, ConverterParameter=0}"
+                CacheType="Disk"
+                CacheDuration="8760:00:00" />
+            <Grid
+                HorizontalOptions="End" VerticalOptions="Start"
+                Padding="4,0,0,4"
+                BackgroundColor="Snow">
+                <ffimageloadingformsviews:CachedImage
+                    WidthRequest="{Binding Source={RelativeSource AncestorType={Type ContentView}}, Path=Width, Converter={StaticResource FactorConverter}, ConverterParameter=0.65}"
+                    Source="{Binding Converter={StaticResource PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter}, ConverterParameter=1}"
+                    CacheType="Disk"
+                    CacheDuration="8760:00:00" />
+            </Grid>
+            <Grid
+                HorizontalOptions="End" VerticalOptions="End"
+                Padding="4,4,0,0"
+                BackgroundColor="Snow">
+                <ffimageloadingformsviews:CachedImage
+                    WidthRequest="{Binding Source={RelativeSource AncestorType={Type ContentView}}, Path=Width, Converter={StaticResource FactorConverter}, ConverterParameter=0.5}"
+                    Source="{Binding Converter={StaticResource PhotoSessionContentDisplayModelImageIndexToThumbnailImageSourceConverter}, ConverterParameter=2}"
+                    CacheType="Disk"
+                    CacheDuration="8760:00:00" />
+            </Grid>
+        </Grid>
     </ContentView.Content>
 </ContentView>

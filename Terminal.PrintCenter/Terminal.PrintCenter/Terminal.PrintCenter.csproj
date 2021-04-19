@@ -44,9 +44,21 @@
     <Compile Update="Pages\Child\UserAuthenticationChildPage.xaml.cs">
       <DependentUpon>UserAuthenticationChildPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\PhotoSessionContentPrintConfigurationPage.xaml.cs">
+      <DependentUpon>PhotoSessionContentPrintConfigurationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\PictureContentPrintConfigurationPage.xaml.cs">
+      <DependentUpon>PictureContentPrintConfigurationPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Pages\PhotoSessionContentPrintConfigurationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\PictureContentPrintConfigurationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\SessionConfigurationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -61,6 +73,15 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Views\BusyView.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Layout\Print\Default_0001_1_3x2_PrintLayoutView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Layout\Print\Default_0002_3_3x2_PrintLayoutView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Layout\Print\Default_0003_1_3x2_PrintLayoutView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PhotoSessionContentOverlayFillView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

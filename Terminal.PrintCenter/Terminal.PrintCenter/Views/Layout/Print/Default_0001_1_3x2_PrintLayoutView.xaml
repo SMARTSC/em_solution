@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<printlayoutviews:BasePictureContentPrintLayoutView 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:printlayoutviews="clr-namespace:EM.Terminal.PrintCenter.Views.Layout.Print"
+    xmlns:ffimageloadingformsviews="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    x:Class="EM.Terminal.PrintCenter.Views.Layout.Print.Default_0001_1_3x2_PrintLayoutView">
+    <ContentView.Content>
+        <ffimageloadingformsviews:CachedImage
+            x:Name="PictureContentImage"
+            Aspect="AspectFill"
+            CacheType="Disk"
+            CacheDuration="8760:00:00"
+            Success="CachedImage_Success"
+            Error="CachedImage_Error" />
+    </ContentView.Content>
+</printlayoutviews:BasePictureContentPrintLayoutView>
