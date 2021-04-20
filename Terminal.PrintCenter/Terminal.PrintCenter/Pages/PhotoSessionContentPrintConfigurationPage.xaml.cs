@@ -36,7 +36,7 @@ namespace EM.Terminal.PrintCenter.Pages
 
         private void RequestPrintButton_Clicked(object sender, System.EventArgs eventArgs)
         {
-
+            this.NavigationPushModalPageAsync(new PhotoSessionContentPrintPage(BindingContextPageModel.Content, BindingContextPageModel.Permutation, BindingContextPageModel.PrintCopyCount, BindingContextPageModel.PrintLayoutDescriptor));
         }
 
         #region IPictureContentPrintableViewPresenter implementation

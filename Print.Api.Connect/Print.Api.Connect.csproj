@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>EM.Print.Api.Connect</AssemblyName>
+    <RootNamespace>EM.Print.Api.Connect</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SAPRESSC.Core.Api.Connect" Version="2.1.0-apha" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Print.Api.Common\Print.Api.Common.csproj" />
+  </ItemGroup>
+
+</Project>

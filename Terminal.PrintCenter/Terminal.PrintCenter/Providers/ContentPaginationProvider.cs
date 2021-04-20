@@ -17,7 +17,7 @@ namespace EM.Terminal.PrintCenter.Providers
         {
             SmartSolucionesCuba.SAPRESSC.Core.Common.Models.PaginationModel<Cloud.Api.Common.Models.ContentDisplayModel> result;
 
-            var contentApiConnectClient = new Cloud.Api.Connect.Clients.ContentsApiClient(Xamarin.Forms.DependencyService.Get<HttpClientHelperProvider>());
+            var contentApiConnectClient = new Cloud.Api.Connect.Clients.ContentsApiClient(Xamarin.Forms.DependencyService.Get<CloudHttpClientHelperProvider>());
 
             if (current == null || current.Page >= paginations.Count)
             {
@@ -42,8 +42,8 @@ namespace EM.Terminal.PrintCenter.Providers
 
                 result.List = new System.Collections.Generic.List<Cloud.Api.Common.Models.ContentDisplayModel>();
 
-                var pictureContentsApiClient = new Cloud.Backend.Api.Connect.Clients.PictureContentsApiClient(Xamarin.Forms.DependencyService.Get<HttpClientHelperProvider>());
-                var photoSessionContentsApiClient = new Cloud.Backend.Api.Connect.Clients.PhotoSessionContentsApiClient(Xamarin.Forms.DependencyService.Get<HttpClientHelperProvider>());
+                var pictureContentsApiClient = new Cloud.Backend.Api.Connect.Clients.PictureContentsApiClient(Xamarin.Forms.DependencyService.Get<CloudHttpClientHelperProvider>());
+                var photoSessionContentsApiClient = new Cloud.Backend.Api.Connect.Clients.PhotoSessionContentsApiClient(Xamarin.Forms.DependencyService.Get<CloudHttpClientHelperProvider>());
 
                 var iterationCount = paginationList.Count();
 

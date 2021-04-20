@@ -1,6 +1,6 @@
 ﻿namespace EM.Terminal.PrintCenter.Providers
 {
-    public class HttpClientHelperProvider : SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Providers.Facade.IHttpClientHelperProviderFacade
+    public class CloudHttpClientHelperProvider : SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Providers.Facade.IHttpClientHelperProviderFacade
     {
 #if DEBUG
         public const string CLOUD_CONNECTION_SCHEMA = "http";

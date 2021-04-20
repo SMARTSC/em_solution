@@ -9,7 +9,8 @@
             InitializeComponent();
 
             Xamarin.Forms.DependencyService.RegisterSingleton(new Managers.SessionManager());
-            Xamarin.Forms.DependencyService.RegisterSingleton(new Providers.HttpClientHelperProvider());
+            Xamarin.Forms.DependencyService.RegisterSingleton(new Providers.CloudHttpClientHelperProvider());
+            Xamarin.Forms.DependencyService.RegisterSingleton(new Providers.PrintCloudHttpClientHelperProvider());
             Xamarin.Forms.DependencyService.RegisterSingleton(new Providers.ContentPaginationProvider());
             Xamarin.Forms.DependencyService.RegisterSingleton(new Providers.PrintLayoutViewProvider());
             Xamarin.Forms.DependencyService.RegisterSingleton<Common.Helpers.Facade.IExceptionHandleHelperFacade>(this);

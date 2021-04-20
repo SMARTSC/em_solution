@@ -28,16 +28,20 @@
             FirstPhotoSessionContentImage.Source = forOverview ?
                 Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageThumbnailUri(sessionManager.TargetAlbum.Id, firstImage.ThumbnailId)) :
                 Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageUri(sessionManager.TargetAlbum.Id, firstImage.Id));
+            FirstPhotoSessionContentImage.FadeAnimationEnabled = forOverview;
 
             SecoundPhotoSessionContentImage.Source = forOverview ?
                 Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageThumbnailUri(sessionManager.TargetAlbum.Id, secoundImage.ThumbnailId)) :
                 Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageUri(sessionManager.TargetAlbum.Id, secoundImage.Id));
+            SecoundPhotoSessionContentImage.FadeAnimationEnabled = forOverview;
 
             ThirdPhotoSessionContentImage.Source = forOverview ?
                 Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageThumbnailUri(sessionManager.TargetAlbum.Id, thirdImage.ThumbnailId)) :
                 Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageUri(sessionManager.TargetAlbum.Id, thirdImage.Id));
+            ThirdPhotoSessionContentImage.FadeAnimationEnabled = forOverview;
 
             EventLogoImage.Source = Common.Factories.UriFactory.BuildImageUri(sessionManager.TargetEvent.Logo.Id);
+            EventLogoImage.FadeAnimationEnabled = forOverview;
         }
 
         private void CachedImage_Success(object sender, FFImageLoading.Forms.CachedImageEvents.SuccessEventArgs e)

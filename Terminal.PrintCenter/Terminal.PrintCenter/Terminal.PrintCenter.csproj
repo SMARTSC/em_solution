@@ -37,6 +37,7 @@
     <ProjectReference Include="..\..\Cloud.Api.Connect\Cloud.Api.Connect.csproj" />
     <ProjectReference Include="..\..\Cloud.Backend.Api.Connect\Cloud.Backend.Api.Connect.csproj" />
     <ProjectReference Include="..\..\Extend.Layout.Provision\Extend.Layout.Provision.csproj" />
+    <ProjectReference Include="..\..\Print.Api.Connect\Print.Api.Connect.csproj" />
     <ProjectReference Include="..\..\Terminal.Common\Terminal.Common.csproj" />
   </ItemGroup>
 
