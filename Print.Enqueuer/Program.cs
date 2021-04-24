@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Print.Enqueuer
+﻿namespace EM.Print.Enqueuer
 {
     static class Program
     {
@@ -14,12 +7,10 @@ namespace Print.Enqueuer
         /// </summary>
         static void Main()
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[]
+            System.ServiceProcess.ServiceBase.Run(new System.ServiceProcess.ServiceBase[]
             {
-                new Service1()
-            };
-            ServiceBase.Run(ServicesToRun);
+                new PrintOrderEnqueuerService()
+            });
         }
     }
 }

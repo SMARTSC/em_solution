@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F554D0EE-7D8E-42C6-8574-6D3CDE238CFB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Print.Enqueuer</RootNamespace>
-    <AssemblyName>Print.Enqueuer</AssemblyName>
+    <RootNamespace>EM.Print.Enqueuer</RootNamespace>
+    <AssemblyName>EMPrintEnqueuer</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,7 +34,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing.Common">
+      <HintPath>..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v1.0\Facades\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,17 +51,51 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Service1.cs">
+    <Compile Include="PrintOrderEnqueuerService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Service1.Designer.cs">
-      <DependentUpon>Service1.cs</DependentUpon>
+    <Compile Include="PrintOrderEnqueuerService.Designer.cs">
+      <DependentUpon>PrintOrderEnqueuerService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\PrintCloudHttpClientHelperProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PrintOrderEnqueuerService.resx">
+      <DependentUpon>PrintOrderEnqueuerService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Print.Api.Common\Print.Api.Common.csproj">
+      <Project>{f51b2b75-6061-4d53-a65a-e48b178af529}</Project>
+      <Name>Print.Api.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Print.Api.Connect\Print.Api.Connect.csproj">
+      <Project>{d8b54a53-01d5-458f-a761-7ef94cc80532}</Project>
+      <Name>Print.Api.Connect</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Print.Persistence\Print.Persistence.csproj">
+      <Project>{2C96A2AE-DE6E-4B17-8CBB-8A0C6D7B7020}</Project>
+      <Name>Print.Persistence</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SAPRESSC.Core.Api.Connect">
+      <Version>2.1.0-apha</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

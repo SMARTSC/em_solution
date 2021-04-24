@@ -18,7 +18,12 @@
 
         public Persistence.Entities.PrintOrder Export()
         {
-            var entity = new Persistence.Entities.PrintOrder();
+            var entity = new Persistence.Entities.PrintOrder
+            {
+                Created = Created,
+                Count = Count,
+                Data = Data
+            };
 
             Mergue(entity);
 
@@ -38,10 +43,7 @@
         public void Mergue(Persistence.Entities.PrintOrder entity)
         {
             entity.Enabled = Enabled;
-            entity.Created = Created;
             entity.Attended = Attended;
-            entity.Count = Count;
-            entity.Data = Data;
         }
     }
 }

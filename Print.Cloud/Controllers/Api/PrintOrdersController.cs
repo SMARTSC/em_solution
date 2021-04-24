@@ -8,7 +8,7 @@ using SmartSolucionesCuba.SAPRESSC.Core.Persistence.Repositories;
 namespace EM.Print.Cloud.Controllers.Api.Business
 {
     [Microsoft.AspNetCore.Authorization.Authorize(AuthenticationSchemes = SmartSolucionesCuba.AspNetCore.Authentication.ApiKey.ApiKeyAuthenticationDefaults.AuthenticationScheme)]
-    [Route("api/[area]/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class PrintOrdersController : SmartSolucionesCuba.SAPRESSC.Core.Web.Api.Controllers.AbstractEntityApiManagementFilteredController<PrintOrder, long, PrintOrderInputModel, PrintOrderDisplayModel, PrintOrderFilterModel>
     {

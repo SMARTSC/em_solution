@@ -1,6 +1,6 @@
-﻿namespace Print.Enqueuer
+﻿namespace EM.Print.Enqueuer
 {
-    partial class Service1
+    partial class PrintOrderEnqueuerService
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,10 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.ServiceName = "Service1";
+            this.PrintFilesDirectoryWatcher = new System.IO.FileSystemWatcher();
+            ((System.ComponentModel.ISupportInitialize)(this.PrintFilesDirectoryWatcher)).BeginInit();
+            // 
+            // PrintFilesDirectoryWatcher
+            // 
+            this.PrintFilesDirectoryWatcher.Created += new System.IO.FileSystemEventHandler(this.PrintFilesDirectoryWatcher_Created);
+            // 
+            // PrintOrderEnqueuerService
+            // 
+            this.ServiceName = "EMPrintEnqueuer";
+            ((System.ComponentModel.ISupportInitialize)(this.PrintFilesDirectoryWatcher)).EndInit();
+
         }
 
         #endregion
+        private System.IO.FileSystemWatcher PrintFilesDirectoryWatcher;
     }
 }

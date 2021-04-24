@@ -46,7 +46,9 @@ namespace EM.Print.Cloud
                 options.SuppressWWWAuthenticateHeader = true;
             });
 
-            services.Configure<Microsoft.AspNetCore.Routing.RouteOptions>(options => options.LowercaseUrls = true);
+            services.AddMvc()
+                .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
+                .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, Microsoft.Extensions.Logging.ILoggerFactory loggerFactory, DbContext dbContext)
@@ -68,10 +70,11 @@ namespace EM.Print.Cloud
             }
 
             app.UseAuthentication();
+            app.UseMvc();
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Espejo Molón Print Cloud is running!");
+                await context.Response.WriteAsync("Espejo Molon Print Cloud is running!");
             });
         }
     }
