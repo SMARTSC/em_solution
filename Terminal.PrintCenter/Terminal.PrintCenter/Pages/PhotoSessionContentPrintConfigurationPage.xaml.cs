@@ -36,7 +36,15 @@ namespace EM.Terminal.PrintCenter.Pages
 
         private void RequestPrintButton_Clicked(object sender, System.EventArgs eventArgs)
         {
-            this.NavigationPushModalPageAsync(new PhotoSessionContentPrintPage(BindingContextPageModel.Content, BindingContextPageModel.Permutation, BindingContextPageModel.PrintCopyCount, BindingContextPageModel.PrintLayoutDescriptor));
+            DisplayAlert("Confirmar", "Está seguro que desea imprimir esta fotografía?", "Confirmar", "Cancelar").ContinueWith(task =>
+            {
+                if (!task.Result) return;
+
+                Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                {
+                    this.NavigationPushModalPageAsync(new PhotoSessionContentPrintPage(BindingContextPageModel.Content, BindingContextPageModel.Permutation, BindingContextPageModel.PrintCopyCount, BindingContextPageModel.PrintLayoutDescriptor));
+                });
+            });
         }
 
         #region IPictureContentPrintableViewPresenter implementation

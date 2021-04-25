@@ -6,6 +6,7 @@
     xmlns:views="clr-namespace:EM.Terminal.PrintCenter.Views"
     xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
     xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    xmlns:ffimageloadingformssvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     x:Class="EM.Terminal.PrintCenter.Pages.Child.UserAuthenticationChildPage"
     x:TypeArguments="childpagemodels:UserAuthenticationChildPageModel"
     IsEnabled="{Binding Path=IsBusy, Converter={StaticResource BoolToBoolNegationConverter}}">
@@ -15,9 +16,33 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid>
-            <views:BackgroundView />
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <views:BackgroundView Grid.RowSpan="2" />
+            <Grid
+                Grid.Row="0"
+                Padding="24"
+                BackgroundColor="{StaticResource ContrastAreaColor}">
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <ffimageloadingformssvg:SvgCachedImage
+                        HorizontalOptions="Center"
+                        WidthRequest="80" HeightRequest="80"
+                        Source="resource://EM.Terminal.PrintCenter.Assets.Vector.brand_icon.svg" />
+                    <Label 
+                        Text="Centro de Impresión"
+                        TextColor="White"
+                        FontSize="Medium" />
+                    <Label
+                        Text="Control de Acceso"
+                        TextColor="White"
+                        HorizontalTextAlignment="Center" />
+                </StackLayout>
+            </Grid>
             <StackLayout
+                Grid.Row="1"
                 WidthRequest="240"
                 HorizontalOptions="Center" VerticalOptions="Center">
                 <Entry
@@ -36,7 +61,7 @@
                     TextColor="White"
                     Clicked="SignButton_Clicked" />
             </StackLayout>
-            <views:BusyView />
+            <views:BusyView Grid.Row="1" />
         </Grid>
     </ContentPage.Content>
 </sscxftoolkitmvvmpages:BindingContextedContentPage>

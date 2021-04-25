@@ -8,6 +8,7 @@
     xmlns:converters="clr-namespace:EM.Terminal.PrintCenter.Converters"
     xmlns:sscxftoolkitmvvmpages="clr-namespace:SmartSolucionesCuba.XFToolKit.Mvvm.Pages;assembly=SmartSolucionesCuba.XFToolKit.Mvvm"
     xmlns:sscxftoolkitpresentationconverters="clr-namespace:SmartSolucionesCuba.XFToolKit.Presentation.Converters;assembly=SmartSolucionesCuba.XFToolKit.Presentation"
+    xmlns:ffimageloadingformssvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     x:Class="EM.Terminal.PrintCenter.Pages.MainPage"
     x:TypeArguments="pagemodels:MainPageModel">
     <ContentPage.Resources>
@@ -15,6 +16,7 @@
             <converters:ContentOverviewsCollectionViewHeightToContentOverviewWidthConverter x:Key="ContentOverviewsCollectionViewHeightToContentOverviewWidthConverter" />
             <converters:ContentDisplayModelToContentConcreteFillViewConverter x:Key="ContentDisplayModelToContentConcreteFillViewConverter" />
             <sscxftoolkitpresentationconverters:FractionConverter x:Key="FractionConverter" />
+            <sscxftoolkitpresentationconverters:BoolToBoolNegationConverter x:Key="BoolToBoolNegationConverter" />
 
             <Style x:Key="NavigationButtonsStyle" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#22000000" />
@@ -41,7 +43,57 @@
             <Grid
                 Grid.ColumnSpan="3" Grid.Row="0"
                 BackgroundColor="{StaticResource ContrastAreaColor}">
-                
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <ffimageloadingformssvg:SvgCachedImage
+                        HorizontalOptions="Center"
+                        WidthRequest="80" HeightRequest="80"
+                        Source="resource://EM.Terminal.PrintCenter.Assets.Vector.brand_icon.svg" />
+                    <Label 
+                        Text="Centro de Impresión"
+                        TextColor="White"
+                        FontSize="Medium" />
+                </StackLayout>
+                <Grid 
+                    Margin="20"
+                    ColumnSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button 
+                        Grid.Column="1"
+                        WidthRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Height}"
+                        IsEnabled="{Binding Path=IsBusy, Converter={StaticResource BoolToBoolNegationConverter}}"
+                        Text="Actualizar"
+                        TextColor="White"
+                        ContentLayout="Top,4"
+                        Clicked="ReloadButton_Clicked">
+                        <Button.ImageSource>
+                            <FontImageSource
+                                FontFamily="{StaticResource IconFontFamily}"
+                                Color="White"
+                                Glyph="&#xf708;"
+                                Size="48" />
+                        </Button.ImageSource>
+                    </Button>
+                    <Button 
+                        Grid.Column="2"
+                        WidthRequest="{Binding Source={x:RelativeSource Mode=Self}, Path=Height}"
+                        IsEnabled="{Binding Path=IsBusy, Converter={StaticResource BoolToBoolNegationConverter}}"
+                        Text="Terminar"
+                        TextColor="White"
+                        ContentLayout="Top,4"
+                        Clicked="FinalizeButton_Clicked">
+                        <Button.ImageSource>
+                            <FontImageSource
+                                FontFamily="{StaticResource IconFontFamily}"
+                                Color="White"
+                                Glyph="&#xfa47;"
+                                Size="48" />
+                        </Button.ImageSource>
+                    </Button>
+                </Grid>
             </Grid>
             <CollectionView
                 x:Name="ContentOverviewsCollectionView"

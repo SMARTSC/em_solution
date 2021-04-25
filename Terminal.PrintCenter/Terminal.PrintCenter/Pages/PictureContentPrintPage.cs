@@ -16,6 +16,7 @@ namespace EM.Terminal.PrintCenter.Pages
 
             printableView.HorizontalOptions = Xamarin.Forms.LayoutOptions.Center;
             printableView.HeightRequest = Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Height * 4 / 3;
+            printableView.IsVisible = false;
 
             Content = new Xamarin.Forms.Grid
             {
@@ -30,30 +31,38 @@ namespace EM.Terminal.PrintCenter.Pages
         {
             Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
             {
-                Xamarin.Forms.DependencyService.Get<Providers.Facade.IRenderizationImageProviderFacade>().GetRenderizationImageDataAsync(printableView).ContinueWith(renderizationImageDataTask =>
+                printableView.IsVisible = true;
+
+                System.Threading.Tasks.Task.Delay(System.TimeSpan.FromSeconds(1)).ContinueWith(_ =>
                 {
-                    var printOrdersClient = new Print.Api.Connect.Clients.PrintOrdersApiConnectClient(Xamarin.Forms.DependencyService.Get<Providers.PrintCloudHttpClientHelperProvider>());
-
-                    printOrdersClient.CreateAsync(new Print.Api.Common.Models.PrintOrderInputModel
+                    Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
                     {
-                        Created = System.DateTime.Now,
-                        Count = printCount,
-                        Data = renderizationImageDataTask.Result,
-                        Enabled = true
-                    }).ContinueWith(printOrderCreationTask =>
-                    {
-                        Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                        Xamarin.Forms.DependencyService.Get<Providers.Facade.IRenderizationImageProviderFacade>().GetRenderizationImageDataAsync(printableView).ContinueWith(renderizationImageDataTask =>
                         {
-                            if (printOrderCreationTask.Exception != null || printOrderCreationTask.IsCanceled)
-                            {
-                                DisplayAlert("Aviso", string.Format("No fue posible solicitar esta impresión en este momento.{0}{0}Por favor, notifique esta situación al personal de asistencia.{0}{0}Gracias y disculpe las molestias causadas.", System.Environment.NewLine), "Aceptar");
-                            }
-                            else
-                            {
-                                DisplayAlert("Aviso", string.Format("Solicitud de Impresión realizada con éxito!{0}{0}Espere unos segundos para obtener la fotografía impresa.{0}{0}Gracias!", System.Environment.NewLine), "Continuar");
-                            }
+                            var printOrdersClient = new Print.Api.Connect.Clients.PrintOrdersApiConnectClient(Xamarin.Forms.DependencyService.Get<Providers.PrintCloudHttpClientHelperProvider>());
 
-                            this.NavigationPopModalPageAsync();
+                            printOrdersClient.CreateAsync(new Print.Api.Common.Models.PrintOrderInputModel
+                            {
+                                Created = System.DateTime.Now,
+                                Count = printCount,
+                                Data = renderizationImageDataTask.Result,
+                                Enabled = true
+                            }).ContinueWith(printOrderCreationTask =>
+                            {
+                                Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                                {
+                                    if (printOrderCreationTask.Exception != null || printOrderCreationTask.IsCanceled)
+                                    {
+                                        DisplayAlert("Aviso", string.Format("No fue posible solicitar esta impresión en este momento.{0}{0}Por favor, notifique esta situación al personal de asistencia.{0}{0}Gracias y disculpe las molestias causadas.", System.Environment.NewLine), "Aceptar");
+                                    }
+                                    else
+                                    {
+                                        DisplayAlert("Aviso", string.Format("Solicitud de Impresión realizada con éxito!{0}{0}Espere unos segundos para obtener la fotografía impresa.{0}{0}Gracias!", System.Environment.NewLine), "Continuar");
+                                    }
+
+                                    this.NavigationPopModalPageAsync();
+                                });
+                            });
                         });
                     });
                 });

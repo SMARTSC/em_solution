@@ -37,15 +37,6 @@ namespace EM.Terminal.PrintCenter.Pages
             PerformAppearingAnimation();
         }
 
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-
-            if (!IsEnabled) return;
-
-            PerformDisappearingAnimation();
-        }
-
         private void InteractiveLayerBoxViewTapGestureRecognizer_Tapped(object sender, System.EventArgs eventArgs)
         {
             this.NavigationPushModalPageAsync(new MainPage());
@@ -61,6 +52,8 @@ namespace EM.Terminal.PrintCenter.Pages
 
         private void PerformAppearingAnimation()
         {
+            if (screenInteractionSuggestLabelAnimation != null) return;
+
             screenInteractionSuggestLabelAnimation = new SmartSolucionesCuba.XFToolKit.Presentation.Transform.Animations.HeartAnimation
             {
                 Target = ScreenInteractionSuggestLabel
@@ -69,12 +62,6 @@ namespace EM.Terminal.PrintCenter.Pages
             screenInteractionSuggestLabelAnimation.Completed += ScreenInteractionSuggestLabelAnimation_Completed;
 
             screenInteractionSuggestLabelAnimation.Begin();
-        }
-
-        private void PerformDisappearingAnimation()
-        {
-            screenInteractionSuggestLabelAnimation.Completed -= ScreenInteractionSuggestLabelAnimation_Completed;
-            screenInteractionSuggestLabelAnimation = null;
         }
     }
 }
