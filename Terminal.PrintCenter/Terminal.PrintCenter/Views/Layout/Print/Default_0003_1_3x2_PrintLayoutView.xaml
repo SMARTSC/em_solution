@@ -23,6 +23,8 @@
                 Grid.RowSpan="5"
                 CacheType="Disk"
                 CacheDuration="8760:00:00"
+                DownsampleUseDipUnits="True"
+                RetryCount="0"
                 Success="CachedImage_Success"
                 Error="CachedImage_Error" />
             <ffimageloadingformsviews:CachedImage 
@@ -30,7 +32,8 @@
                 Grid.Row="5"
                 HorizontalOptions="Center"
                 WidthRequest="{Binding Source={x:Reference EventLogoImage}, Path=Height}"
-                DownsampleToViewSize="True"
+                DownsampleUseDipUnits="True"
+                DownsampleHeight="240"
                 CacheType="Disk"
                 CacheDuration="8760:00:00" />
         </Grid>

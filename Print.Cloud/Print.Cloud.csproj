@@ -5,6 +5,7 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <AssemblyName>EMPrintCloud</AssemblyName>
     <RootNamespace>EM.Print.Cloud</RootNamespace>
+    <Version>0.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -138,7 +138,7 @@
                         <BindableLayout.EmptyView>
                             <Label 
                                 Margin="10"
-                                Text="Sin elementos que mostrar"
+                                Text="Cargando ..."
                                 HorizontalTextAlignment="Center" />
                         </BindableLayout.EmptyView>
                         <BindableLayout.ItemTemplate>
@@ -172,4 +172,5 @@
             </Grid>
         </ContentPage.Content>
     </sscxftoolkitmvvmpages:ContentPage>
+    <childpages:PrintCloudConnectChildPage />
 </sscxftoolkitmvvmpages:CarouselPage>

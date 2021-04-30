@@ -9,10 +9,11 @@
 
             var sessionManager = Xamarin.Forms.DependencyService.Get<Managers.SessionManager>();
 
-            PictureContentImage.Source = forOverview ? 
+            PictureContentImage.Source = forOverview ?
                 Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageThumbnailUri(sessionManager.TargetAlbum.Id, model.Image.ThumbnailId)) :
                 Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageUri(sessionManager.TargetAlbum.Id, model.Image.Id));
             PictureContentImage.FadeAnimationEnabled = forOverview;
+            PictureContentImage.DownsampleToViewSize = forOverview;
 
             EventLogoImage.Source = Common.Factories.UriFactory.BuildImageUri(sessionManager.TargetEvent.Logo.Id);
             EventLogoImage.FadeAnimationEnabled = forOverview;
@@ -24,6 +25,10 @@
 
             PictureContentImage.Source = null;
             EventLogoImage.Source = null;
+
+            Content = null;
+
+            System.GC.Collect();
         }
     }
 }

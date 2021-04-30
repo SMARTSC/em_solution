@@ -1,0 +1,9 @@
+﻿<Application 
+    x:Class="EM.Print.Enqueuer.StanIn.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    StartupUri="Wind0ws/MainWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
