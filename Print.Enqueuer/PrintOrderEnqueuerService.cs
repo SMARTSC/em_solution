@@ -117,7 +117,8 @@ namespace EM.Print.Enqueuer
 
                 var printDocument = new PrintDocument
                 {
-                    DocumentName = eventArgs.Name
+                    DocumentName = eventArgs.Name,
+                    PrintController = new StandardPrintController()
                 };
 
                 printDocument.DefaultPageSettings.Landscape = true;

@@ -51,7 +51,7 @@ namespace EM.Terminal.PrintCenter.UWP
 
                 _ = typeof(FFImageLoading.Svg.Forms.SvgCachedImage);
                 
-                Xamarin.Forms.Forms.Init(e);
+                Xamarin.Forms.Forms.Init(e, new[] { typeof(PrintCenter.App).Assembly });
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

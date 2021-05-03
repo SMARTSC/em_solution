@@ -25,45 +25,5 @@ namespace EM.Print.Cloud.Controllers.Api.Business
         {
             return Ok(printOrderStackStateManager.Enabled);
         }
-
-        public override IActionResult Get()
-        {
-            return base.Get();
-        }
-
-        public override IActionResult Get(long key)
-        {
-            return base.Get(key);
-        }
-
-        public override IActionResult GetFiltered([FromBody] PrintOrderFilterModel filterModel)
-        {
-            return base.GetFiltered(filterModel);
-        }
-
-        public override IActionResult GetPaginate(int sheet = 1, int limit = 25)
-        {
-            return base.GetPaginate(sheet, limit);
-        }
-
-        public override IActionResult GetPaginateFiltered([FromBody] PrintOrderFilterModel filterModel, int sheet = 1, int limit = 25)
-        {
-            return base.GetPaginateFiltered(filterModel, sheet, limit);
-        }
-
-        public override IActionResult Create([FromBody] PrintOrderInputModel inputModel)
-        {
-            return base.Create(inputModel);
-        }
-
-        public override IActionResult Edit([FromBody] PrintOrderInputModel inputModel)
-        {
-            return base.Edit(inputModel);
-        }
-
-        public override IActionResult Delete(long key)
-        {
-            return base.Delete(key);
-        }
     }
 }

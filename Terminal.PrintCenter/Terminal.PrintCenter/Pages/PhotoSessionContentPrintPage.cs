@@ -22,6 +22,13 @@ namespace EM.Terminal.PrintCenter.Pages
             {
                 BackgroundColor = Xamarin.Forms.Color.Black,
                 Children = {
+                    new Xamarin.Forms.Label
+                    {
+                        HorizontalOptions = Xamarin.Forms.LayoutOptions.Center,
+                        VerticalOptions = Xamarin.Forms.LayoutOptions.Center,
+                        Text = "Preparando ...",
+                        TextColor = Xamarin.Forms.Color.White
+                    },
                     printableView
                 }
             };
@@ -39,9 +46,19 @@ namespace EM.Terminal.PrintCenter.Pages
                     {
                         Xamarin.Forms.DependencyService.Get<Providers.Facade.IRenderizationImageProviderFacade>().GetRenderizationImageDataAsync(printableView).ContinueWith(renderizationImageDataTask =>
                         {
-                            var printOrdersClient = new Print.Api.Connect.Clients.PrintOrdersApiConnectClient(Xamarin.Forms.DependencyService.Get<Providers.PrintCloudHttpClientHelperProvider>());
+                            if (renderizationImageDataTask.IsCanceled || renderizationImageDataTask.Exception != null)
+                            {
+                                Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                                {
+                                    DisplayAlert("Aviso", string.Format("No es posible generar una solicitud impresión en este dispositivo.{0}{0}Por favor, notifique esta situación al personal de asistencia.{0}{0}Gracias y disculpe las molestias causadas.", System.Environment.NewLine), "Aceptar");
+                                });
 
-                            printOrdersClient.CreateAsync(new Print.Api.Common.Models.PrintOrderInputModel
+                                return;
+                            }
+
+                            var printOrdersApiConnectClient = new Print.Api.Connect.Clients.PrintOrdersApiConnectClient(Xamarin.Forms.DependencyService.Get<Providers.PrintCloudHttpClientHelperProvider>());
+
+                            printOrdersApiConnectClient.CreateAsync(new Print.Api.Common.Models.PrintOrderInputModel
                             {
                                 Created = System.DateTime.Now,
                                 Count = printCount,
@@ -83,7 +100,7 @@ namespace EM.Terminal.PrintCenter.Pages
         {
             base.DisposeUnmanagementResources();
 
-            (Content as Xamarin.Forms.Grid).Children.RemoveAt(0);
+            (Content as Xamarin.Forms.Grid).Children.RemoveAt(1);
 
             printableView.Dispose();
 

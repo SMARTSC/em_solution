@@ -28,6 +28,8 @@
                 Aspect="AspectFit"
                 CacheType="Disk"
                 CacheDuration="8760:00:00"
+                DownsampleUseDipUnits="True"
+                RetryCount="0"
                 Success="CachedImage_Success"
                 Error="CachedImage_Error" />
             <ffimageloadingformsviews:CachedImage
@@ -36,6 +38,8 @@
                 Aspect="AspectFit"
                 CacheType="Disk"
                 CacheDuration="8760:00:00"
+                DownsampleUseDipUnits="True"
+                RetryCount="0"
                 Success="CachedImage_Success"
                 Error="CachedImage_Error" />
             <ffimageloadingformsviews:CachedImage
@@ -44,6 +48,8 @@
                 Aspect="AspectFit"
                 CacheType="Disk"
                 CacheDuration="8760:00:00"
+                DownsampleUseDipUnits="True"
+                RetryCount="0"
                 Success="CachedImage_Success"
                 Error="CachedImage_Error" />
             <Grid Grid.Column="3" Grid.Row="3">
@@ -63,7 +69,9 @@
                         Grid.Column="1" Grid.Row="1"
                         CacheType="Disk"
                         CacheDuration="8760:00:00"
-                        WidthRequest="{Binding Source={x:Reference EventLogoImage}, Path=Height}" />
+                        WidthRequest="{Binding Source={x:Reference EventLogoImage}, Path=Height}"
+                        DownsampleUseDipUnits="True"
+                        DownsampleHeight="{Binding Source={x:Reference EventLogoImage}, Path=Height}" />
                 </Grid>
             </Grid>
         </Grid>

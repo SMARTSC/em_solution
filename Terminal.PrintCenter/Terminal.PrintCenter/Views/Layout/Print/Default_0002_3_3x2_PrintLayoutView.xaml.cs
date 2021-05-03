@@ -25,19 +25,13 @@
 
             var sessionManager = Xamarin.Forms.DependencyService.Get<Managers.SessionManager>();
 
-            FirstPhotoSessionContentImage.Source = forOverview ?
-                Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageThumbnailUri(sessionManager.TargetAlbum.Id, firstImage.ThumbnailId)) :
-                Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageUri(sessionManager.TargetAlbum.Id, firstImage.Id));
+            FirstPhotoSessionContentImage.Source = Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageThumbnailUri(sessionManager.TargetAlbum.Id, firstImage.ThumbnailId));
             FirstPhotoSessionContentImage.FadeAnimationEnabled = forOverview;
 
-            SecoundPhotoSessionContentImage.Source = forOverview ?
-                Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageThumbnailUri(sessionManager.TargetAlbum.Id, secoundImage.ThumbnailId)) :
-                Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageUri(sessionManager.TargetAlbum.Id, secoundImage.Id));
+            SecoundPhotoSessionContentImage.Source = Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageThumbnailUri(sessionManager.TargetAlbum.Id, secoundImage.ThumbnailId));
             SecoundPhotoSessionContentImage.FadeAnimationEnabled = forOverview;
 
-            ThirdPhotoSessionContentImage.Source = forOverview ?
-                Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageThumbnailUri(sessionManager.TargetAlbum.Id, thirdImage.ThumbnailId)) :
-                Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageUri(sessionManager.TargetAlbum.Id, thirdImage.Id));
+            ThirdPhotoSessionContentImage.Source = Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageThumbnailUri(sessionManager.TargetAlbum.Id, thirdImage.ThumbnailId));
             ThirdPhotoSessionContentImage.FadeAnimationEnabled = forOverview;
 
             EventLogoImage.Source = Common.Factories.UriFactory.BuildImageUri(sessionManager.TargetEvent.Logo.Id);
@@ -80,6 +74,10 @@
             SecoundPhotoSessionContentImage.Source = null;
             ThirdPhotoSessionContentImage.Source = null;
             EventLogoImage.Source = null;
+
+            Content = null;
+
+            System.GC.Collect();
         }
     }
 }

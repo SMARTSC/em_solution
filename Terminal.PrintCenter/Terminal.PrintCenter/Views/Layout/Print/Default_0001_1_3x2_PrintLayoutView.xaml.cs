@@ -12,8 +12,20 @@
             PictureContentImage.Source = forOverview ?
                 Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageThumbnailUri(sessionManager.TargetAlbum.Id, model.Image.ThumbnailId)) :
                 Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageUri(sessionManager.TargetAlbum.Id, model.Image.Id));
-
             PictureContentImage.FadeAnimationEnabled = forOverview;
+            PictureContentImage.DownsampleUseDipUnits = true;
+            PictureContentImage.DownsampleToViewSize = forOverview;
+        }
+
+        protected override void DisposeUnmanagementResources()
+        {
+            base.DisposeUnmanagementResources();
+
+            PictureContentImage.Source = null;
+
+            Content = null;
+
+            System.GC.Collect();
         }
     }
 }

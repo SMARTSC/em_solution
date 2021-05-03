@@ -2,13 +2,17 @@
 {
     public class PrintCloudHttpClientHelperProvider : SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Providers.Facade.IHttpClientHelperProviderFacade
     {
-#if DEBUG
-        public const string CLOUD_CONNECTION_SCHEMA = "http";
-        public const string CLOUD_SERVER_HOST = "localhost:5000";
-#else
-        public const string CLOUD_CONNECTION_SCHEMA = "https";
-        public const string CLOUD_SERVER_HOST = "printcloud.elespejomolon.net";
-#endif
+        private readonly string host;
+        private readonly int port;
+        private readonly string schema;
+
+        public PrintCloudHttpClientHelperProvider(string host, int port, bool isSecure)
+        {
+            this.host = host;
+            this.port = port;
+            
+            schema = isSecure ? "https" : "http";
+        }
 
         private System.Collections.Generic.KeyValuePair<string, string>[] GetExtraHeaders()
         {
@@ -20,7 +24,7 @@
 
         #region IHttpClientHelperProviderFacade implementation
 
-        public SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Helpers.HttpClientHelper HttpClientHelper => new SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Helpers.HttpClientHelper(string.Format("{0}://{1}/api/", CLOUD_CONNECTION_SCHEMA, CLOUD_SERVER_HOST), null, GetExtraHeaders);
+        public SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Helpers.HttpClientHelper HttpClientHelper => new SmartSolucionesCuba.SAPRESSC.Core.Api.Connect.Helpers.HttpClientHelper(string.Format("{0}://{1}:{2}/api/", schema, host, port), null, GetExtraHeaders);
 
         #endregion
     }

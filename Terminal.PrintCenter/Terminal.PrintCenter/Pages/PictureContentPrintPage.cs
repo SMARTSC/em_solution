@@ -15,13 +15,20 @@ namespace EM.Terminal.PrintCenter.Pages
             printableView = Xamarin.Forms.DependencyService.Get<Providers.PrintLayoutViewProvider>().GetPictureContentPrintLayoutView(model, false, printLayoutDescriptor, PresentationFail_Callback, PresentationReady_Callback);
 
             printableView.HorizontalOptions = Xamarin.Forms.LayoutOptions.Center;
-            printableView.HeightRequest = Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Height * 4 / 3;
+            printableView.HeightRequest = Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Height * 3 / 2;
             printableView.IsVisible = false;
 
             Content = new Xamarin.Forms.Grid
             {
                 BackgroundColor = Xamarin.Forms.Color.Black,
                 Children = {
+                    new Xamarin.Forms.Label
+                    {
+                        HorizontalOptions = Xamarin.Forms.LayoutOptions.Center,
+                        VerticalOptions = Xamarin.Forms.LayoutOptions.Center,
+                        Text = "Preparando ...",
+                        TextColor = Xamarin.Forms.Color.White
+                    },
                     printableView
                 }
             };
@@ -39,6 +46,16 @@ namespace EM.Terminal.PrintCenter.Pages
                     {
                         Xamarin.Forms.DependencyService.Get<Providers.Facade.IRenderizationImageProviderFacade>().GetRenderizationImageDataAsync(printableView).ContinueWith(renderizationImageDataTask =>
                         {
+                            if (renderizationImageDataTask.IsCanceled || renderizationImageDataTask.Exception != null)
+                            {
+                                Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                                {
+                                    DisplayAlert("Aviso", string.Format("No es posible generar una solicitud impresión en este dispositivo.{0}{0}Por favor, notifique esta situación al personal de asistencia.{0}{0}Gracias y disculpe las molestias causadas.", System.Environment.NewLine), "Aceptar");
+                                });
+
+                                return;
+                            }
+
                             var printOrdersClient = new Print.Api.Connect.Clients.PrintOrdersApiConnectClient(Xamarin.Forms.DependencyService.Get<Providers.PrintCloudHttpClientHelperProvider>());
 
                             printOrdersClient.CreateAsync(new Print.Api.Common.Models.PrintOrderInputModel
@@ -83,7 +100,7 @@ namespace EM.Terminal.PrintCenter.Pages
         {
             base.DisposeUnmanagementResources();
 
-            (Content as Xamarin.Forms.Grid).Children.RemoveAt(0);
+            (Content as Xamarin.Forms.Grid).Children.RemoveAt(1);
 
             printableView.Dispose();
 

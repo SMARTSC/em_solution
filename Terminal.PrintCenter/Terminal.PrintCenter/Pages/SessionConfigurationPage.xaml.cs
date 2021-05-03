@@ -60,7 +60,9 @@ namespace EM.Terminal.PrintCenter.Pages
             sessionManager.TargetEvent = (BindingContext as Models.Page.SessionConfigurationPageModel).TargetEvent;
             sessionManager.TargetAlbum = (sender as Xamarin.Forms.BindableObject).BindingContext as Cloud.Backend.Api.Common.Models.AlbumDisplayModel;
 
-            this.NavigationPopModalPageAsync();
+            presentingPage = Children[3];
+
+            CurrentPage = presentingPage;
         }
 
         private void LoadActiveEvents()

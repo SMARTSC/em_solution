@@ -10,7 +10,6 @@
 
             Xamarin.Forms.DependencyService.RegisterSingleton(new Managers.SessionManager());
             Xamarin.Forms.DependencyService.RegisterSingleton(new Providers.CloudHttpClientHelperProvider());
-            Xamarin.Forms.DependencyService.RegisterSingleton(new Providers.PrintCloudHttpClientHelperProvider());
             Xamarin.Forms.DependencyService.RegisterSingleton(new Providers.ContentPaginationProvider());
             Xamarin.Forms.DependencyService.RegisterSingleton(new Providers.PrintLayoutViewProvider());
             Xamarin.Forms.DependencyService.RegisterSingleton<Common.Helpers.Facade.IExceptionHandleHelperFacade>(this);
@@ -21,6 +20,10 @@
                 HttpHeadersTimeout = 60000,
                 HttpReadTimeout = 90000
             });
+
+            System.AppDomain.CurrentDomain.UnhandledException += (uunhandledExceptionSender, unhandledExceptionEventArgs) => OnGlobalUnhandleException((System.Exception)unhandledExceptionEventArgs.ExceptionObject);
+
+            System.Threading.Tasks.TaskScheduler.UnobservedTaskException += (unHandledExceptionSender, unHandledExceptionEventArgs) => OnGlobalUnhandleException(unHandledExceptionEventArgs.Exception);
 
             InitPresentationWorkflow();
         }
@@ -47,6 +50,14 @@
             Xamarin.Forms.DependencyService.Get<Managers.SessionManager>().SignOut();
 
             InitPresentationWorkflow();
+        }
+
+        private void OnGlobalUnhandleException(System.Exception exception)
+        {
+            Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+            {
+                HandleException(exception);
+            });
         }
 
         #region Helpers.Facade.IExceptionHandleHelperFacade implementation
