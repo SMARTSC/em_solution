@@ -43,7 +43,7 @@ namespace EM.Print.Enqueuer
             {
                 Log("Trace", "---------- Starting exceptions found ----------");
 
-                Log("PrintService - Error", exception.Message + "Trace >>>> " + exception.StackTrace);
+                Log("Error", exception.Message + "Trace >>>> " + exception.StackTrace);
 
                 throw exception;
             }
@@ -64,22 +64,35 @@ namespace EM.Print.Enqueuer
         {
             System.Threading.Tasks.Task.Run(async () =>
             {
+                
+                Log("Test", "PendingPrintOrdersCheckTimer_Elapsed ejecuted!");
+
+                Log("Test", "----------------------------------------------");
+
                 var printOrdersClient = new Api.Connect.Clients.PrintOrdersApiConnectClient(printCloudHttpClientHelperProvider);
 
                 if (!await printOrdersClient.StackEnabled())
                 {
                     // No existen ordenes de impresion sin atender en el Print Cloud.
 
+                    Log("Test", "Impresion no habilitada en el Print Cloud.");
+
                     return;
                 }
 
                 var pendingPrintOrdersPagination = await printOrdersClient.FilterPaginateAsync(new Api.Common.Models.Filter.PrintOrderFilterModel { PendingOnly = true, EnabledOnly = true }, 1, int.Parse(System.Configuration.ConfigurationManager.AppSettings["TimerPrintOrdersPageFetchLimit"]));
 
+                Log("Test", string.Format("Print Orders Obtained: {0}", pendingPrintOrdersPagination.List.Count));
+
                 foreach (var printOrder in pendingPrintOrdersPagination.List)
                 {
+                    Log("Test", string.Format("Print Order: {0} - Obtained: {1}", string.Format("{0}_{1}.jpg", printOrder.Id, printOrder.Count), System.DateTime.Now.ToLongTimeString()));
+
                     using (var fileStream = System.IO.File.Create(System.IO.Path.Combine(PrintFilesDirectoryWatcher.Path, string.Format("{0}_{1}.jpg", printOrder.Id, printOrder.Count))))
                     {
                         fileStream.Write(printOrder.Data, 0, printOrder.Data.Length);
+
+                        Log("Test", string.Format("Print Order: {0} - Created in Orders Folder: {1}", string.Format("{0}_{1}.jpg", printOrder.Id, printOrder.Count), System.DateTime.Now.ToLongTimeString()));
 
                         fileStream.Close();
                     }
@@ -98,7 +111,9 @@ namespace EM.Print.Enqueuer
         {
             System.Threading.Tasks.Task.Run(() =>
             {
-                // TODO el fichero debe venir del CLOUD con las medidas requeridas: Foto normal => 4x6 Pulgadas (10 x 15 cm) | Tiras => 2x6 Pulgadas (5 x 15 cm)
+                // TODO El fichero debe venir del CLOUD con las medidas requeridas: Foto normal => 4x6 Pulgadas (10 x 15 cm) | Tiras => 2x6 Pulgadas (5 x 15 cm)
+
+                Log("Test", string.Format("Print Order: {0} - Orders Watcher Alert: {1}", System.IO.Path.GetFileName(eventArgs.Name), System.DateTime.Now.ToLongTimeString()));
 
                 var printDocument = new PrintDocument
                 {
@@ -138,7 +153,9 @@ namespace EM.Print.Enqueuer
 
                     foreach (var exception in task.Exception.InnerExceptions)
                     {
-                        Log("Error", exception.Message);
+                        Log("Error - Exception", exception.ToString());
+                        
+                        Log("Error - Message", exception.Message);
                     }
 
                     return;
@@ -146,20 +163,26 @@ namespace EM.Print.Enqueuer
 
                 // TODO Confirmar al Cloud que la impresion se realizó correctamente, enviando el ID del Contenido.
 
-                try { System.IO.File.Delete(eventArgs.FullPath); } catch { }
+                try { 
+
+                    System.IO.File.Delete(eventArgs.FullPath);
+
+                    Log("Test", string.Format("Print Order: {0} - Deleted from Orders Folder: {1}", System.IO.Path.GetFileName(eventArgs.Name), System.DateTime.Now.ToLongTimeString()));
+
+                } catch { }
             });
         }
 
         private void Log(string level, string message)
         {
-            var logDirecotryPath = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Logs");
+            var logDirectoryPath = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Logs");
 
-            if (!System.IO.Directory.Exists(logDirecotryPath))
+            if (!System.IO.Directory.Exists(logDirectoryPath))
             {
-                System.IO.Directory.CreateDirectory(logDirecotryPath);
+                System.IO.Directory.CreateDirectory(logDirectoryPath);
             }
 
-            var logFilePath = System.IO.Path.Combine(logDirecotryPath, string.Format("{0}.log", System.DateTime.Now.Date.ToShortDateString().Replace('/', '_')));
+            var logFilePath = System.IO.Path.Combine(logDirectoryPath, string.Format("{0}.log", System.DateTime.Now.Date.ToShortDateString().Replace('/', '_')));
 
             if (!System.IO.File.Exists(logFilePath))
             {

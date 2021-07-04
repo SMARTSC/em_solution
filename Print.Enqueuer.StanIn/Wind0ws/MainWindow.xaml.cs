@@ -88,8 +88,6 @@ namespace EM.Print.Enqueuer.StanIn.Wind0ws
 
                 if (!await printOrdersClient.StackEnabled())
                 {
-                    // No existen ordenes de impresion sin atender en el Print Cloud.
-
                     return;
                 }
 
@@ -119,12 +117,12 @@ namespace EM.Print.Enqueuer.StanIn.Wind0ws
         {
             System.Threading.Tasks.Task.Run(() =>
             {
-                // TODO el fichero debe venir del CLOUD con las medidas requeridas: Foto normal => 4x6 Pulgadas (10 x 15 cm) | Tiras => 2x6 Pulgadas (5 x 15 cm)
+                // TODO 
+                // El fichero debe venir del Cloud con las medidas requeridas: Foto normal => 4x6 Pulgadas (10 x 15 cm) | Tiras => 2x6 Pulgadas (5 x 15 cm)
 
                 var printDocument = new PrintDocument
                 {
-                    DocumentName = eventArgs.Name,
-                    PrintController = new StandardPrintController()
+                    DocumentName = eventArgs.Name
                 };
 
                 printDocument.DefaultPageSettings.Landscape = true;
@@ -140,6 +138,7 @@ namespace EM.Print.Enqueuer.StanIn.Wind0ws
                     rectangle.Location = new System.Drawing.Point(0, 0);
 
                     rectangle.Width = printPageEventArgs.PageSettings.Bounds.Width;
+
                     rectangle.Height = printPageEventArgs.PageSettings.Bounds.Height;
 
                     printPageEventArgs.Graphics.DrawImage(printableImage, rectangle);
@@ -155,12 +154,26 @@ namespace EM.Print.Enqueuer.StanIn.Wind0ws
             {
                 if (task.Exception != null || task.IsCanceled)
                 {
+                    foreach (var exception in task.Exception.InnerExceptions)
+                    {
+                        Log("Error", string.Format("Problem has occurred when try to print this Order: {0} - {1}", eventArgs.Name, exception.Message));
+                    }
+
                     return;
                 }
 
-                // TODO Confirmar al Cloud que la impresion se realizó correctamente, enviando el ID del Contenido.
+                // TODO 
+                // Confirmar al Cloud que la impresion se realizó correctamente.
 
-                try { System.IO.File.Delete(eventArgs.FullPath); } catch { }
+                try {
+
+                    System.IO.File.Delete(eventArgs.FullPath);
+
+                } catch {
+
+                    Log("Error", string.Format("Problem has occurred when try to delete this Order: {0}", eventArgs.Name));
+
+                }
             });
         }
 
@@ -181,6 +194,33 @@ namespace EM.Print.Enqueuer.StanIn.Wind0ws
                 PrintServerRequiredSecureConnectionCheckBox.IsEnabled = true;
                 StartButton.IsEnabled = true;
                 StopButton.IsEnabled = false;
+            }
+        }
+
+        private void Log(string level, string message)
+        {
+            var logDirectoryPath = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Logs");
+
+            if (!System.IO.Directory.Exists(logDirectoryPath))
+            {
+                System.IO.Directory.CreateDirectory(logDirectoryPath);
+            }
+
+            var logFilePath = System.IO.Path.Combine(logDirectoryPath, string.Format("{0}.log", System.DateTime.Now.Date.ToShortDateString().Replace('/', '_')));
+
+            if (!System.IO.File.Exists(logFilePath))
+            { 
+                using (System.IO.StreamWriter streamWriter = System.IO.File.CreateText(logFilePath))
+                {
+                    streamWriter.WriteLine(string.Format("[PrintEnqueuerLog - {0}] - {1}: {2}", level, System.DateTime.Now.ToLongTimeString(), message));
+                }
+            }
+            else
+            {
+                using (System.IO.StreamWriter streamWriter = System.IO.File.AppendText(logFilePath))
+                {
+                    streamWriter.WriteLine(string.Format("[PrintEnqueuerLog - {0}] - {1}: {2}", level, System.DateTime.Now.ToLongTimeString(), message));
+                }
             }
         }
     }
