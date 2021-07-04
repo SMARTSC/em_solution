@@ -30,5 +30,10 @@
 
             System.GC.Collect();
         }
+
+        private void PictureContentImage_Finish(object sender, FFImageLoading.Forms.CachedImageEvents.FinishEventArgs e)
+        {
+
+        }
     }
 }

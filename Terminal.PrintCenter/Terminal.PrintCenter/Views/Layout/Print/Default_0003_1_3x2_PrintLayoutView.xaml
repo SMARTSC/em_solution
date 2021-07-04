@@ -23,10 +23,9 @@
                 Grid.RowSpan="5"
                 CacheType="Disk"
                 CacheDuration="8760:00:00"
-                DownsampleUseDipUnits="True"
-                RetryCount="0"
                 Success="CachedImage_Success"
-                Error="CachedImage_Error" />
+                Error="CachedImage_Error"
+                Finish="PictureContentImage_Finish" />
             <ffimageloadingformsviews:CachedImage 
                 x:Name="EventLogoImage" 
                 Grid.Row="5"
