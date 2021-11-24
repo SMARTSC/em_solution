@@ -10,7 +10,7 @@
 
             if (!(value is Extend.Layout.Descriptors.IPrintLayoutDescriptor)) return null;
 
-            return Xamarin.Forms.DependencyService.Get<Providers.PrintLayoutViewProvider>().GetPhotoSessionContentPrintLayoutView(Presenter.PhotoSessionContent, Presenter.Permutation, true, value as Extend.Layout.Descriptors.IPrintLayoutDescriptor);
+            return Xamarin.Forms.DependencyService.Get<Providers.PrintLayoutViewProvider>().GetPhotoSessionContentPrintLayoutView(Presenter.PhotoSessionContent, Presenter.Permutation, value as Extend.Layout.Descriptors.IPrintLayoutDescriptor);
         }
 
         public object ConvertBack(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)

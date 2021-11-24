@@ -2,7 +2,6 @@
 {
     public abstract class AbstractPrintLayoutView : SmartSolucionesCuba.XFToolKit.Mvvm.Views.ContentView
     {
-        protected bool forOverview;
         protected System.Action presentationReadyCallbackAction;
         protected System.Action presentationFailCallbackAction;
 
@@ -11,9 +10,8 @@
             throw new System.InvalidOperationException();
         }
 
-        public AbstractPrintLayoutView(Extend.Layout.Descriptors.IPrintLayoutDescriptor descriptor, bool forOverview, System.Action presentationReadyCallbackAction, System.Action presentationFailCallbackAction)
+        public AbstractPrintLayoutView(Extend.Layout.Descriptors.IPrintLayoutDescriptor descriptor, System.Action presentationReadyCallbackAction, System.Action presentationFailCallbackAction)
         {
-            this.forOverview = forOverview;
             this.presentationReadyCallbackAction = presentationReadyCallbackAction;
             this.presentationFailCallbackAction = presentationFailCallbackAction;
 

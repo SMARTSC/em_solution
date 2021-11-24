@@ -11,7 +11,8 @@
             throw new System.InvalidOperationException();
         }
 
-        public Default_0002_3_3x2_PrintLayoutView(Cloud.Api.Common.Models.PhotoSessionContentDisplayModel model, int[] permutation, bool forOverview, System.Action presentationReadyCallbackAction, System.Action presentationFailCallbackAction) : base(permutation, forOverview, presentationReadyCallbackAction, presentationFailCallbackAction)
+        public Default_0002_3_3x2_PrintLayoutView(Cloud.Api.Common.Models.PhotoSessionContentDisplayModel model, int[] permutation, System.Action presentationReadyCallbackAction, System.Action presentationFailCallbackAction) 
+            : base(permutation, presentationReadyCallbackAction, presentationFailCallbackAction)
         {
             firstImageReady = false;
             secoundImageReady = false;
@@ -26,16 +27,16 @@
             var sessionManager = Xamarin.Forms.DependencyService.Get<Managers.SessionManager>();
 
             FirstPhotoSessionContentImage.Source = Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageThumbnailUri(sessionManager.TargetAlbum.Id, firstImage.ThumbnailId));
-            FirstPhotoSessionContentImage.FadeAnimationEnabled = forOverview;
+            FirstPhotoSessionContentImage.FadeAnimationEnabled = true;
 
             SecoundPhotoSessionContentImage.Source = Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageThumbnailUri(sessionManager.TargetAlbum.Id, secoundImage.ThumbnailId));
-            SecoundPhotoSessionContentImage.FadeAnimationEnabled = forOverview;
+            SecoundPhotoSessionContentImage.FadeAnimationEnabled = true;
 
             ThirdPhotoSessionContentImage.Source = Xamarin.Forms.ImageSource.FromUri(Common.Factories.UriFactory.BuildAlbumImageThumbnailUri(sessionManager.TargetAlbum.Id, thirdImage.ThumbnailId));
-            ThirdPhotoSessionContentImage.FadeAnimationEnabled = forOverview;
+            ThirdPhotoSessionContentImage.FadeAnimationEnabled = true;
 
             EventLogoImage.Source = Common.Factories.UriFactory.BuildImageUri(sessionManager.TargetEvent.Logo.Id);
-            EventLogoImage.FadeAnimationEnabled = forOverview;
+            EventLogoImage.FadeAnimationEnabled = true;
         }
 
         private void CachedImage_Success(object sender, FFImageLoading.Forms.CachedImageEvents.SuccessEventArgs e)
@@ -76,8 +77,6 @@
             EventLogoImage.Source = null;
 
             Content = null;
-
-            System.GC.Collect();
         }
     }
 }

@@ -12,7 +12,13 @@
 
         public int Count { get; set; }
 
-        public byte[] Data { get; set; }
+        public System.Guid TargetContentEventLogoImageId { get; set; }
+
+        public System.Guid TargetContentAlbumId { get; set; }
+
+        public System.Guid TargetContentId { get; set; }
+
+        public string PermutationSerialized { get; set; }
 
         public void Import(Persistence.Entities.PrintOrder entity)
         {
@@ -21,7 +27,10 @@
             Created = entity.Created;
             Attended = entity.Attended;
             Count = entity.Count;
-            Data = entity.Data;
+            TargetContentEventLogoImageId = entity.TargetContentEventLogoImageId;
+            TargetContentAlbumId = entity.TargetContentAlbumId;
+            TargetContentId = entity.TargetContentId;
+            PermutationSerialized = entity.PermutationSerialied;
         }
     }
 }

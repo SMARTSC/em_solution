@@ -12,8 +12,6 @@
 
             if (self.Controller.EndsWith("clients")) return new Microsoft.AspNetCore.Html.HtmlString("<span class=\"fas fa-user-tie\"></span>");
 
-            if (self.Controller == "printorders") return new Microsoft.AspNetCore.Html.HtmlString("<span class=\"fas fa-print\"></span>");
-
             if (self.Controller == "collagelayouts") return new Microsoft.AspNetCore.Html.HtmlString("<span class=\"fas fa-th-large\"></span>");
 
             if (self.Controller == "terminals") return new Microsoft.AspNetCore.Html.HtmlString("<span class=\"fas fa-mobile\"></span>");

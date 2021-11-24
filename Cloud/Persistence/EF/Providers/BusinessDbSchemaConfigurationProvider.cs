@@ -19,7 +19,6 @@ namespace EM.Cloud.Persistence.EF.Providers
             new Configurators.AlbumEntityTypeConfigurator(),
             new Configurators.CollageLayoutEntityTypeConfigurator(),
             new Configurators.AlbumLockBridgeEntityTypeConfigurator(),
-            new Configurators.PrintOrderEntityTypeConfigurator(),
             new Configurators.ClientEntityTypeConfigurator(),
             new Configurators.PersonClientEntityTypeConfigurator(),
             new Configurators.OrganizationClientEntityTypeConfigurator(),

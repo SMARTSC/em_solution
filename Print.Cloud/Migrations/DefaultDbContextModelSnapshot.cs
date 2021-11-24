@@ -32,12 +32,20 @@ namespace EM.Print.Cloud.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnName("created");
 
-                    b.Property<byte[]>("Data")
-                        .IsRequired()
-                        .HasColumnName("data");
-
                     b.Property<bool>("Enabled")
                         .HasColumnName("enabled");
+
+                    b.Property<string>("PermutationSerialied")
+                        .HasColumnName("permutationserialied");
+
+                    b.Property<Guid>("TargetContentAlbumId")
+                        .HasColumnName("targetcontentalbumid");
+
+                    b.Property<Guid>("TargetContentEventLogoImageId")
+                        .HasColumnName("targetcontenteventlogoimageid");
+
+                    b.Property<Guid>("TargetContentId")
+                        .HasColumnName("targetcontentid");
 
                     b.HasKey("Id")
                         .HasName("pk_printorders");

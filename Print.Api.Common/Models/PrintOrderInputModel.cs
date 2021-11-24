@@ -10,11 +10,15 @@
 
         public System.DateTime Attended { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Required]
         public int Count { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Required]
-        public byte[] Data { get; set; }
+        public System.Guid TargetContentEventLogoImageId { get; set; }
+
+        public System.Guid TargetContentAlbumId { get; set; }
+
+        public System.Guid TargetContentId { get; set; }
+
+        public string PermutationSerialied { get; set; }
 
         public Persistence.Entities.PrintOrder Export()
         {
@@ -22,7 +26,10 @@
             {
                 Created = Created,
                 Count = Count,
-                Data = Data
+                TargetContentEventLogoImageId = TargetContentEventLogoImageId,
+                TargetContentAlbumId = TargetContentAlbumId,
+                TargetContentId = TargetContentId,
+                PermutationSerialied = PermutationSerialied
             };
 
             Mergue(entity);
@@ -32,12 +39,7 @@
 
         public void Import(Persistence.Entities.PrintOrder entity)
         {
-            Id = entity.Id;
-            Enabled = entity.Enabled;
-            Created = entity.Created;
-            Attended = entity.Attended;
-            Count = entity.Count;
-            Data = entity.Data;
+            throw new System.InvalidOperationException();
         }
 
         public void Mergue(Persistence.Entities.PrintOrder entity)

@@ -7,7 +7,8 @@
             throw new System.InvalidOperationException();
         }
 
-        public BasePictureContentPrintLayoutView(Extend.Layout.Descriptors.IPrintLayoutDescriptor descriptor, bool forOverview, System.Action presentationReadyCallbackAction, System.Action presentationFailCallbackAction) : base(descriptor, forOverview, presentationReadyCallbackAction, presentationFailCallbackAction)
+        public BasePictureContentPrintLayoutView(Extend.Layout.Descriptors.IPrintLayoutDescriptor descriptor, System.Action presentationReadyCallbackAction, System.Action presentationFailCallbackAction) 
+            : base(descriptor, presentationReadyCallbackAction, presentationFailCallbackAction)
         {
         }
 

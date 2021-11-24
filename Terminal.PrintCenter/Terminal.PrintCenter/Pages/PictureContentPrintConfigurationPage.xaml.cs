@@ -14,6 +14,15 @@ namespace EM.Terminal.PrintCenter.Pages
             InitializeComponent();
         }
 
+        protected override void DisposeUnmanagementResources()
+        {
+            base.DisposeUnmanagementResources();
+
+            (PrintLayoutIntancedContentView.Content as System.IDisposable).Dispose();
+
+            PrintLayoutIntancedContentView.Content = null;
+        }
+
         private void CloseButton_Clicked(object sender, System.EventArgs eventArgs)
         {
             this.NavigationPopModalPageAsync();
@@ -39,7 +48,36 @@ namespace EM.Terminal.PrintCenter.Pages
 
                 Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
                 {
-                    this.NavigationPushModalPageAsync(new PictureContentPrintPage(BindingContextPageModel.Content, BindingContextPageModel.PrintCopyCount, BindingContextPageModel.PrintLayoutDescriptor));
+                    BindingContextPageModel.IsBusy = true;
+
+                    var printOrdersClient = new Print.Api.Connect.Clients.PrintOrdersApiConnectClient(Xamarin.Forms.DependencyService.Get<Providers.PrintCloudHttpClientHelperProvider>());
+
+                    var sessionManager = Xamarin.Forms.DependencyService.Get<Managers.SessionManager>();
+
+                    printOrdersClient.CreateAsync(new Print.Api.Common.Models.PrintOrderInputModel
+                    {
+                        Created = System.DateTime.Now,
+                        Enabled = true,
+                        Count = BindingContextPageModel.PrintCopyCount,
+                        TargetContentEventLogoImageId = sessionManager.TargetEvent.Logo.Id,
+                        TargetContentAlbumId = sessionManager.TargetAlbum.Id,
+                        TargetContentId = BindingContextPageModel.Content.Id
+                    }).ContinueWith(printOrderCreationTask =>
+                    {
+                        Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                        {
+                            if (printOrderCreationTask.Exception != null || printOrderCreationTask.IsCanceled)
+                            {
+                                DisplayAlert("Aviso", string.Format("No fue posible solicitar esta impresión en este momento.{0}{0}Por favor, notifique esta situación al personal de asistencia.{0}{0}Gracias y disculpe las molestias causadas.", System.Environment.NewLine), "Aceptar");
+                            }
+                            else
+                            {
+                                DisplayAlert("Aviso", string.Format("Solicitud de Impresión realizada con éxito!{0}{0}Espere unos segundos para obtener la fotografía impresa.{0}{0}Gracias!", System.Environment.NewLine), "Continuar");
+                            }
+
+                            this.NavigationPopModalPageAsync();
+                        });
+                    });
                 });
             });
         }

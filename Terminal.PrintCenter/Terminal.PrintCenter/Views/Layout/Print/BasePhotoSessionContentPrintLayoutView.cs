@@ -9,8 +9,8 @@
             throw new System.InvalidOperationException();
         }
 
-        public BasePhotoSessionContentPrintLayoutView(int[] permutation, bool forOverview, System.Action presentationReadyCallbackAction, System.Action presentationFailCallbackAction) 
-            : base(new Extend.Layout.Pioneer.Descriptors.Default_0002_3_3x2_PrintLayoutDescriptor(), forOverview, presentationReadyCallbackAction, presentationFailCallbackAction)
+        public BasePhotoSessionContentPrintLayoutView(int[] permutation, System.Action presentationReadyCallbackAction, System.Action presentationFailCallbackAction) 
+            : base(new Extend.Layout.Pioneer.Descriptors.Default_0002_3_3x2_PrintLayoutDescriptor(), presentationReadyCallbackAction, presentationFailCallbackAction)
         {
             this.permutation = permutation;
         }

@@ -58,15 +58,6 @@ namespace EM.Cloud.Extensions
                 Role = Roles.CollageLayoutViewer
             });
 
-            supportSections.Add(new ManagementDashboardSectionViewModel
-            {
-                Title = "printorders",
-                Controller = "printorders",
-                Action = "index",
-                Area = "business",
-                Role = Roles.PrintOrderViewer
-            });
-
             securitySections.Add(new ManagementDashboardSectionViewModel
             {
                 Title = "traces",

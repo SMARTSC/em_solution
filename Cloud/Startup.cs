@@ -57,7 +57,6 @@ namespace EM.Cloud
             services.AddScoped<IEntityRepository<Persistence.Entities.PictureContent, System.Guid>, Persistence.EF.Repositories.PictureContentRepository>();
             services.AddScoped<IEntityRepository<Persistence.Entities.PhotoSessionContent, System.Guid>, Persistence.EF.Repositories.PhotoSessionContentRepository>();
             services.AddScoped<IEntityRepository<Persistence.Entities.CollageLayout, System.Guid>, Persistence.EF.Repositories.CollageLayoutRepository>();
-            services.AddScoped<IEntityRepository<Persistence.Entities.PrintOrder, long>, Persistence.EF.Repositories.PrintOrderRepository>();
             services.AddScoped<IEntityRepository<Persistence.Entities.Terminal, string>, Persistence.EF.Repositories.TerminalRepository>();
             services.AddScoped<IEntityRepository<Persistence.Entities.Invokation, string>, Persistence.EF.Repositories.InvokationRepository>();
 

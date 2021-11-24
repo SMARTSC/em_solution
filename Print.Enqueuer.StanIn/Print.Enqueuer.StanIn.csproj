@@ -67,6 +67,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Providers\AnonymousContentCloudHttpClientHelperProvider.cs" />
+    <Compile Include="Providers\ConstantProvider.cs" />
+    <Compile Include="Providers\ContentCloudHttpClientHelperProvider.cs" />
     <Compile Include="Providers\PrintCloudHttpClientHelperProvider.cs" />
     <Compile Include="Wind0ws\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -100,6 +103,26 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Cloud.Api.Common\Cloud.Api.Common.csproj">
+      <Project>{ca18aba4-f565-4b00-b789-0b1996bf7796}</Project>
+      <Name>Cloud.Api.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cloud.Api.Connect\Cloud.Api.Connect.csproj">
+      <Project>{f5a5b90e-9a6b-4f15-b4f3-48f26144ca5e}</Project>
+      <Name>Cloud.Api.Connect</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cloud.Backend.Api.Common\Cloud.Backend.Api.Common.csproj">
+      <Project>{5b4bcd86-d59d-4c69-8820-3dc7300cdd0d}</Project>
+      <Name>Cloud.Backend.Api.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cloud.Backend.Api.Connect\Cloud.Backend.Api.Connect.csproj">
+      <Project>{507bc039-b5c5-437b-9ef6-fe5e1cac00f0}</Project>
+      <Name>Cloud.Backend.Api.Connect</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cloud.Persistence\Cloud.Persistence.csproj">
+      <Project>{c32dc075-9df1-4eeb-9968-548f265eb3f3}</Project>
+      <Name>Cloud.Persistence</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Print.Api.Common\Print.Api.Common.csproj">
       <Project>{f51b2b75-6061-4d53-a65a-e48b178af529}</Project>
       <Name>Print.Api.Common</Name>
@@ -116,6 +139,9 @@
   <ItemGroup>
     <PackageReference Include="SAPRESSC.Core.Api.Connect">
       <Version>2.1.0-apha</Version>
+    </PackageReference>
+    <PackageReference Include="SkiaSharp">
+      <Version>2.80.2</Version>
     </PackageReference>
     <PackageReference Include="System.Drawing.Common">
       <Version>6.0.0-preview.3.21201.4</Version>

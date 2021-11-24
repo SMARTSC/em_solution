@@ -365,34 +365,6 @@ namespace EM.Cloud.Migrations
                     b.ToTable("placingeventclientbridges");
                 });
 
-            modelBuilder.Entity("EM.Cloud.Persistence.Entities.PrintOrder", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("Attended")
-                        .HasColumnName("attended");
-
-                    b.Property<int>("Count")
-                        .HasColumnName("count");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnName("created");
-
-                    b.Property<byte[]>("Data")
-                        .IsRequired()
-                        .HasColumnName("data");
-
-                    b.Property<bool>("Enabled")
-                        .HasColumnName("enabled");
-
-                    b.HasKey("Id")
-                        .HasName("pk_printorders");
-
-                    b.ToTable("printorders");
-                });
-
             modelBuilder.Entity("EM.Cloud.Persistence.Entities.SponsoringEventClientBridge", b =>
                 {
                     b.Property<Guid>("EventId")

@@ -17,10 +17,15 @@
 
         public System.DateTime Attended { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Required]
         public int Count { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Required]
-        public byte[] Data { get; set; }
+        public System.Guid TargetContentEventLogoImageId { get; set; }
+
+        public System.Guid TargetContentAlbumId { get; set; }
+
+        public System.Guid TargetContentId { get; set; }
+
+        // Null => PictureContent, !Null => PhotoSessionContent
+        public string PermutationSerialied { get; set; }
     }
 }

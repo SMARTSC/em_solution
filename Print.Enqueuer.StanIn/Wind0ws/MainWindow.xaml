@@ -8,67 +8,109 @@
     WindowStartupLocation="CenterScreen"
     Closing="Window_Closing">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <Grid
+            Grid.Row="0"
             HorizontalAlignment="Center" VerticalAlignment="Center"
             Width="240">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBlock 
-                Grid.ColumnSpan="2" Grid.Row="0" 
-                Margin="0,0,6,0"
-                FontSize="10"
-                Text="Servidor" />
-            <TextBlock 
-                Grid.Column="2" Grid.Row="0"
-                FontSize="10"
-                Text="Puerto" />
-            <TextBox 
-                Name="PrintServerHostTextBox"
-                Grid.ColumnSpan="2" Grid.Row="1" 
-                Margin="0,6,6,0" />
-            <TextBox 
-                Name="PrintServerPortText"
-                Grid.Column="2" Grid.Row="1"  
-                Margin="0,6,0,0"
-                Width="40" />
-            <CheckBox 
-                Name="PrintServerRequiredSecureConnectionCheckBox"
+            <GroupBox
+                Name="ContentCloudParamGroupBox"
+                Grid.ColumnSpan="2" Grid.Row="0"
+                Margin="0,0,0,6"
+                Header="Nube de Contenidos">
+                <StackPanel Margin="4">
+                    <TextBlock 
+                        Margin="0,0,6,0"
+                        FontSize="10"
+                        Text="Usuario" />
+                    <TextBox 
+                        Name="ContentCloudUserLoginTextBox"
+                        Margin="0,6,0,0" />
+                    <TextBlock 
+                        Margin="0,0,6,0"
+                        FontSize="10"
+                        Text="Contraseña" />
+                    <PasswordBox 
+                        Name="ContentCloudUserPasswordTextBox"
+                        Margin="0,6,0,0" />
+                </StackPanel>
+            </GroupBox>
+            <GroupBox
+                Name="PrintCloudParamGroupBox"
+                Grid.ColumnSpan="2" Grid.Row="1"
+                Margin="0,0,0,6"
+                Header="Nube de Impresión">
+                <Grid Margin="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>            
+                    <TextBlock 
+                        Grid.ColumnSpan="2" Grid.Row="0" 
+                        Margin="0,0,6,0"
+                        FontSize="10"
+                        Text="Servidor" />
+                    <TextBlock 
+                        Grid.Column="2" Grid.Row="0"
+                        FontSize="10"
+                        Text="Puerto" />
+                    <TextBox 
+                        Name="PrintServerHostTextBox"
+                        Grid.ColumnSpan="2" Grid.Row="1" 
+                        Margin="0,6,6,0" />
+                    <TextBox 
+                        Name="PrintServerPortTextBox"
+                        Grid.Column="2" Grid.Row="1"  
+                        Margin="0,6,0,0"
+                        Width="40" />
+                    <CheckBox 
+                        Name="PrintServerRequiredSecureConnectionCheckBox"
+                        Grid.Column="0" Grid.Row="2"
+                        Margin="0,6,0,6" />
+                    <TextBlock 
+                        Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2"
+                        Margin="6,6,0,6"
+                        VerticalAlignment="Center"
+                        FontSize="10"
+                        Text="El servidor requiere conexión segura (https)" />
+                </Grid>
+            </GroupBox>
+            <Button
+                Name="StartButton"
                 Grid.Column="0" Grid.Row="2"
-                Margin="0,6,0,6" />
-            <TextBlock 
-                Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2"
-                Margin="6,6,0,6"
-                VerticalAlignment="Center"
-                FontSize="10"
-                Text="El servidor requiere conexión segura (https)" />
-            <Grid
-                Grid.ColumnSpan="3" Grid.Row="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Button
-                    Name="StartButton"
-                    Grid.Column="0"
-                    Margin="0,0,3,0"
-                    Content="Inciar"
-                    Click="StartButton_Click" />
-                <Button 
-                    Name="StopButton"
-                    Grid.Column="1"
-                    Margin="3,0,0,0"
-                    Content="Detener"
-                    Click="StopButton_Click" />
-            </Grid>
+                Margin="0,0,3,0"
+                Content="Inciar"
+                Click="StartButton_Click" />
+            <Button 
+                Name="StopButton"
+                Grid.Column="1" Grid.Row="2"
+                Margin="3,0,0,0"
+                Content="Detener"
+                Click="StopButton_Click" />
         </Grid>
+        <ProgressBar
+            Name="BusyStatusProgressBar"
+            Grid.Row="1"
+            Margin="10"
+            Height="8"
+            IsIndeterminate="False" />
     </Grid>
 </Window>

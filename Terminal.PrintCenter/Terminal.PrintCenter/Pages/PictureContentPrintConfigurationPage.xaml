@@ -24,6 +24,7 @@
             </Grid.ColumnDefinitions>
             <views:BackgroundView />
             <ContentView
+                x:Name="PrintLayoutIntancedContentView"
                 Grid.Column="0"
                 VerticalOptions="Center"
                 Margin="30"
@@ -116,6 +117,7 @@
                     </Button.ImageSource>
                 </Button>
             </Grid>
+            <views:BusyView Grid.ColumnSpan="2" />
         </Grid>
     </ContentPage.Content>
 </sscxftoolkitmvvmpages:BindingContextedContentPage>

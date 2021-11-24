@@ -10,8 +10,6 @@ namespace EM.Terminal.PrintCenter.Pages
         public MainPage() : base(new Models.Page.MainPageModel())
         {
             InitializeComponent();
-
-            IsEnabled = false;
         }
 
         protected override void OnAppearing()
@@ -20,11 +18,14 @@ namespace EM.Terminal.PrintCenter.Pages
 
             ContentOverviewsCollectionView.SelectedItem = null;
 
-            if (IsEnabled) return;
-
-            LoadFirstContentsPage();
-
-            IsEnabled = true;
+            if (currentContentsPagination != null)
+            {
+                PresentCurrentContentsPagination();
+            }
+            else
+            {
+                LoadFirstContentsPage();
+            }
         }
 
         protected override bool OnBackButtonPressed()
@@ -105,10 +106,14 @@ namespace EM.Terminal.PrintCenter.Pages
             if (target is Cloud.Api.Common.Models.PictureContentDisplayModel pictureContentModel)
             {
                 this.NavigationPushModalPageAsync(new PictureContentPrintConfigurationPage(pictureContentModel));
+
+                BindingContextPageModel.Items.Clear();
             }
             else if (target is Cloud.Api.Common.Models.PhotoSessionContentDisplayModel photoSessionContentModel)
             {
                 this.NavigationPushModalPageAsync(new PhotoSessionContentPrintConfigurationPage(photoSessionContentModel));
+
+                BindingContextPageModel.Items.Clear();
             }
         }
 
